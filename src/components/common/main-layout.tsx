@@ -2,6 +2,27 @@ import React, { ReactNode } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
+  interface Palette {
+    gradient: {
+      levvy: {
+        main: string;
+        main_light: string;
+        secondary: string;
+        secondary_light: string;
+      },
+    }
+  }
+
+  interface PaletteOptions {
+    gradient?: {
+      levvy?: {
+        main: string;
+        main_light: string;
+        secondary: string;
+        secondary_light: string;
+      },
+    }
+  }
 }
 
 const theme = createTheme({
@@ -23,6 +44,14 @@ const theme = createTheme({
         text: {
           primary: "#EDE1D3",
           secondary: "#6C4900"
+        },
+        gradient: {
+          levvy: {
+            main: "#50CEC8",
+            main_light: "#F7FF19",
+            secondary: "#FFE77F",
+            secondary_light: "#FF700F"
+          }
         }
     },
     typography: {
