@@ -43,15 +43,8 @@ const theme = createTheme({
         },
         text: {
           primary: "#EDE1D3",
-          secondary: "#6C4900"
-        },
-        gradient: {
-          levvy: {
-            main: "#50CEC8",
-            main_light: "#F7FF19",
-            secondary: "#FFE77F",
-            secondary_light: "#FF700F"
-          }
+          secondary: "#432C00",
+          disabled: "#6C4900",
         }
     },
     typography: {
