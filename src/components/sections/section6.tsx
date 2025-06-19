@@ -21,7 +21,7 @@ const Section6: React.FC = () => {
                 sx={{
                     backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
                     borderRadius: "32px",
-                    padding: "2px"
+                    padding: "4px"
                 }}
             >
                 <div className="flex items-center justify-center absolute inset-x-0 -top-24 z-20">
@@ -49,7 +49,7 @@ const Section6: React.FC = () => {
                         <Typography
                             sx={{
                                 fontFamily: "Cinzel",
-                                color: theme.palette.text.secondary,
+                                color: theme.palette.secondary.dark,
                                 fontWeight: 900
                             }}
                             className="!text-[64px]"
