@@ -9,14 +9,26 @@ const config: GatsbyConfig = {
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
-  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", 
+  {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "images",
       "path": "./src/images/"
     },
     __key: "images"
-  }]
+  },
+  {
+    resolve: 'gatsby-plugin-google-fonts',
+    options: {
+      fonts: [
+        "Albert Sans:100,200,300,400,500,600,700,800,900:latin,latin-ext",
+        "Cinzel:100,200,300,400,500,600,700,800,900:latin,latin-ext"
+      ],
+      display: "swap",
+    }
+  },
+]
 };
 
 export default config;
