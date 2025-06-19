@@ -1,11 +1,12 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
+import MainLayout from "../components/common/main-layout"
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <main>
-      
-    </main>
+    <MainLayout>
+      <h1 className="text-[50px]">PlaceHolder</h1>
+    </MainLayout>
   )
 }
 
