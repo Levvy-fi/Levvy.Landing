@@ -43,8 +43,8 @@ const Section4: React.FC = () => {
                         className="w-198"
                     >
                         <span className="font-bold">$ANGELS </span>
-                        <span>is not another governance token. It's a token with 
-                        real utility that rewards you with ADA on the 15th of every month.</span>
+                        <span>is not another governance token. It's a token with </span>
+                        <span className="font-bold">real utility</span> <span>that rewards you with ADA on the 15th of every month.</span>
                         <br/>
                     </Typography>
                     <Typography 
