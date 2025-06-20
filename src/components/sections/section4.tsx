@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import XIcon from "../../images/socials/xIcon";
 import DiscordIcon from "../../images/socials/discordIcon";
 import CardBG from "../../images/section4/card_bg.webp";
+import CardBG2 from "../../images/section4/card_bg2.webp";
 import SectionBg from "../../images/section4/section_bg.webp";
-
+import QrCode from "../../images/section4/qr_code.webp";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const Section4: React.FC = () => {
     const theme = useTheme()
@@ -94,22 +96,34 @@ const Section4: React.FC = () => {
                             sx={{
                                 width: "48px",
                                 height: "48px",
-                                backgroundColor: theme.palette.primary.light
+                                backgroundColor: theme.palette.primary.light,
+                                "&:hover": {
+                                    backgroundColor: theme.palette.primary.main
+                                },
+                                "&:active": {
+                                    backgroundColor: theme.palette.primary.contrastText
+                                }
                             }}
                             className="!rounded-full"
                         >
-                            <XIcon sx={{color: theme.palette.text.disabled}} className="!text-2xl"/>
+                            <XIcon sx={{color: theme.palette.secondary.dark}} className="!text-2xl"/>
                         </IconButton>
                         <IconButton 
                             aria-label="x"
                             sx={{
                                 width: "48px",
                                 height: "48px",
-                                backgroundColor: theme.palette.primary.light
+                                backgroundColor: theme.palette.primary.light,
+                                "&:hover": {
+                                    backgroundColor: theme.palette.primary.main
+                                },
+                                "&:active": {
+                                    backgroundColor: theme.palette.primary.contrastText
+                                }
                             }}
                             className="!rounded-full"
                         >
-                            <DiscordIcon sx={{color: theme.palette.text.disabled}} className="!text-2xl"/>
+                            <DiscordIcon sx={{color: theme.palette.secondary.dark}} className="!text-2xl"/>
                         </IconButton>
                     </div>
                 </div>
@@ -245,6 +259,66 @@ const Section4: React.FC = () => {
                                 TOKEN <br/> SALE PRICE
                             </span>
                         </Typography>
+                    </Card>
+                </div>
+                <div className="w-full flex items-center justify-center">
+                    <Card
+                        sx={{
+                            backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                            borderRadius: "16px",
+                            padding: "4px"
+                        }}
+                    >
+                        <div style={{backgroundColor: theme.palette.grey[900]}} className="h-75 w-190 overflow-hidden relative flex items-center justify-between rounded-2xl !p-6 !gap-6    ">
+                            <div className="absolute w-230 left-0">
+                                <img
+                                    src={CardBG2}
+                                    alt="card background"
+                                />
+                            </div>
+                            <div className="z-10 flex flex-col justify-between h-full">
+                                <div className="!text-start">
+                                    <Typography
+                                        sx={{
+                                            fontFamily: "Cinzel",
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        }}
+                                        className="!text-[40px]"
+                                    >
+                                        BUY $ANGELS NOW
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 500
+                                        }}
+                                        className="!text-lg"
+                                    >
+                                        Scan the QR code, copy the policy address below, or connect your wallet to start buying
+                                    </Typography>
+                                </div>
+                                <div className="w-full flex items-center justify-between !p-2 rounded-sm" style={{border: `1px solid ${theme.palette.text.disabled}`}}>
+                                    <Typography>
+                                        8fe8039d057c71fdf........d85d9c868ddf7307bc
+                                    </Typography>
+                                    <ContentCopyIcon 
+                                        sx={{
+                                            color: theme.palette.primary.main
+                                        }}
+                                        className="!text-[20px]"
+                                    />
+                                </div>
+                                <div>
+
+                                </div>
+                            </div>
+                            <div className="z-10 w-64 aspect-square flex-shrink-0">
+                                <img
+                                    src={QrCode}
+                                    alt="qr code"
+                                />
+                            </div>
+                        </div>
                     </Card>
                 </div>
                 <div className="flex flex-col items-center justify-center !mt-10 !space-y-4">
