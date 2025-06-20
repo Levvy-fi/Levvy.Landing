@@ -9,18 +9,18 @@ const Footer: React.FC = () => {
     const theme = useTheme()
 
     return (
-        <footer style={{backgroundImage: `linear-gradient(to bottom, ${theme.palette.gradient.background[20]}, ${theme.palette.gradient.background[10]})`}}>
+        <footer className="px-4 !mt-8" style={{backgroundImage: `linear-gradient(to bottom, ${theme.palette.gradient.background[20]}, ${theme.palette.gradient.background[10]})`}}>
             <div className="container mx-auto">
-                <div className="w-full flex items-center justify-between py-6">
-                    <div className="flex items-ceter gap-10">
+                <div className="w-full flex items-center justify-between py-6 flex-col-reverse sm:flex-row">
+                    <div className="flex items-ceter gap-4 md:gap-10 flex-col sm:flex-row">
                         <Link 
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
                             }}
-                            className="!flex items-center !gap-2 cursor-pointer"
+                            className="!flex items-center cursor-pointer !gap-1 justify-center sm:justify-start md:!gap-2"
                         >
-                            <LinkIcon className="!text-2xl"/>
+                            <LinkIcon className="!text-xl md:!text-2xl"/>
                             <Typography
                             >
                                 Whitepaper
@@ -31,9 +31,9 @@ const Footer: React.FC = () => {
                             sx={{
                                 color: theme.palette.text.primary,
                             }}
-                            className="!flex items-center !gap-2 cursor-pointer"
+                            className="!flex items-center cursor-pointer !gap-1 justify-center sm:justify-start md:!gap-2"
                         >
-                            <LinkIcon className="!text-2xl"/>
+                            <LinkIcon className="!text-xl md:!text-2xl"/>
                             <Typography
                             >
                                 Documentation
@@ -44,21 +44,19 @@ const Footer: React.FC = () => {
                             sx={{
                                 color: theme.palette.text.primary,
                             }}
-                            className="!flex items-center !gap-2 cursor-pointer"
+                            className="!flex items-center cursor-pointer !gap-1 justify-center sm:justify-start md:!gap-2"
                         >
-                            <LinkIcon className="!text-2xl"/>
+                            <LinkIcon className="!text-xl md:!text-2xl"/>
                             <Typography
                             >
                                 Token Sale
                             </Typography>
                         </Link>
                     </div>
-                    <div className="!space-x-4">
+                    <div className="!space-x-4 !mt-4 !mb-8">
                         <IconButton
                             aria-label="x"
                             sx={{
-                                width: "48px",
-                                height: "48px",
                                 backgroundColor: theme.palette.primary.light,
                                 "&:hover": {
                                     backgroundColor: theme.palette.primary.main
@@ -67,15 +65,13 @@ const Footer: React.FC = () => {
                                     backgroundColor: theme.palette.primary.contrastText
                                 }
                             }}
-                            className="!rounded-full"
+                            className="!rounded-full !w-10 !h-10 md:!w-12 md:!h-12" 
                         >
-                            <XIcon sx={{ color: theme.palette.secondary.dark }} className="!text-2xl" />
+                            <XIcon sx={{ color: theme.palette.secondary.dark }} className="!text-xl md:!text-2xl" />
                         </IconButton>
                         <IconButton
                             aria-label="x"
                             sx={{
-                                width: "48px",
-                                height: "48px",
                                 backgroundColor: theme.palette.primary.light,
                                 "&:hover": {
                                     backgroundColor: theme.palette.primary.main
@@ -84,15 +80,13 @@ const Footer: React.FC = () => {
                                     backgroundColor: theme.palette.primary.contrastText
                                 }
                             }}
-                            className="!rounded-full"
+                            className="!rounded-full !w-10 !h-10 md:!w-12 md:!h-12"
                         >
-                            <DiscordIcon sx={{ color: theme.palette.secondary.dark }} className="!text-2xl" />
+                            <DiscordIcon sx={{ color: theme.palette.secondary.dark }} className="!text-xl md:!text-2xl" />
                         </IconButton>
                         <IconButton
                             aria-label="x"
                             sx={{
-                                width: "48px",
-                                height: "48px",
                                 backgroundColor: theme.palette.primary.light,
                                 "&:hover": {
                                     backgroundColor: theme.palette.primary.main
@@ -101,13 +95,13 @@ const Footer: React.FC = () => {
                                     backgroundColor: theme.palette.primary.contrastText
                                 }
                             }}
-                            className="!rounded-full"
+                            className="!rounded-full !w-10 !h-10 md:!w-12 md:!h-12"
                         >
-                            <BrowserIcon sx={{ color: theme.palette.secondary.dark }} className="!text-2xl" />
+                            <BrowserIcon sx={{ color: theme.palette.secondary.dark }} className="!text-xl md:!text-2xl" />
                         </IconButton>
                     </div>
                 </div>
-                <div className="flex items-center justify-between pt-6 pb-10" style={{borderTop: `1px solid ${alpha(theme.palette.grey[100], 0.4)}`}}>
+                <div className="flex items-center justify-between pt-6 pb-10 flex-col-reverse gap-4 sm:gap-0 sm:flex-row" style={{borderTop: `1px solid ${alpha(theme.palette.grey[100], 0.4)}`}}>
                     <div>
                         <Typography
                             sx={{
@@ -119,7 +113,7 @@ const Footer: React.FC = () => {
                             &copy; 2025 Angel Finance, All Rights Reserved.
                         </Typography>
                     </div>
-                    <div className="flex items-center !gap-6">
+                    <div className="flex items-center flex-col !gap-4 sm:!gap-6 sm:flex-row">
                         <Link
                             underline="hover"
                             sx={{
