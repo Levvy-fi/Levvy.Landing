@@ -59,6 +59,10 @@ const Section2: React.FC = () => {
                 chartSize = Math.min(width * 0.3, 500);
                 innerRadius = chartSize * 0.3;
                 outerRadius = chartSize * 0.46;
+            } else if (width < 1280) {
+                chartSize = Math.min(width * 0.9, 800);
+                innerRadius = chartSize * 0.5;
+                outerRadius = chartSize * 0.46;
             } else {
                 chartSize = Math.min(width * 0.4, 680);
                 innerRadius = chartSize * 0.30;
@@ -107,7 +111,7 @@ const Section2: React.FC = () => {
                         and enable sustainable ecosystem growth through future drops.
                     </Typography>
                 </div>
-                <div className="flex mt-[82.38px] items-center xl:gap-[73.5px] ">
+                <div className="flex flex-col mt-[82.38px] items-center xl:flex-row xl:gap-[73.5px] ">
                     <div className="relative">
                         <div>
                             <PieChart
