@@ -66,17 +66,15 @@ const Header: React.FC = () => {
     }, []);
 
     return (
-        <header 
-            style={{
-            }}
-            className={`fixed z-100 transition-all duration-150 ease-in-out w-full ${scrolled ? '!py-2 backdrop-blur-md!' : '!py-4'}`}
+        <header
+            className={`fixed z-100 transition-all duration-150 ease-in-out w-full !px-4 ${scrolled ? '!py-2 backdrop-blur-md!' : '!py-4'}`}
         >
             <div className="container mx-auto flex items-center justify-between">
-                <div className={`${scrolled ? '!w-100' : '!h-20 !w-144'}`}>
+                <div className={`${scrolled ? '!w-100' : '!h-16 sm:!h-20 sm:!w-144'}`}>
                     <img
                         src={AngelsLogo}
                         alt="angels logo"
-                        className={`transition-all duration-150 ${scrolled ? 'h-16' : 'h-20'}`}
+                        className={`transition-all duration-150 ${scrolled ? 'h-16' : 'h-16 sm:h-20'}`}
                     />
                 </div>
                 <div>
@@ -246,7 +244,6 @@ const Header: React.FC = () => {
                             ${theme.palette.gradient.button[10]}, 
                             ${theme.palette.gradient.button[30]})`,
                         borderRadius: "12px",
-                        gap: "10px",
                         backgroundSize: "200% 100%", 
                         animation: `${gradientShift} 6s ease-in-out infinite`,
                         transition: "all 0.3s ease-in-out",
@@ -261,15 +258,15 @@ const Header: React.FC = () => {
                             backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.button[60]})`
                         }
                         }}
-                        className="!w-39 !h-12"
+                        className="w-33 sm:!w-39 !h-12 gap-[6px] sm:gap-[10px]"
                     >
-                        <WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />
+                        <WalletIcon sx={{ color: theme.palette.secondary.dark}}  className="!text-[20px] sm:!text-[24px]"/>
                         <Typography
                         sx={{
                             color: theme.palette.secondary.dark,
                             fontWeight: 500
                         }}
-                        className="!text-sm capitalize"
+                        className="capitalize !text-xs sm:!text-sm"
                         >
                         Connect Wallet
                         </Typography>
