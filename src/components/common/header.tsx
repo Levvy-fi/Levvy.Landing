@@ -18,6 +18,7 @@ const Header: React.FC = () => {
     const [selectedWallet, setSelectedWallet] = useState<CardanoWallet | null>(null);
     const [scrolled, setScrolled] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [animation, setAnimation] = useState<string>('base');
 
     const profileMenuOpen = Boolean(anchorEl)
     
@@ -25,6 +26,16 @@ const Header: React.FC = () => {
         0%   { background-position:   0% 50%; }
         50%  { background-position: 100% 50%; }
         100% { background-position:   0% 50%; }
+    `;
+
+    const gradientShiftHover = keyframes`
+        0% { background-position: 0% }
+        100% { background-position: 85% 0% }
+    `;
+
+    const gradientShiftUnhover = keyframes`
+        0% { background-position: 80% }
+        100% { background-position: 0% }
     `;
 
     let WalletList = getWallets();
@@ -74,6 +85,15 @@ const Header: React.FC = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    useEffect(() => {
+        if (animation === 'hover' || animation === 'unhover') {
+            const timeout = setTimeout(() => {
+            setAnimation('base');
+            }, 500); 
+            return () => clearTimeout(timeout);
+        }
+    }, [animation]);
 
     return (
         <header
@@ -245,6 +265,8 @@ const Header: React.FC = () => {
                     </div>
                     ) : (
                     <Button 
+                        onMouseEnter={() => setAnimation('hover')}
+                        onMouseLeave={() => setAnimation('unhover')}
                         onClick={() => setIsModalOpen(true)}
                         disableRipple
                         sx={{
@@ -255,14 +277,15 @@ const Header: React.FC = () => {
                             ${theme.palette.gradient.button[30]})`,
                         borderRadius: "12px",
                         backgroundSize: "200% 100%", 
-                        animation: `${gradientShift} 6s ease-in-out infinite`,
+                        animation: 
+                            animation === 'hover'
+                            ? `${gradientShiftHover} 0.5s forwards`
+                            : animation === 'unhover'
+                            ? `${gradientShiftUnhover} 0.5s forwards`
+                            : `${gradientShift} 6s ease-in-out infinite`,
                         transition: "all 0.3s ease-in-out",
                         "&:hover": {
-                            backgroundImage: `linear-gradient(to right, 
-                            ${theme.palette.gradient.button[30]}, 
-                            ${theme.palette.primary.main} 100%, 
-                            ${theme.palette.gradient.button[40]}, 
-                            ${theme.palette.gradient.button[50]})`,
+                            animation: `${gradientShiftHover} 0.5s forwards`,
                         },
                         "&:active": {
                             backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.button[60]})`
@@ -355,7 +378,20 @@ const Header: React.FC = () => {
                                     );
                                 })}
                             </div>
-
+                            <div className="w-full mt-1">
+                                <Button
+                                    sx={{
+                                        color: theme.palette.grey[200],
+                                        fontWeight: 400,
+                                        textAlign: "left",
+                                        "&:hover": {
+                                            backgroundColor: "transparent",
+                                            textDecoration: "underline"
+                                        }
+                                    }}
+                                >
+                                </Button>
+                            </div>
                             <div className="mt-8">
                                 <Typography
                                     sx={{
