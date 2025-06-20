@@ -45,45 +45,54 @@ export default function Section1() {
                             <span> and the Levvy protocol. </span>
                         </Typography>
                     </div>
-                    <div className="flex justify-center gap-[9px] mt-6 sm:gap-3 sm:mt-10">
-                        <Button
-                            variant="contained" startIcon={<img src={TokenSale} alt="Token Sale Icon" />}
-                            sx={{
-                                backgroundColor: theme.palette.primary.light,
-                                color: theme.palette.text.disabled,
+                    <div className="flex justify-center gap-3 mt-10">
+                        <Button 
+                            variant="contained" startIcon={<img src={TokenSale} alt="Token Sale Icon"/>}
+                            sx={{ 
+                                backgroundColor: theme.palette.primary.light, 
+                                color: theme.palette.text.disabled, 
                                 borderRadius: '12px',
-                                textTransform: 'Capitalize',
+                                zIndex: 1,
+                                '&:hover': {
+                                    backgroundColor: theme.palette.primary.main,
+                                },
+                                '&:active': {
+                                    backgroundColor: theme.palette.grey[500],
+                                    color: theme.palette.grey[600],
+                                },
                             }}
                         >
                             <Typography className="!text-sm !leading-5 sm:!text-base sm:!leading-6">Token Sale</Typography>
                         </Button>
                         <Button
-                            variant="contained" startIcon={<img src={WhitePaper} alt="White Paper Icon" />}
-                            sx={{
-                                backgroundColor: theme.palette.primary.light,
-                                color: theme.palette.text.secondary,
+                            variant="contained" startIcon={<img src={WhitePaper} alt="White Paper Icon"/>}
+                            sx={{ 
+                                backgroundColor: theme.palette.primary.light, 
+                                color: theme.palette.text.secondary, 
                                 borderRadius: '12px',
-                                textTransform: 'Capitalize',
+                                zIndex: 1,
+                                '&:hover': {
+                                    backgroundColor: theme.palette.primary.main,
+                                },
+                                '&:active': {
+                                    backgroundColor: theme.palette.grey[500],
+                                    color: theme.palette.grey[600],
+                                },
                             }}
                         >
                             White Paper
                         </Button>
                     </div>
-                    <div className="!w-full relative !mx-auto mt-[90px] flex justify-center sm:mt-34 ">
-                        <div className="w-full overflow-clip flex justify-center">
-                            <img
-                                className="min-w-[477px]"
-                                src={AngelCoin}
-                                alt="Angels Coin">
-                            </img>
-                        </div>
-                        <div className="absolute -top-[82px] w-[388px] h-[177.9px] sm:-top-[192px] sm:w-[909px] sm:h-[417px]">
-                            <img
-                                src={Shine}
-                                alt="Shine Effect">
-                            </img>
-                        </div>
-
+                    <div className="relative !mx-auto flex justify-center mt-34 !z-0">
+                        <img
+                            className="absolute -top-[192px] w-[909px] h-[417px]"
+                            src={Shine}
+                            alt="Shine Effect">
+                        </img>
+                        <img
+                            src={AngelCoin}
+                            alt="Angels Coin">
+                        </img>
                     </div>
 
                 </div>
