@@ -51,7 +51,15 @@ export default function Section1() {
                             sx={{ 
                                 backgroundColor: theme.palette.primary.light, 
                                 color: theme.palette.text.disabled, 
-                                borderRadius: '12px' 
+                                borderRadius: '12px',
+                                zIndex: 1,
+                                '&:hover': {
+                                    backgroundColor: theme.palette.primary.main,
+                                },
+                                '&:active': {
+                                    backgroundColor: theme.palette.grey[500],
+                                    color: theme.palette.grey[600],
+                                },
                             }}
                             >
                             Token Sale
@@ -61,21 +69,29 @@ export default function Section1() {
                             sx={{ 
                                 backgroundColor: theme.palette.primary.light, 
                                 color: theme.palette.text.secondary, 
-                                borderRadius: '12px' 
+                                borderRadius: '12px',
+                                zIndex: 1,
+                                '&:hover': {
+                                    backgroundColor: theme.palette.primary.main,
+                                },
+                                '&:active': {
+                                    backgroundColor: theme.palette.grey[500],
+                                    color: theme.palette.grey[600],
+                                },
                             }}
                         >
                             White Paper
                         </Button>
                     </div>
-                    <div className="relative !mx-auto flex justify-center mt-34">
-                        <img
-                            src={AngelCoin}
-                            alt="Angels Coin">
-                        </img>
+                    <div className="relative !mx-auto flex justify-center mt-34 !z-0">
                         <img
                             className="absolute -top-[192px] w-[909px] h-[417px]"
                             src={Shine}
                             alt="Shine Effect">
+                        </img>
+                        <img
+                            src={AngelCoin}
+                            alt="Angels Coin">
                         </img>
                     </div>
 
