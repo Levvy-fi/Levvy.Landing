@@ -22,7 +22,15 @@ declare module "@mui/material/styles" {
         10: string,
         20: string
       }
+    },
+    chart: {
+      50: string,
+      100: string,
+      200: string,
+      300: string,
+      400: string,    
     }
+      
   }
 
   interface PaletteOptions {
@@ -45,6 +53,13 @@ declare module "@mui/material/styles" {
         10: string,
         20: string
       }
+    },
+    chart?: {
+      50: string,
+      100: string,
+      200: string,
+      300: string,
+      400: string,    
     }
   }
 }
@@ -90,6 +105,13 @@ const theme = createTheme({
             10: "#2A2112",
             20: "#12100F"
           }
+        },
+        chart: {
+          50: "#2F2920",
+          100: "#FEBA42",
+          200: "#C08501",
+          300: "#7F5700",
+          400: "#1A0F00"
         },
         error: {
           main: "#C34642"

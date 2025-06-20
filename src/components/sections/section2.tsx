@@ -52,9 +52,9 @@ const Section2: React.FC = () => {
             let chartSize, innerRadius, outerRadius;
 
             if (width < 640) {
-                chartSize = Math.min(width * 0.8, 500);
-                innerRadius = chartSize * 0.3;
-                outerRadius = chartSize * 0.46;
+                chartSize = Math.min(width * 0.8, 300);
+                innerRadius = chartSize * 0.2;
+                outerRadius = chartSize * 0.3;
             }else if (width < 1024) {
                 chartSize = Math.min(width * 0.8, 600);
                 innerRadius = chartSize * 0.3;
@@ -96,7 +96,7 @@ const Section2: React.FC = () => {
                             fontFamily: "Cinzel",
                             color: theme.palette.primary.main
                         }}
-                        className="!text-[64px]"
+                        className="!text-4xl !mb-4 sm:!text-5xl md:!text-[64px]"
                     >
                         Tokenomics
                     </Typography>
@@ -105,14 +105,14 @@ const Section2: React.FC = () => {
                             textAlign: 'center',
                             color: theme.palette.text.primary
                         }}
-                        className="!text-xl"
+                        className="!text-base md:!text-xl"
                     >
                         The distribution is designed to support public access, maintain liquidity,<br />
                         and enable sustainable ecosystem growth through future drops.
                     </Typography>
                 </div>
-                <div className="flex flex-col mt-[82.38px] items-center gap-[25px] lg:flex-row lg:gap-10 xl:gap-[73.5px] ">
-                    <div className="relative">
+                <div className="flex flex-col mt-[82.38px] items-center sm:gap-[25px] lg:flex-row lg:gap-10 xl:gap-[73.5px] ">
+                    <div className="relative w-full">
                         <div>
                             <PieChart
                                 sx={{
