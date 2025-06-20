@@ -28,6 +28,17 @@ const config: GatsbyConfig = {
       display: "swap",
     }
   },
+  {
+    resolve: `gatsby-plugin-manifest`,
+    options: {
+      name: "Angel Finance",
+      short_name: "Angels",
+      start_url: "/",
+      display: "standalone",
+      icon: "src/images/angels_logo.svg",
+      crossOrigin: `use-credentials`,
+    },
+  }
 ]
 };
 
