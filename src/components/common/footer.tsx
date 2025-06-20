@@ -14,6 +14,8 @@ const Footer: React.FC = () => {
                 <div className="w-full flex items-center justify-between py-6 flex-col-reverse sm:flex-row">
                     <div className="flex items-ceter gap-4 md:gap-10 flex-col sm:flex-row">
                         <Link 
+                            href="https://ccardano.gitbook.io/angel-paper"
+                            target="_blank" rel="noopener noreferrer"
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
@@ -27,6 +29,8 @@ const Footer: React.FC = () => {
                             </Typography>
                         </Link>
                         <Link 
+                            href="https://ccardano.gitbook.io/angel-paper/levvy-finance"
+                            target="_blank" rel="noopener noreferrer"
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
@@ -40,6 +44,8 @@ const Footer: React.FC = () => {
                             </Typography>
                         </Link>
                         <Link 
+                            href="https://mints.yepple.io/angelfinance"
+                            target="_blank" rel="noopener noreferrer"
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
@@ -56,6 +62,8 @@ const Footer: React.FC = () => {
                     <div className="!space-x-4 !mt-4 !mb-8">
                         <IconButton
                             aria-label="x"
+                            href="https://x.com/levvyfinance" 
+                            target="_blank" rel="noopener noreferrer"
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
                                 "&:hover": {
@@ -70,7 +78,9 @@ const Footer: React.FC = () => {
                             <XIcon sx={{ color: theme.palette.secondary.dark }} className="!text-xl md:!text-2xl" />
                         </IconButton>
                         <IconButton
-                            aria-label="x"
+                            aria-label="discord"
+                            href="https://discord.com/invite/angelfinance"
+                            target="_blank" rel="noopener noreferrer"
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
                                 "&:hover": {
@@ -85,7 +95,9 @@ const Footer: React.FC = () => {
                             <DiscordIcon sx={{ color: theme.palette.secondary.dark }} className="!text-xl md:!text-2xl" />
                         </IconButton>
                         <IconButton
-                            aria-label="x"
+                            aria-label="levvy"
+                            href="https://levvy.fi"
+                            target="_blank" rel="noopener noreferrer"
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
                                 "&:hover": {
