@@ -1,5 +1,5 @@
 import { Card, IconButton, Typography, useTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import XIcon from "../../images/socials/xIcon";
 import DiscordIcon from "../../images/socials/discordIcon";
 import CardBG from "../../images/section4/card_bg.webp";
@@ -9,8 +9,39 @@ import SectionBg from "../../images/section4/section_bg.webp";
 const Section4: React.FC = () => {
     const theme = useTheme()
 
+    const [countDownTimer, setCountDownTimer] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    });
+
+    useEffect (() => {
+        const targetDate = new Date("2025-06-21T21:00:00+08:00").getTime();
+
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                clearInterval(interval);
+                setCountDownTimer({ days: 0, hours: 0, minutes: 0, seconds: 0});
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            setCountDownTimer({ days, hours, minutes, seconds });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
-        <section className="flex relative bg-cover !py-50" style={{ backgroundImage: `url(${SectionBg})` }}>
+        <section className="flex relative bg-cover !py-50 [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]" style={{ backgroundImage: `url(${SectionBg})` }}>
             <div className="container mx-auto text-center">
                 <div>
                     <Typography
@@ -67,7 +98,7 @@ const Section4: React.FC = () => {
                             }}
                             className="!rounded-full"
                         >
-                            <XIcon sx={{color: theme.palette.text.disabled}}/>
+                            <XIcon sx={{color: theme.palette.text.disabled}} className="!text-2xl"/>
                         </IconButton>
                         <IconButton 
                             aria-label="x"
@@ -78,7 +109,7 @@ const Section4: React.FC = () => {
                             }}
                             className="!rounded-full"
                         >
-                            <DiscordIcon sx={{color: theme.palette.text.disabled}}/>
+                            <DiscordIcon sx={{color: theme.palette.text.disabled}} className="!text-2xl"/>
                         </IconButton>
                     </div>
                 </div>
@@ -225,7 +256,7 @@ const Section4: React.FC = () => {
                     >
                         Sale opens in: 
                     </Typography>
-                    <div className="grid grid-cols-4  !gap-6">
+                    <div className="grid grid-cols-4 !gap-6">
                         <div className="flex flex-col items-center gap-4">
                             <Card
                                 sx={{
@@ -233,6 +264,7 @@ const Section4: React.FC = () => {
                                     borderRadius: "8px",
                                     padding: "4px"
                                 }}
+                                className="!w-26"
                             >
                                 <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
                                     <Typography 
@@ -242,7 +274,7 @@ const Section4: React.FC = () => {
                                         }}
                                         className="!text-[64px] !font-bold"
                                     >
-                                        03
+                                        {countDownTimer.days}
                                     </Typography>
                                 </div>
                             </Card>
@@ -262,6 +294,7 @@ const Section4: React.FC = () => {
                                     borderRadius: "8px",
                                     padding: "4px"
                                 }}
+                                className="!w-26"
                             >
                                 <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
                                     <Typography 
@@ -271,7 +304,7 @@ const Section4: React.FC = () => {
                                         }}
                                         className="!text-[64px] !font-bold"
                                     >
-                                        03
+                                        {countDownTimer.hours}
                                     </Typography>
                                 </div>
                             </Card>
@@ -291,6 +324,7 @@ const Section4: React.FC = () => {
                                     borderRadius: "8px",
                                     padding: "4px"
                                 }}
+                                className="!w-26"
                             >
                                 <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
                                     <Typography 
@@ -300,7 +334,7 @@ const Section4: React.FC = () => {
                                         }}
                                         className="!text-[64px] !font-bold"
                                     >
-                                        03
+                                        {countDownTimer.minutes}
                                     </Typography>
                                 </div>
                             </Card>
@@ -320,6 +354,7 @@ const Section4: React.FC = () => {
                                     borderRadius: "8px",
                                     padding: "4px"
                                 }}
+                                className="!w-26"
                             >
                                 <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
                                     <Typography 
@@ -329,7 +364,7 @@ const Section4: React.FC = () => {
                                         }}
                                         className="!text-[64px] !font-bold"
                                     >
-                                        03
+                                        {countDownTimer.seconds}
                                     </Typography>
                                 </div>
                             </Card>
