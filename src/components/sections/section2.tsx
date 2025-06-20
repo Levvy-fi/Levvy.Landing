@@ -21,28 +21,28 @@ const Section2: React.FC = () => {
             Title: "LP",
             Description: "--",
             Amount: "66,000",
-            Color: theme.palette.grey[300]
+            Color: theme.palette.chart?.[300]
         },
         {
             Percentage: 44.4,
             Title: "Sale",
             Description: "--",
             Amount: "444,000",
-            Color: theme.palette.grey[200]
+            Color: theme.palette.chart?.[200]
         },
         {
             Percentage: 49.6,
             Title: "Replacement Drop",
             Description: "--",
             Amount: "496,000",
-            Color: theme.palette.grey[100]
+            Color: theme.palette.chart?.[100]
         },
         {
             Percentage: 0,
             Title: "Team/Product",
             Description: "--",
             Amount: "--",
-            Color: theme.palette.grey[400]
+            Color: theme.palette.chart?.[400]
         },
     ]
 
@@ -53,14 +53,18 @@ const Section2: React.FC = () => {
 
             if (width < 640) {
                 chartSize = Math.min(width * 0.8, 300);
+                innerRadius = chartSize * 0.2;
+                outerRadius = chartSize * 0.3;
+            }else if (width < 1024) {
+                chartSize = Math.min(width * 0.8, 600);
                 innerRadius = chartSize * 0.3;
                 outerRadius = chartSize * 0.46;
-            } else if (width < 1024) {
-                chartSize = Math.min(width * 0.3, 500);
+            } else if (width < 1280) {
+                chartSize = Math.min(width * 0.4, 450);
                 innerRadius = chartSize * 0.3;
                 outerRadius = chartSize * 0.46;
             } else {
-                chartSize = Math.min(width * 0.4, 680);
+                chartSize = Math.min(width * 0.45, 680);
                 innerRadius = chartSize * 0.30;
                 outerRadius = chartSize * 0.45;
             }
@@ -92,7 +96,7 @@ const Section2: React.FC = () => {
                             fontFamily: "Cinzel",
                             color: theme.palette.primary.main
                         }}
-                        className="!text-[64px]"
+                        className="!text-4xl !mb-4 sm:!text-5xl md:!text-[64px]"
                     >
                         Tokenomics
                     </Typography>
@@ -101,14 +105,14 @@ const Section2: React.FC = () => {
                             textAlign: 'center',
                             color: theme.palette.text.primary
                         }}
-                        className="!text-xl"
+                        className="!text-base md:!text-xl"
                     >
                         The distribution is designed to support public access, maintain liquidity,<br />
                         and enable sustainable ecosystem growth through future drops.
                     </Typography>
                 </div>
-                <div className="flex mt-[82.38px] items-center xl:gap-[73.5px] ">
-                    <div className="relative">
+                <div className="flex flex-col mt-[82.38px] items-center sm:gap-[25px] lg:flex-row lg:gap-10 xl:gap-[73.5px] ">
+                    <div className="relative w-full">
                         <div>
                             <PieChart
                                 sx={{
@@ -157,18 +161,18 @@ const Section2: React.FC = () => {
                                     textAlign: "center",
                                     color: theme.palette.primary.light
                                 }}
-                                className="!text-[64px]"
+                                className="!text-[32px] sm:!text-[64px] md:!text-[40px]  lg:!text-5xl  xl:!text-[64px]"
                             >
                                 1,000,000
                             </Typography>
                             <Typography
                                 sx={{
                                     textAlign: "center",
-                                    color: theme.palette.primary.light
+                                    color: theme.palette.text.primary
                                 }}
-                                className="!text-2xl leading-8"
+                                className="!text-sm sm:!text-2xl sm:leading-8 lg:!text-xl lg:leading-6 xl:!text-2xl xl:leading-8"
                             >
-                                <span>
+                                <span className="uppercase">
                                     Total Supply
                                 </span>
                                 <span className="font-extrabold">
@@ -177,31 +181,32 @@ const Section2: React.FC = () => {
                             </Typography>
                         </div>
                     </div>
-                    <div className="hidden w-full xl:flex xl:flex-col xl:gap-8 xl:justify-between">
+                    <div className="w-full flex flex-col gap-3 p-4 sm:gap-5 lg:mr-10 lg:px-0 lg:gap-8 lg:justify-between">
                         <div
-                            style={{ backgroundColor: theme.palette.grey[50] }}
-                            className="flex !rounded-[12px] overflow-hidden h-28"
+                            style={{ backgroundColor: theme.palette.chart?.[50] }}
+                            className="flex !rounded-[12px] overflow-hidden h-18 sm:h-20 xl:h-28"
                         >
                             <div
                                 style={{
-                                    backgroundColor: theme.palette.grey[100],
+                                    backgroundColor: theme.palette.chart?.[100],
                                 }}
                                 className="w-6 h-full">
                             </div>
 
-                            <div className="flex p-6 justify-between w-full">
-                                <div className="flex flex-col gap-[15px]">
+                            <div className="flex justify-between w-full p-3 lg:p-4 xl:p-6">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[30px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         49.6%
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
@@ -211,24 +216,26 @@ const Section2: React.FC = () => {
                                         reserved for replacement drop
                                     </Typography>
                                 </div>
-                                <div className="flex flex-col gap-[15px]">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         496,000
                                     </Typography>
                                     <Typography
+
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
                                             color: theme.palette.text.primary,
                                             textAlign: "right",
                                         }}
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                     >
                                         Amount
                                     </Typography>
@@ -237,28 +244,29 @@ const Section2: React.FC = () => {
                         </div>
 
                         <div
-                            style={{ backgroundColor: theme.palette.grey[50] }}
-                            className="flex !rounded-[12px] overflow-hidden h-28"
+                            style={{ backgroundColor: theme.palette.chart?.[50] }}
+                            className="flex !rounded-[12px] overflow-hidden h-18 sm:h-20 xl:h-28"
                         >
                             <div
                                 style={{
-                                    backgroundColor: theme.palette.grey[200],
+                                    backgroundColor: theme.palette.chart?.[200],
                                 }}
                                 className="w-6 h-full"></div>
 
-                            <div className="flex justify-between w-full p-6">
-                                <div className="flex flex-col gap-[15px]">
+                            <div className="flex justify-between w-full p-3 lg:p-4 xl:p-6">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         44.4%
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
@@ -268,18 +276,19 @@ const Section2: React.FC = () => {
                                         reserved for sale
                                     </Typography>
                                 </div>
-                                <div className="flex flex-col gap-[15px]">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         444,000
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
@@ -294,28 +303,29 @@ const Section2: React.FC = () => {
                         </div>
 
                         <div
-                            style={{ backgroundColor: theme.palette.grey[50] }}
-                            className="flex !rounded-[12px] overflow-hidden h-28"
+                            style={{ backgroundColor: theme.palette.chart?.[50] }}
+                            className="flex !rounded-[12px] overflow-hidden h-18 sm:h-20 xl:h-28"
                         >
                             <div
                                 style={{
-                                    backgroundColor: theme.palette.grey[300],
+                                    backgroundColor: theme.palette.chart?.[300],
                                 }}
                                 className="w-6 h-full"></div>
 
-                            <div className="flex justify-between w-full p-6">
-                                <div className="flex flex-col gap-[15px]">
+                            <div className="flex justify-between w-full p-3 lg:p-4 xl:p-6">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         6%
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
@@ -325,18 +335,19 @@ const Section2: React.FC = () => {
                                         reserved for lp
                                     </Typography>
                                 </div>
-                                <div className="flex flex-col gap-[15px]">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         60,000
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
@@ -351,28 +362,29 @@ const Section2: React.FC = () => {
                         </div>
 
                         <div
-                            style={{ backgroundColor: theme.palette.grey[50] }}
-                            className="flex !rounded-[12px] overflow-hidden h-28"
+                            style={{ backgroundColor: theme.palette.chart?.[50] }}
+                            className="flex !rounded-[12px] overflow-hidden h-18 sm:h-20 xl:h-28"
                         >
                             <div
                                 style={{
-                                    backgroundColor: theme.palette.grey[400],
+                                    backgroundColor: theme.palette.chart?.[400],
                                 }}
                                 className="w-6 h-full"></div>
 
-                            <div className="flex justify-between w-full p-6">
-                                <div className="flex flex-col gap-[15px]">
+                            <div className="flex justify-between w-full p-3 lg:p-4 xl:p-6">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         0%
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
@@ -382,18 +394,19 @@ const Section2: React.FC = () => {
                                         team/product
                                     </Typography>
                                 </div>
-                                <div className="flex flex-col gap-[15px]">
+                                <div className="flex flex-col lg:gap-[10px] xl:gap-[15px]">
                                     <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.primary.light,
                                             fontWeight: 800,
                                         }}
-                                        className="!text-[40px] !leading-[29.2px]"
+                                        className="!text-[22px] sm:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
                                         --
                                     </Typography>
                                     <Typography
+                                        className="!text-base lg:!text-sm xl:!text-base"
                                         sx={{
                                             textTransform: "uppercase",
                                             fontWeight: 600,
