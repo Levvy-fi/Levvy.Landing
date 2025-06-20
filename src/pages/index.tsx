@@ -12,13 +12,13 @@ import Footer from "../components/common/footer"
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <MainLayout>
-      <Header/>
-      <Section1/>
+      {/* <Header/> */}
+      {/* <Section1/>
       <Section2/>
-      <Section3/>
+      <Section3/> */}
       <Section4/>
-      <Section5/>
-      <Footer/>
+      {/* <Section5/> */}
+      {/* <Footer/> */}
     </MainLayout>
   )
 }
