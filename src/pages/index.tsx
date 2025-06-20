@@ -7,6 +7,7 @@ import Section3 from "../components/sections/section3"
 import Section4 from "../components/sections/section4"
 import Section5 from "../components/sections/section5"
 import Header from "../components/common/header"
+import Footer from "../components/common/footer"
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
@@ -17,6 +18,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <Section3/>
       <Section4/>
       <Section5/>
+      <Footer/>
     </MainLayout>
   )
 }

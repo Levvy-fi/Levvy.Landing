@@ -17,6 +17,10 @@ declare module "@mui/material/styles" {
         40: string,
         50: string,
         60: string
+      },
+      background: {
+        10: string,
+        20: string
       }
     }
   }
@@ -36,6 +40,10 @@ declare module "@mui/material/styles" {
         40: string,
         50: string,
         60: string
+      },
+      background?: {
+        10: string,
+        20: string
       }
     }
   }
@@ -77,6 +85,10 @@ const theme = createTheme({
             40: "#FFB119",
             50: "#4C2B0F",
             60: "#B77828",
+          },
+          background: {
+            10: "#2A2112",
+            20: "#12100F"
           }
         },
         error: {
