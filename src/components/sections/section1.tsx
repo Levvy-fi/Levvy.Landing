@@ -47,26 +47,46 @@ export default function Section1() {
                     </div>
                     <div className="flex justify-center gap-[9px] mt-6 sm:gap-3 sm:mt-10">
                         <Button
+                            href="https://ccardano.gitbook.io/angel-paper/tokenomics"
+                            target="_blank" rel="noopener norefferer"
                             variant="contained" startIcon={<img src={TokenSale} alt="Token Sale Icon" />}
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
                                 color: theme.palette.text.disabled,
                                 borderRadius: '12px',
                                 textTransform: 'Capitalize',
+                                zIndex: 1,
+                                '&:hover':{
+                                    backgroundColor: theme.palette.primary.main
+                                },
+                                '&:active':{
+                                    backgroundColor: theme.palette.primary.contrastText,
+                                    color: theme.palette.gradient?.button[70]
+                                }
                             }}
                         >
                             <Typography className="!text-sm !leading-5 sm:!text-base sm:!leading-6">Token Sale</Typography>
                         </Button>
                         <Button
+                            href="https://ccardano.gitbook.io/angel-paper"
+                            target="_blank" rel="noopener norefferer"
                             variant="contained" startIcon={<img src={WhitePaper} alt="White Paper Icon" />}
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
                                 color: theme.palette.text.secondary,
                                 borderRadius: '12px',
                                 textTransform: 'Capitalize',
+                                zIndex: 1,
+                                '&:hover':{
+                                    backgroundColor: theme.palette.primary.main
+                                },
+                                '&:active':{
+                                    backgroundColor: theme.palette.primary.contrastText,
+                                    color: theme.palette.gradient?.button[70]
+                                }
                             }}
                         >
-                            White Paper
+                            <Typography className="!text-sm !leading-5 sm:!text-base sm:!leading-6">White Paper</Typography>
                         </Button>
                     </div>
                     <div className="!w-full relative !mx-auto mt-[90px] flex justify-center sm:mt-34 ">
