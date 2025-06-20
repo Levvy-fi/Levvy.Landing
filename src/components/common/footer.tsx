@@ -115,6 +115,7 @@ const Footer: React.FC = () => {
                     </div>
                     <div className="flex items-center flex-col !gap-4 sm:!gap-6 sm:flex-row">
                         <Link
+                            href="/terms"
                             underline="hover"
                             sx={{
                                 color: alpha(theme.palette.text.primary, 0.4),
@@ -125,6 +126,7 @@ const Footer: React.FC = () => {
                             Terms of Service
                         </Link>
                         <Link
+                        href="/policy"
                             underline="hover"
                             sx={{
                                 color: alpha(theme.palette.text.primary, 0.4),
@@ -132,7 +134,7 @@ const Footer: React.FC = () => {
                             }}
                             className="!text-sm"
                         >
-                            Cookie Policy
+                            Private Policy
                         </Link>
                     </div>
                 </div>
