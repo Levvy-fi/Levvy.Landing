@@ -10,6 +10,14 @@ declare module "@mui/material/styles" {
         secondary: string;
         secondary_light: string;
       },
+      button: {
+        10: string,
+        20: string,
+        30: string,
+        40: string,
+        50: string,
+        60: string
+      }
     }
   }
 
@@ -21,6 +29,14 @@ declare module "@mui/material/styles" {
         secondary: string;
         secondary_light: string;
       },
+      button?: {
+        10: string,
+        20: string,
+        30: string,
+        40: string,
+        50: string,
+        60: string
+      }
     }
   }
 }
@@ -52,9 +68,26 @@ const theme = createTheme({
             main_light: "#F7FF19",
             secondary: "#FFE77F",
             secondary_light: "#FF700F"
+          },
+          button: {
+            10: "#FFE0A2",
+            20: "#F9B63E",
+            30: "#B7792A",
+            40: "#FFB119",
+            50: "#4C2B0F",
+            60: "#B77828",
           }
         },
+        error: {
+          main: "#C34642"
+        },
         grey: {
+          50: "#FFFFFF",
+          100: "#D5C4AF",
+          200: "#7B7B7B",
+          300: "#2F2920",
+          400: "#3A342B",
+          500: "#251F16",
           900: "#3F382F"
         }
     },
