@@ -52,9 +52,9 @@ const Section2: React.FC = () => {
             let chartSize, innerRadius, outerRadius;
 
             if (width < 640) {
-                chartSize = Math.min(width * 0.8, 300);
-                innerRadius = chartSize * 0.2;
-                outerRadius = chartSize * 0.3;
+                chartSize = Math.min(width * 0.9, 600);
+                innerRadius = chartSize * 0.3;
+                outerRadius = chartSize * 0.46;
             }else if (width < 1024) {
                 chartSize = Math.min(width * 0.8, 600);
                 innerRadius = chartSize * 0.3;

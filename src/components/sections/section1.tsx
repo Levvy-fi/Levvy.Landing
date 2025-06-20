@@ -97,7 +97,7 @@ export default function Section1() {
                                 alt="Angels Coin">
                             </img>
                         </div>
-                        <div className="absolute -top-[82px] w-[388px] h-[177.9px] sm:-top-[192px] sm:w-[909px] sm:h-[417px]">
+                        <div className="absolute !-top-[82px] !w-[388px] !h-[177.9px] md:!-top-[192px] md:!w-[909px] md:!h-[417px]">
                             <img
                                 src={Shine}
                                 alt="Shine Effect">
