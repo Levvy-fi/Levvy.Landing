@@ -268,7 +268,7 @@ const Section4: React.FC = () => {
                         </Typography>
                     </Card>
                 </div>
-                {!showDisplay && (
+                {showDisplay && (
                     <div className="w-full flex flex-col items-center justify-center">
                         <Card
                             sx={{
