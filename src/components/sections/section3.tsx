@@ -61,7 +61,7 @@ const Section3: React.FC = () => {
                         Levvy V3 is the next-gen NFT and token lending platform on Cardano—faster, smarter, and powered by Angel Finance.
                     </Typography>
                 </div>
-                <div className="relative">
+                <div className="relative z-5">
                     <div className="absolute !w-[112px] left-5 top-5 sm:!w-[150px] sm:bottom-93  md:bottom-[445px]] md:left-[33px] lg:-left-[58px] lg:top-75 lg:!w-80 xl:!w-95 xl:!top-[350px] 2xl:-left-12 2xl:!top-[500px] 2xl:!w-100">
                         <img
                             src={LevvyAngel}
@@ -82,7 +82,7 @@ const Section3: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full absolute bottom-0 left-0">
+            <div className="w-full absolute bottom-0 left-0 !z-0">
                 <img src={StarsBottom} alt="Stars Bottom Background"/>
             </div>
         </section>
