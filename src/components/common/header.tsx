@@ -29,6 +29,16 @@ const Header: React.FC = () => {
 
     let WalletList = getWallets();
 
+    type WalletIconProps = {
+        src: string;
+        alt?: string;
+        className?: string;
+    }
+
+    const UserWalletIcon: React.FC<WalletIconProps> = ({src, alt = "Wallet Icon", ...props}) => {
+        return <img src={src} alt={alt} {...props}/>;
+    }
+
     const handleProfileMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -317,21 +327,18 @@ const Header: React.FC = () => {
                                             onClick={()=>connectWallet(wallet)}
                                             key={wallet.id}
                                             sx={{
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
                                                 border: `1px solid ${theme.palette.text.disabled}`,
                                                 "&:hover": {
                                                     backgroundColor: theme.palette.grey[300]
+                                                },
+                                                justifyContent: 'flex-start',
+                                                '& .MuiButton-startIcon': {
+                                                    marginLeft: '8px'
                                                 }
                                             }}
                                             className="!h-15"
+                                            startIcon={<UserWalletIcon src={wallet.icon} alt={wallet.id} className="!w-[35px]" />}
                                         >
-                                            <div className="w-9">
-                                                <img
-                                                    src={wallet.icon}
-                                                    alt={wallet.id}
-                                                />
-                                            </div>
                                             <div>
                                                 <Typography
                                                     sx={{
@@ -348,25 +355,7 @@ const Header: React.FC = () => {
                                     );
                                 })}
                             </div>
-                            <div className="w-full mt-1">
-                                <Button
-                                    sx={{
-                                        color: theme.palette.grey[200],
-                                        fontWeight: 400,
-                                        textAlign: "left",
-                                        "&:hover": {
-                                            backgroundColor: "transparent",
-                                            textDecoration: "underline"
-                                        }
-                                    }}
-                                >
-                                    <Typography
-                                        className="capitalize"
-                                    >
-                                        Show more
-                                    </Typography>
-                                </Button>
-                            </div>
+
                             <div className="mt-8">
                                 <Typography
                                     sx={{
