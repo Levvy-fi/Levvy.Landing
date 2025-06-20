@@ -16,7 +16,7 @@ const Section3: React.FC = () => {
             <div className="container mx-auto flex flex-col items-center justify-center">
                 <div className="absolute flex items-center">
                     <div 
-                        className="w-20 sm:w-50 md:w-80 lg:w-120 xl:w-180 2xl:w-220 h-190 rounded-full !opacity-20 !blur-3xl"
+                        className="w-100 lg:w-120 xl:w-180 2xl:w-220 h-190 rounded-full !opacity-20 !blur-3xl"
                         style={{
                             backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.levvy.main}, ${theme.palette.gradient.levvy.main_light})`
                         }}
@@ -56,13 +56,13 @@ const Section3: React.FC = () => {
                     </Typography>
                 </div>
                 <div className="relative">
-                    <div className="absolute !w-[112px] top-5 sm:!w-[150px] sm:bottom-93 sm:left-5 md:bottom-[445px]] md:left-[33px] lg:-left-[58px] lg:bottom-25 lg:!w-80 xl:!w-95 2xl:-left-30 2xl:bottom-38 2xl:!w-100">
+                    <div className="absolute !w-[112px] left-5 top-5 sm:!w-[150px] sm:bottom-93  md:bottom-[445px]] md:left-[33px] lg:-left-[58px] lg:top-75 lg:!w-80 xl:!w-95 xl:!top-[350px] 2xl:-left-12 2xl:!top-[500px] 2xl:!w-100">
                         <img
                             src={LevvyAngel}
                             alt="levvy angel"
                         />
                     </div>
-                    <div className="absolute !w-20 right-10 top-9 sm:!w-25 sm:right-20 sm:top-[26px] lg:!w-30 lg:top-[5px] lg:right-[109px]  xl:!w-40 xl:-top-[50px] xl:right-[120px] 2xl:-top-14 2xl:right-[195px] 2xl:!w-46">
+                    <div className="absolute !w-20 right-22 top-9 sm:!w-25 sm:right-20 sm:top-[26px] lg:!w-30 lg:top-[5px] lg:right-[109px]  xl:!w-40 xl:-top-[50px] xl:right-[120px] 2xl:-top-14 2xl:right-[195px] 2xl:!w-46">
                         <img
                             src={LevvyMascot}
                             alt="levvy mascot"
