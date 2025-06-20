@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
     const theme = useTheme()
 
     return (
-        <footer className="px-4" style={{backgroundImage: `linear-gradient(to bottom, ${theme.palette.gradient.background[20]}, ${theme.palette.gradient.background[10]})`}}>
+        <footer className="px-4 !mt-8" style={{backgroundImage: `linear-gradient(to bottom, ${theme.palette.gradient.background[20]}, ${theme.palette.gradient.background[10]})`}}>
             <div className="container mx-auto">
                 <div className="w-full flex items-center justify-between py-6 flex-col-reverse sm:flex-row">
                     <div className="flex items-ceter gap-4 md:gap-10 flex-col sm:flex-row">

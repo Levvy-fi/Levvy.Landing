@@ -8,7 +8,7 @@ const Section5: React.FC = () => {
     const theme = useTheme()
 
     return (
-        <section className="h-screen flex items-center justify--center relative px-4">
+        <section className="flex items-center justify--center relative px-4">
             <div className="mt-100 relative w-full">
                 <div className="absolute left-1/2 transform -translate-x-1/2 -z-10 w-full -top-34 sm:-top-56 lg:-top-54 xl:-top-75 2xl:w-400">
                     <img
