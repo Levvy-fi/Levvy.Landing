@@ -4,6 +4,8 @@ import LevvyLogo from "../../images/section3/levvy_logo.webp"
 import LevvyShowcase from "../../images/section3/levvy_showcase.webp"
 import LevvyMascot from "../../images/section3/levvy_mascot.webp"
 import LevvyAngel from "../../images/section3/levvy_angel.webp"
+import StarsTops from "../../images/section3/stars_top_background.svg"
+import StarsBottom from "../../images/section3/stars_bottom_background.svg"
 
 const Section3: React.FC = () => {
     const theme = useTheme()
@@ -11,8 +13,12 @@ const Section3: React.FC = () => {
     return (
         <section 
             id="section3"
+            style={{backgroundColor: theme.palette.grey.A100}}
             className="h-267 flex items-center relative overflow-hidden"
         >
+            <div className="w-full absolute top-0 left-0">
+                <img src={StarsTops} alt="Stars Top Background"/>
+            </div>
             <div className="container mx-auto flex flex-col items-center justify-center">
                 <div className="absolute flex items-center">
                     <div 
@@ -75,6 +81,9 @@ const Section3: React.FC = () => {
                         />
                     </div>
                 </div>
+            </div>
+            <div className="w-full absolute bottom-0 left-0">
+                <img src={StarsBottom} alt="Stars Bottom Background"/>
             </div>
         </section>
     );
