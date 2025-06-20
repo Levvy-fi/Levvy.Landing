@@ -1,4 +1,4 @@
-import { Card, IconButton, Typography, useTheme } from "@mui/material";
+import { Button, Card, IconButton, keyframes, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import XIcon from "../../images/socials/xIcon";
 import DiscordIcon from "../../images/socials/discordIcon";
@@ -7,6 +7,8 @@ import CardBG2 from "../../images/section4/card_bg2.webp";
 import SectionBg from "../../images/section4/section_bg.webp";
 import QrCode from "../../images/section4/qr_code.webp";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import WalletIcon from "../../images/icons/wallet";
+import Border from "../../images/section4/border.webp";
 
 const Section4: React.FC = () => {
     const theme = useTheme()
@@ -17,8 +19,15 @@ const Section4: React.FC = () => {
         minutes: 0,
         seconds: 0
     });
+    const [showDisplay, setShowDisplay] = useState(false);
 
-    useEffect (() => {
+    const gradientShift = keyframes`
+        0%   { background-position:   0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position:   0% 50%; }
+    `;
+
+    useEffect(() => {
         const targetDate = new Date("2025-06-21T21:00:00+08:00").getTime();
 
         const interval = setInterval(() => {
@@ -27,7 +36,8 @@ const Section4: React.FC = () => {
 
             if (distance <= 0) {
                 clearInterval(interval);
-                setCountDownTimer({ days: 0, hours: 0, minutes: 0, seconds: 0});
+                setCountDownTimer({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                setShowDisplay(true)
                 return;
             }
 
@@ -68,7 +78,7 @@ const Section4: React.FC = () => {
                     </Typography>
                 </div>
                 <div className="w-full flex flex-col items-center justify-center">
-                    <Typography 
+                    <Typography
                         sx={{
                             color: theme.palette.text.primary,
                             fontSize: 24
@@ -78,9 +88,9 @@ const Section4: React.FC = () => {
                         <span className="font-bold">$ANGELS </span>
                         <span>is not another governance token. It's a token with </span>
                         <span className="font-bold">real utility</span> <span>that rewards you with ADA on the 15th of every month.</span>
-                        <br/>
+                        <br />
                     </Typography>
-                    <Typography 
+                    <Typography
                         sx={{
                             color: theme.palette.text.primary,
                             fontSize: 24
@@ -91,7 +101,7 @@ const Section4: React.FC = () => {
                         <span>For more information, visit:</span>
                     </Typography>
                     <div className="!space-x-4 !mt-4">
-                        <IconButton 
+                        <IconButton
                             aria-label="x"
                             sx={{
                                 width: "48px",
@@ -106,9 +116,9 @@ const Section4: React.FC = () => {
                             }}
                             className="!rounded-full"
                         >
-                            <XIcon sx={{color: theme.palette.secondary.dark}} className="!text-2xl"/>
+                            <XIcon sx={{ color: theme.palette.secondary.dark }} className="!text-2xl" />
                         </IconButton>
-                        <IconButton 
+                        <IconButton
                             aria-label="x"
                             sx={{
                                 width: "48px",
@@ -123,7 +133,7 @@ const Section4: React.FC = () => {
                             }}
                             className="!rounded-full"
                         >
-                            <DiscordIcon sx={{color: theme.palette.secondary.dark}} className="!text-2xl"/>
+                            <DiscordIcon sx={{ color: theme.palette.secondary.dark }} className="!text-2xl" />
                         </IconButton>
                     </div>
                 </div>
@@ -155,7 +165,7 @@ const Section4: React.FC = () => {
                         <Typography
                             className="hover-target !text-lg uppercase !text-left"
                         >
-                            <span>New token supply <br/> for </span>
+                            <span>New token supply <br /> for </span>
                             <span className="font-bold">
                                 $ANGELS
                             </span>
@@ -190,7 +200,7 @@ const Section4: React.FC = () => {
                         >
                             <span className="font-bold">$ANGELS </span>
                             <span>
-                                RESERVED <br/> FOR LP
+                                RESERVED <br /> FOR LP
                             </span>
                         </Typography>
                     </Card>
@@ -223,7 +233,7 @@ const Section4: React.FC = () => {
                         >
                             <span className="font-bold">$ANGELS </span>
                             <span>
-                                RESERVED <br/> FOR SALE
+                                RESERVED <br /> FOR SALE
                             </span>
                         </Typography>
                     </Card>
@@ -256,71 +266,185 @@ const Section4: React.FC = () => {
                         >
                             <span className="font-bold">$ANGELS </span>
                             <span>
-                                TOKEN <br/> SALE PRICE
+                                TOKEN <br /> SALE PRICE
                             </span>
                         </Typography>
                     </Card>
                 </div>
-                <div className="w-full flex items-center justify-center">
-                    <Card
-                        sx={{
-                            backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                            borderRadius: "16px",
-                            padding: "4px"
-                        }}
-                    >
-                        <div style={{backgroundColor: theme.palette.grey[900]}} className="h-75 w-190 overflow-hidden relative flex items-center justify-between rounded-2xl !p-6 !gap-6    ">
-                            <div className="absolute w-230 left-0">
-                                <img
-                                    src={CardBG2}
-                                    alt="card background"
-                                />
-                            </div>
-                            <div className="z-10 flex flex-col justify-between h-full">
-                                <div className="!text-start">
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Cinzel",
-                                            color: theme.palette.primary.main,
-                                            fontWeight: 700
-                                        }}
-                                        className="!text-[40px]"
-                                    >
-                                        BUY $ANGELS NOW
-                                    </Typography>
-                                    <Typography
-                                        sx={{
-                                            fontWeight: 500
-                                        }}
-                                        className="!text-lg"
-                                    >
-                                        Scan the QR code, copy the policy address below, or connect your wallet to start buying
-                                    </Typography>
-                                </div>
-                                <div className="w-full flex items-center justify-between !p-2 rounded-sm" style={{border: `1px solid ${theme.palette.text.disabled}`}}>
-                                    <Typography>
-                                        8fe8039d057c71fdf........d85d9c868ddf7307bc
-                                    </Typography>
-                                    <ContentCopyIcon 
-                                        sx={{
-                                            color: theme.palette.primary.main
-                                        }}
-                                        className="!text-[20px]"
+                {showDisplay && (
+                    <div className="w-full flex flex-col items-center justify-center">
+                        <Card
+                            sx={{
+                                backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                                borderRadius: "16px",
+                                padding: "4px"
+                            }}
+                            className="!mt-14 !mb-8"
+                        >
+                            <div style={{ backgroundColor: theme.palette.grey[900] }} className="h-75 w-190 overflow-hidden relative flex items-center justify-between rounded-2xl !p-6 !gap-6    ">
+                                <div className="absolute w-230 left-0">
+                                    <img
+                                        src={CardBG2}
+                                        alt="card background"
                                     />
                                 </div>
-                                <div>
-
+                                <div className="z-10 flex flex-col justify-between h-full">
+                                    <div className="!text-start">
+                                        <Typography
+                                            sx={{
+                                                fontFamily: "Cinzel",
+                                                color: theme.palette.primary.main,
+                                                fontWeight: 700
+                                            }}
+                                            className="!text-[40px]"
+                                        >
+                                            BUY $ANGELS NOW
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500
+                                            }}
+                                            className="!text-lg"
+                                        >
+                                            Scan the QR code, copy the policy address below, or connect your wallet to start buying
+                                        </Typography>
+                                    </div>
+                                    <div className="w-full flex items-center justify-between !p-2 relative rounded-sm" style={{ border: `1px solid ${theme.palette.text.disabled}` }}>
+                                        <div className="absolute -top-2">
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 400,
+                                                    color: theme.palette.primary.main,
+                                                }}
+                                                className="!text-xs"
+                                            >
+                                                Policy ID
+                                            </Typography>
+                                        </div>
+                                        <Typography>
+                                            8fe8039d057c71fdf........d85d9c868ddf7307bc
+                                        </Typography>
+                                        <ContentCopyIcon
+                                            sx={{
+                                                color: theme.palette.primary.main
+                                            }}
+                                            className="!text-[20px]"
+                                        />
+                                    </div>
+                                    <div className="flex">
+                                        <Button
+                                            disableRipple
+                                            sx={{
+                                                backgroundImage: `linear-gradient(to right, 
+                                                            ${theme.palette.gradient.button[30]}, 
+                                                            ${theme.palette.gradient.button[20]} 41%, 
+                                                            ${theme.palette.gradient.button[10]}, 
+                                                            ${theme.palette.gradient.button[30]})`,
+                                                borderRadius: "12px",
+                                                gap: "10px",
+                                                backgroundSize: "200% 100%",
+                                                animation: `${gradientShift} 6s ease-in-out infinite`,
+                                                transition: "all 0.3s ease-in-out",
+                                                "&:hover": {
+                                                    backgroundImage: `linear-gradient(to right, 
+                                                            ${theme.palette.gradient.button[30]}, 
+                                                            ${theme.palette.primary.main} 100%, 
+                                                            ${theme.palette.gradient.button[40]}, 
+                                                            ${theme.palette.gradient.button[50]})`,
+                                                },
+                                                "&:active": {
+                                                    backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.button[60]})`
+                                                }
+                                            }}
+                                            className="!w-39 !h-12 !content-start"
+                                        >
+                                            <WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />
+                                            <Typography
+                                                sx={{
+                                                    color: theme.palette.secondary.dark,
+                                                    fontWeight: 500
+                                                }}
+                                                className="!text-sm capitalize"
+                                            >
+                                                Connect Wallet
+                                            </Typography>
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className="z-10 w-64 aspect-square flex-shrink-0">
+                                    <img
+                                        src={QrCode}
+                                        alt="qr code"
+                                    />
                                 </div>
                             </div>
-                            <div className="z-10 w-64 aspect-square flex-shrink-0">
+                        </Card>
+                        <div className="relative mb-16">
+                            <div className="absolute ml-4 w-200 mt-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                 <img
-                                    src={QrCode}
-                                    alt="qr code"
+                                    src={Border}
+                                    alt="border"
                                 />
                             </div>
+                            <div>
+                                <Typography
+                                    sx={{
+                                        color: theme.palette.primary.main,
+                                        fontWeight: 700,
+                                        fontFamily: "Cinzel",
+                                    }}
+                                    className="!text-[36px]"
+                                >
+                                    Sale Progress
+                                </Typography>
+                            </div>
+                            <div className="flex items-center justify-center !gap-18">
+                                <div>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.primary.light,
+                                            fontWeight: 700,
+                                            fontFamily: "Cinzel",
+                                        }}
+                                        className="!text-[80px]"
+                                    >
+                                        520K
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.text.primary,
+                                            fontFamily: 500
+                                        }}
+                                        className="!text-xl"
+                                    >
+                                        Total $ANGELS <br /> bought globally
+                                    </Typography>
+                                </div>
+                                <div>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.primary.light,
+                                            fontWeight: 700,
+                                            fontFamily: "Cinzel",
+                                        }}
+                                        className="!text-[80px]"
+                                    >
+                                        324
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.text.primary,
+                                            fontFamily: 500
+                                        }}
+                                        className="!text-xl"
+                                    >
+                                        Total $ANGELS <br /> you bought
+                                    </Typography>
+                                </div>
+                            </div>
                         </div>
-                    </Card>
-                </div>
+                    </div>
+                )}
                 <div className="flex flex-col items-center justify-center !mt-10 !space-y-4">
                     <Typography
                         sx={{
@@ -328,7 +452,7 @@ const Section4: React.FC = () => {
                         }}
                         className="!text-2xl"
                     >
-                        Sale opens in: 
+                        Sale opens in:
                     </Typography>
                     <div className="grid grid-cols-4 !gap-6">
                         <div className="flex flex-col items-center gap-4">
@@ -340,8 +464,8 @@ const Section4: React.FC = () => {
                                 }}
                                 className="!w-26"
                             >
-                                <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
-                                    <Typography 
+                                <div className="rounded-lg !px-3" style={{ backgroundColor: theme.palette.primary.main }}>
+                                    <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.secondary.dark
@@ -370,8 +494,8 @@ const Section4: React.FC = () => {
                                 }}
                                 className="!w-26"
                             >
-                                <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
-                                    <Typography 
+                                <div className="rounded-lg !px-3" style={{ backgroundColor: theme.palette.primary.main }}>
+                                    <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.secondary.dark
@@ -400,8 +524,8 @@ const Section4: React.FC = () => {
                                 }}
                                 className="!w-26"
                             >
-                                <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
-                                    <Typography 
+                                <div className="rounded-lg !px-3" style={{ backgroundColor: theme.palette.primary.main }}>
+                                    <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.secondary.dark
@@ -430,8 +554,8 @@ const Section4: React.FC = () => {
                                 }}
                                 className="!w-26"
                             >
-                                <div className="rounded-lg !px-3" style={{backgroundColor: theme.palette.primary.main}}>
-                                    <Typography 
+                                <div className="rounded-lg !px-3" style={{ backgroundColor: theme.palette.primary.main }}>
+                                    <Typography
                                         sx={{
                                             fontFamily: "Cinzel",
                                             color: theme.palette.secondary.dark
@@ -462,8 +586,8 @@ const Section4: React.FC = () => {
                         }}
                         className="!w-150"
                     >
-                        <div 
-                            style={{backgroundColor: theme.palette.grey[900]}} 
+                        <div
+                            style={{ backgroundColor: theme.palette.grey[900] }}
                             className="!rounded-lg w-full !flex !items-center !justify-between !py-6 !px-10 relative overflow-hidden"
                         >
                             <div className="absolute w-200 left-0">
