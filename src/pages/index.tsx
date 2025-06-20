@@ -25,4 +25,19 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage
 
-export const Head: HeadFC = () => <title>Home Page</title>
+export const Head: HeadFC = () => {
+  return (
+    <>
+      <title>Angel Finance</title>
+      <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+      <meta property="og:title" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://saib.dev/saib-og.png" />
+      <meta property="og:image:alt" content="Softwarez, at its Best" />
+      <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Angel Finance" />
+      <meta name="twitter:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+    </>
+  )
+}
