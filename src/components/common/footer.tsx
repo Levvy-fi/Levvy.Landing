@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
                             }}
                             className="!text-sm"
                         >
-                            Private Policy
+                            Privacy Policy
                         </Link>
                     </div>
                 </div>
