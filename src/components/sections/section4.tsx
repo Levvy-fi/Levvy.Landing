@@ -102,6 +102,8 @@ const Section4: React.FC = () => {
                     </Typography>
                     <div className="!space-x-4 !mt-4">
                         <IconButton
+                            href="https://x.com/levvyfinance"
+                            target="_blank" rel="noopener noreferrer"
                             aria-label="x"
                             sx={{
                                 width: "48px",
@@ -120,7 +122,8 @@ const Section4: React.FC = () => {
                         </IconButton>
                         <IconButton
                             href="https://discord.com/invite/angelfinance"
-                            aria-label="x"
+                            target="_blank" rel="noopener noreferrer"
+                            aria-label="discord"
                             sx={{
                                 width: "48px",
                                 height: "48px",

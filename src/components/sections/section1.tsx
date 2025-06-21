@@ -47,7 +47,7 @@ export default function Section1() {
                     </div>
                     <div className="flex justify-center gap-[9px] mt-6 sm:gap-3 sm:mt-10">
                         <Button
-                            href="https://ccardano.gitbook.io/angel-paper/tokenomics"
+                            href="https://mints.yepple.io/angelfinance"
                             target="_blank" rel="noopener norefferer"
                             variant="contained" startIcon={<img src={TokenSale} alt="Token Sale Icon" />}
                             sx={{
