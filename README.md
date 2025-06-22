@@ -1,49 +1,41 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal TypeScript Starter
-</h1>
+# Website
 
-## 🚀 Quick start
+This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
-1.  **Create a Gatsby site.**
+## Installation
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+```bash
+yarn
+```
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby -- -ts
-    ```
+## Local Development
 
-2.  **Start developing.**
+```bash
+yarn start
+```
 
-    Navigate into your new site’s directory and start it up.
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+## Build
 
-3.  **Open the code and start customizing!**
+```bash
+yarn build
+```
 
-    Your site is now running at http://localhost:8000!
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
-    Edit `src/pages/index.tsx` to see your site update in real-time!
+## Deployment
 
-4.  **Learn more**
+Using SSH:
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+```bash
+USE_SSH=true yarn deploy
+```
 
-## 🚀 Quick start (Netlify)
+Not using SSH:
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+```bash
+GIT_USER=<Your GitHub username> yarn deploy
+```
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.

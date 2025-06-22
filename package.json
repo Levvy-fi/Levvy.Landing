@@ -1,45 +1,60 @@
 {
-  "name": "angels",
+  "name": "angelfinance-landing",
   "version": "1.0.0",
   "private": true,
-  "description": "angels",
-  "author": "KeeeeEf",
-  "keywords": [
-    "gatsby"
-  ],
+  "description": "AngelFinance Landing Page and Documentation Site",
+  "author": "Clark Alesna <clark@saib.dev>",
+  "keywords": ["docusaurus", "cardano", "defi", "crypto", "angels", "levvy"],
   "scripts": {
-    "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit",
-    "deploy": "gatsby build && gh-pages -d public"
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "typecheck": "tsc"
   },
   "dependencies": {
+    "@docusaurus/core": "3.8.1",
+    "@docusaurus/preset-classic": "3.8.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mdx-js/react": "^3.0.0",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
     "@mui/x-charts": "^8.5.3",
-    "@tailwindcss/postcss": "^4.1.10",
     "autoprefixer": "^10.4.21",
-    "gatsby": "^5.14.1",
-    "gatsby-plugin-google-fonts": "^1.0.1",
-    "gatsby-plugin-image": "^3.14.0",
-    "gatsby-plugin-manifest": "^5.14.0",
-    "gatsby-plugin-postcss": "^6.14.0",
-    "gatsby-plugin-sharp": "^5.14.0",
-    "gatsby-source-filesystem": "^5.14.0",
-    "gatsby-transformer-sharp": "^5.14.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "clsx": "^2.0.0",
+    "postcss": "^8.5.6",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.19",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
-    "gh-pages": "^6.1.1",
-    "typescript": "^5.3.3"
+    "@docusaurus/module-type-aliases": "3.8.1",
+    "@docusaurus/tsconfig": "3.8.1",
+    "@docusaurus/types": "3.8.1",
+    "@playwright/test": "^1.53.1",
+    "playwright": "^1.53.1",
+    "tailwindcss": "^3.4.0",
+    "typescript": "~5.6.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0"
   }
 }

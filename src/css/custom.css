@@ -1,0 +1,118 @@
+/* Import Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Cinzel:wght@400..900&display=swap');
+
+/* Test to verify CSS is loading */
+body {
+  background-color: #12100F !important;
+}
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #F9B63E;
+  --ifm-color-primary-dark: #f7a919;
+  --ifm-color-primary-darker: #f5a20a;
+  --ifm-color-primary-darkest: #cc8608;
+  --ifm-color-primary-light: #fbc363;
+  --ifm-color-primary-lighter: #fcca72;
+  --ifm-color-primary-lightest: #fedc95;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-background-color: #12100F;
+  --ifm-background-surface-color: #201B13;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #F9B63E;
+  --ifm-color-primary-dark: #f7a919;
+  --ifm-color-primary-darker: #f5a20a;
+  --ifm-color-primary-darkest: #cc8608;
+  --ifm-color-primary-light: #fbc363;
+  --ifm-color-primary-lighter: #fcca72;
+  --ifm-color-primary-lightest: #fedc95;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-background-color: #12100F;
+  --ifm-background-surface-color: #201B13;
+}
+
+/* Set dark theme by default */
+html[data-theme='dark'] {
+  --ifm-color-content: #EDE1D3;
+}
+
+/* Global font family override */
+:root {
+  --ifm-font-family-base: 'Albert Sans', sans-serif;
+}
+
+/* Hide Docusaurus navbar and footer on homepage using sibling selector */
+/* When .homepage exists, hide its sibling navbar */
+.homepage ~ nav.navbar,
+.homepage ~ .theme-layout-navbar,
+nav.navbar:has(~ .homepage),
+.theme-layout-navbar:has(~ .homepage) {
+  display: none !important;
+}
+
+/* Hide footer when homepage exists */
+.homepage ~ footer.footer--dark,
+.homepage ~ .theme-layout-footer,
+footer.footer--dark:has(~ .homepage),
+.theme-layout-footer:has(~ .homepage) {
+  display: none !important;
+}
+
+/* Alternative approach: target by path */
+/* Homepage specific styles using the mainWrapper class that has homepage */
+.mainWrapper_z2l0.homepage ~ nav.navbar,
+.mainWrapper_z2l0.homepage ~ footer.footer--dark {
+  display: none !important;
+}
+
+/* Target navbar and footer that are siblings of a div containing homepage */
+body:has(.homepage) nav.navbar,
+body:has(.homepage) .theme-layout-navbar {
+  display: none !important;
+}
+
+body:has(.homepage) footer.footer--dark,
+body:has(.homepage) .theme-layout-footer {
+  display: none !important;
+}
+
+/* Remove any padding/margin that might be added for navbar */
+body:has(.homepage) {
+  padding-top: 0 !important;
+}
+
+body:has(.homepage) .main-wrapper {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Ensure our content starts at the very top */
+.homepage {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* 
+ * Docusaurus CSS specificity override for backdrop-blur
+ * Note: Docusaurus has higher specificity CSS that overrides Tailwind utilities
+ * This ensures backdrop-filter works properly in Docusaurus environment
+ */
+.backdrop-blur-md\! {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
