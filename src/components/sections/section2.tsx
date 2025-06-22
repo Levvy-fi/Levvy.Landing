@@ -17,10 +17,10 @@ const Section2: React.FC = () => {
 
     const tokenomicItems = [
         {
-            Percentage: 6,
+            Percentage: 10,
             Title: "LP",
-            Description: "--",
-            Amount: "66,000",
+            Description: "40K old + 60K new",
+            Amount: "100,000",
             Color: theme.palette.chart?.[300]
         },
         {
@@ -31,10 +31,10 @@ const Section2: React.FC = () => {
             Color: theme.palette.chart?.[200]
         },
         {
-            Percentage: 49.6,
+            Percentage: 45.6,
             Title: "Replacement Drop",
             Description: "--",
-            Amount: "496,000",
+            Amount: "456,000",
             Color: theme.palette.chart?.[100]
         },
         {
@@ -203,7 +203,7 @@ const Section2: React.FC = () => {
                                         }}
                                         className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
-                                        49.6%
+                                        45.6%
                                     </Typography>
                                     <Typography
                                         className="!text-base lg:!text-sm xl:!text-base"
@@ -225,7 +225,7 @@ const Section2: React.FC = () => {
                                         }}
                                         className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
-                                        496,000
+                                        456,000
                                     </Typography>
                                     <Typography
 
@@ -322,7 +322,7 @@ const Section2: React.FC = () => {
                                         }}
                                         className="!text-[22px] sm:!text-3xl lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
-                                        6%
+                                        10%
                                     </Typography>
                                     <Typography
                                         className="!text-base lg:!text-sm xl:!text-base"
@@ -344,7 +344,7 @@ const Section2: React.FC = () => {
                                         }}
                                         className="!text-[22px] lg:!text-3xl lg:!leading-[20px] xl:!text-[40px] xl:!leading-[30px]"
                                     >
-                                        60,000
+                                        100,000
                                     </Typography>
                                     <Typography
                                         className="!text-base lg:!text-sm xl:!text-base"
