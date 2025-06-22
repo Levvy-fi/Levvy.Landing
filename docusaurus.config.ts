@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Angel Finance',
+  title: 'Angel Finance • Official Website',
   tagline: 'Official Angel Finance Website & Documentation',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -54,9 +54,9 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'images/angelfinance_preview.png',
     navbar: {
-      title: 'Angel Finance',
+      title: '',
       logo: {
         alt: 'Angel Finance Logo',
         src: 'img/logo.svg',
