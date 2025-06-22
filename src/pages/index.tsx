@@ -1,41 +1,44 @@
-import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
-import MainLayout from "../components/common/main-layout"
-import Section1 from "../components/sections/section1"
-import Section2 from "../components/sections/section2"
-import Section3 from "../components/sections/section3"
-import Section4 from "../components/sections/section4"
-import Section5 from "../components/sections/section5"
-import Header from "../components/common/header"
-import Footer from "../components/common/footer"
+import type {ReactNode} from 'react';
+import clsx from 'clsx';
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import Heading from '@theme/Heading';
 
-const IndexPage: React.FC<PageProps> = () => {
+import styles from './index.module.css';
+
+function HomepageHeader() {
+  const {siteConfig} = useDocusaurusContext();
   return (
-    <MainLayout>
-      <Header/>
-      <Section1/>
-      <Section2/>
-      <Section3/>
-      <Section4/>
-      <Section5/>
-      <Footer/>
-    </MainLayout>
-  )
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <div className="container">
+        <Heading as="h1" className="hero__title">
+          {siteConfig.title}
+        </Heading>
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div className={styles.buttons}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/intro">
+            Docusaurus Tutorial - 5min ⏱️
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
 }
 
-export default IndexPage
-
-export const Head: HeadFC = () => {
+export default function Home(): ReactNode {
+  const {siteConfig} = useDocusaurusContext();
   return (
-    <>
-      <title>Angel Finance</title>
-      <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-      <meta property="og:title" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-      <meta property="og:type" content="website" />
-      <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Angel Finance" />
-      <meta name="twitter:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-    </>
-  )
+    <Layout
+      title={`Hello from ${siteConfig.title}`}
+      description="Description will go into a meta tag in <head />">
+      <HomepageHeader />
+      <main>
+        <HomepageFeatures />
+      </main>
+    </Layout>
+  );
 }
