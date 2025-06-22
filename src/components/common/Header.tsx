@@ -122,7 +122,7 @@ const Header: React.FC = () => {
 
     return (
         <header
-            className={`fixed z-50 transition-all duration-150 ease-in-out w-full !px-4 ${scrolled ? '!py-2 backdrop-blur-md!' : '!py-4'}`}
+            className={`fixed z-100 transition-all duration-150 ease-in-out w-full !px-4 ${scrolled ? '!py-2 backdrop-blur-md!' : '!py-4'}`}
         >
             <div className="container mx-auto flex items-center justify-between">
                 <div className={`${scrolled ? '!w-100' : '!h-16 sm:!h-20 sm:!w-144'}`}>

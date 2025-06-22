@@ -106,3 +106,13 @@ body:has(.homepage) .main-wrapper {
   padding-top: 0 !important;
   margin-top: 0 !important;
 }
+
+/* 
+ * Docusaurus CSS specificity override for backdrop-blur
+ * Note: Docusaurus has higher specificity CSS that overrides Tailwind utilities
+ * This ensures backdrop-filter works properly in Docusaurus environment
+ */
+.backdrop-blur-md\! {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
