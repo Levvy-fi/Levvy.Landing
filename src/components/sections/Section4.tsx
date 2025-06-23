@@ -774,14 +774,14 @@ const Section4: React.FC = () => {
                                 </div>
                                 <div className="z-10 flex-shrink-0 w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 bg-white rounded-lg p-3 flex items-center justify-center">
                                     <div className="w-full h-full max-w-full max-h-full">
-                                        {/* <QRCode
+                                        <QRCode
                                             value={paymentAddress}
                                             size={256}
                                             style={{ 
                                                 height: "100%", 
                                                 width: "100%"
                                             }}
-                                        /> */}
+                                        />
                                     </div>
                                 </div>
                                 <div className="!space-y-4 sm:hidden">
