@@ -455,7 +455,7 @@ const Section4: React.FC = () => {
     };
 
     return (
-        <section id="token-sale" className="flex relative bg-cover [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] px-4 !py-30 sm:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
+        <section id="token-sale" className="flex relative bg-cover px-4 !py-[70px] [mask-image:_linear-gradient(to_bottom,transparent_0,_black_80px,_black_calc(100%-200px),transparent_100%)] sm:[mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] md:!py-30 lg:!py-[140px]" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
             <div className="container mx-auto text-center">
                 <div>
                     <Typography
@@ -474,7 +474,7 @@ const Section4: React.FC = () => {
                             color: theme.palette.primary.light,
                             textTransform: "uppercase"
                         }}
-                        className="!font-bold !text-[48px] sm:!text-[76px] md:!text-[94px] lg:!text-[110px] xl:!text-[120px]"
+                        className="!font-bold !text-[42px] sm:!text-[76px] md:!text-[94px] lg:!text-[110px] xl:!text-[120px]"
                     >
                         $Angels sale
                     </Typography>
@@ -843,7 +843,7 @@ const Section4: React.FC = () => {
 
 
                 {/* Merged Sale Progress and Countdown Timer */}
-                <div className="w-full flex flex-col items-center justify-center !mt-14">
+                <div className="w-full flex flex-col items-center justify-center !mt-[24px] sm:!mt-14">
                     <Card
                         sx={{
                             position: 'relative',

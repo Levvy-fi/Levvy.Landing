@@ -10,9 +10,9 @@ export default function Section1() {
                 backgroundColor: theme.palette.background.default,
                 backgroundImage: `url(/images/section1/background.webp)`,
             }}
-            className="relative pt-45"
+            className="relative pt-[132px] md:pt-45"
         >
-            <div className="container mx-auto">
+            <div className="container mx-auto !px-0 max-lg:!overflow-hidden">
                 <div>
                     <div>
                         <Typography
@@ -23,7 +23,7 @@ export default function Section1() {
                                 fontFamily: "Cinzel",
                                 fontWeight: 700
                             }}
-                            className="!text-[45px] !leading-13 !mb-4 sm:!text-[112px] sm:!leading-26 sm:!mb-6"
+                            className="!text-[45px] !leading-13 !mb-4  sm:!mb-6 sm:!text-[80px] sm:!leading-[80px] lg:!leading-26 lg:!text-[112px]"
                         >
                             The Angels <br />Have Arrived
                         </Typography>
