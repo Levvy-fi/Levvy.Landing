@@ -9,6 +9,7 @@ import WalletButton from '../common/WalletButton';
 import { useSaleTimer } from "../../hooks/useSaleTimer";
 import { ANGEL_SALE_CONFIG } from "../../types/saleTypes";
 import FlipNumbers from 'react-flip-numbers';
+import { useWalletBalance } from "../../hooks/useWalletBalance";
 
 // Icon components (copied from old implementation)
 const XIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
@@ -352,8 +353,11 @@ const Section4: React.FC = () => {
     const paymentAddress = (siteConfig.customFields?.paymentWalletAddress as string) || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf';
     const timerState = useSaleTimer(ANGEL_SALE_CONFIG);
     
-    // Current ADA raised from scraped data
-    const currentADAraised = 875070;
+    // Query real ADA balance from the sale wallet using Blaze
+    const { balance: walletBalance, loading: balanceLoading, error: balanceError } = useWalletBalance(paymentAddress, 30000);
+    
+    // Use real balance if available, fallback to 0 if loading or error
+    const currentADAraised = walletBalance?.ada || 0;
 
     return (
         <section className="flex relative bg-cover [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] px-4 !py-30 sm:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
@@ -742,6 +746,31 @@ const Section4: React.FC = () => {
                             {/* Sale Progress Section with Multi-tier Progress Bar */}
                             {timerState.phase === 'public-mint' && (
                                 <div className="w-full flex flex-col items-center mb-6 sm:mb-8">
+                                    {balanceLoading ? (
+                                        <Box sx={{ textAlign: 'center', mb: 4 }}>
+                                            <Typography
+                                                sx={{
+                                                    color: theme.palette.text.secondary,
+                                                    fontSize: '16px',
+                                                    fontFamily: "Albert Sans"
+                                                }}
+                                            >
+                                                Loading balance...
+                                            </Typography>
+                                        </Box>
+                                    ) : balanceError ? (
+                                        <Box sx={{ textAlign: 'center', mb: 4 }}>
+                                            <Typography
+                                                sx={{
+                                                    color: theme.palette.error.main,
+                                                    fontSize: '14px',
+                                                    fontFamily: "Albert Sans"
+                                                }}
+                                            >
+                                                Error loading balance - using cached data
+                                            </Typography>
+                                        </Box>
+                                    ) : null}
                                     <MultiTierProgressBar currentADA={currentADAraised} theme={theme} />
                                 </div>
                             )}

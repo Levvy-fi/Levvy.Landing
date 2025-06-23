@@ -18,6 +18,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@blaze-cardano/sdk": "^0.2.32",
     "@docusaurus/core": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
     "@emotion/react": "^11.14.0",
@@ -27,14 +28,20 @@
     "@mui/material": "^7.1.2",
     "@mui/x-charts": "^8.5.3",
     "autoprefixer": "^10.4.21",
+    "buffer": "^6.0.3",
     "clsx": "^2.0.0",
+    "crypto-browserify": "^3.12.1",
+    "path-browserify": "^1.0.1",
     "postcss": "^8.5.6",
     "prism-react-renderer": "^2.3.0",
+    "process": "^0.11.10",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-flip-numbers": "^3.0.9",
-    "react-qr-code": "^2.0.16"
+    "react-qr-code": "^2.0.16",
+    "stream-browserify": "^3.0.0",
+    "vm-browserify": "^1.1.2"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",
