@@ -36,6 +36,8 @@ declare module "@mui/material/styles" {
     },
     levvy: {
       primary: string;
+      secondary: string;
+      secondary_dark: string;
     }
       
   }
@@ -66,6 +68,8 @@ declare module "@mui/material/styles" {
     },
     levvy?: {
       primary: string;
+      secondary: string;
+      secondary_dark: string;
     },
     chart?: {
       50: string,
@@ -101,6 +105,8 @@ const theme = createTheme({
         },
         levvy: {
           primary: "#FFCA60",
+          secondary: "#FF9934",
+          secondary_dark: "#FFCC66"
         },
         gradient: {
           levvy: {
@@ -142,6 +148,7 @@ const theme = createTheme({
           300: "#2F2920",
           400: "#3A342B",
           500: "#251F16",
+          600: "#2E2E2E",
           900: "#3F382F",
           A100: "#101921"
         }

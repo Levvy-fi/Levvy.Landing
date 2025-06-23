@@ -73,6 +73,21 @@ module.exports = {
       borderRadius: {
         '4xl': '2rem',
       },
+      keyframes: {
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        rotateBorder: {
+          to: {
+            '--border-angle': '360deg',
+          },
+        },
+      },
+      animation: {
+        blink: 'blink 1.1s step-start infinite',
+        'rotate-border': 'rotateBorder 4s linear infinite',
+      },
     },
   },
   plugins: [],
