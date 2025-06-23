@@ -1,83 +1,117 @@
-import { Typography, useTheme } from "@mui/material";
+import { Button, Typography, useTheme } from "@mui/material";
 import React from "react";
 
 const Section3: React.FC = () => {
     const theme = useTheme()
 
     return (
-        <section 
+        <section
             id="section3"
-            style={{backgroundColor: theme.palette.grey.A100}}
-            className="h-267 flex items-center relative overflow-hidden"
+            style={{ backgroundColor: theme.palette.grey.A100 }}
+            className="h-267 flex items-center relative overflow-hidden [mask-image:_linear-gradient(to_bottom,transparent_0,_black_80px,_black_calc(100%-200px),transparent_100%)]"
         >
             <div className="w-full absolute top-0 left-0">
-                <img src="/images/section3/stars_top_background.svg" alt="Stars Top Background"/>
+                <img src="/images/section3/stars_top_background.svg" alt="Stars Top Background" />
             </div>
             <div className="container mx-auto flex flex-col items-center justify-center">
                 <div className="absolute flex items-center">
-                    <div 
+                    <div
                         className="w-100 lg:w-120 xl:w-180 2xl:w-220 h-190 rounded-full !opacity-20 !blur-3xl"
                         style={{
                             backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.levvy.main}, ${theme.palette.gradient.levvy.main_light})`
                         }}
                     />
-                    <div 
+                    <div
                         className="w-20 sm:w-50 :md:w-80 lg:w-120 xl:w-180 2xl:w-220 h-100 rounded-r-full !opacity-20 !blur-3xl"
                         style={{
                             backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.levvy.secondary}, ${theme.palette.gradient.levvy.secondary_light})`
                         }}
                     />
                 </div>
-                <div className="flex flex-col items-center justify-center">
-                    <Typography 
-                        sx={{
-                            fontWeight: 600,
-                            color: theme.palette.primary.light
-                        }}
-                        className="!text-base !mb-2 lg:mb-0 lg:!text-6"
-                    >
-                        Coming Soon...
-                    </Typography>
-                    <img
-                        src="/images/section3/levvy_logo.webp"
-                        alt="levvy logo"
-                        className="object-contain h-12 lg:h-16"
-                    />
-                    <Typography 
-                        sx={{
-                            fontWeight: 500,
-                            color: theme.palette.text.primary,
-                            textAlign: "center",
-                            marginTop: "20px"
-                        }}
-                        className="max-w-159 !tracking-[1px] !text-base p-5 !mt-4 lg:!text-lg lg:p-0"
-                    >
-                        Levvy V3 is the next-gen NFT and token lending platform on Cardano—faster, smarter, and powered by Angel Finance.
-                    </Typography>
-                </div>
-                <div className="relative z-5">
-                    <div className="absolute !w-[112px] left-5 top-5 sm:!w-[150px] sm:bottom-93  md:bottom-[445px]] md:left-[33px] lg:-left-[58px] lg:top-75 lg:!w-80 xl:!w-95 xl:!top-[350px] 2xl:-left-12 2xl:!top-[500px] 2xl:!w-100">
+                <div className="z-10">
+                    <div className="flex flex-col items-center justify-center">
+                        <Typography
+                            sx={{
+                                fontWeight: 600,
+                                color: theme.palette.primary.light
+                            }}
+                            className="!text-base !mb-4 lg:mb-0 lg:!text-[24px]"
+                        >
+                            Coming Soon...
+                        </Typography>
                         <img
-                            src="/images/section3/levvy_angel.webp"
-                            alt="levvy angel"
+                            src="/images/section3/levvy_logo.webp"
+                            alt="levvy logo"
+                            className="object-contain h-12 lg:h-16"
                         />
+                        <div className="bg-linear-to-r from-[#FF9934] to-[#FFCC66] !p-6">
+                            <Typography
+                                className="!text-[64px] !leading-[66px] !text-center !font-black bg-gradient-to-r from-[#FF9934] to-[#FFCC66] text-transparent bg-clip-text"
+                            >
+                                <span>Effortless </span>
+                                <span style={{ color: theme.palette.grey[50] }}>Lending,</span><br />
+                                <span> Instant Liquidity</span>
+                            </Typography>
+                        </div>
+                        <Typography
+                            sx={{
+                                fontWeight: 500,
+                                color: theme.palette.text.primary,
+                                textAlign: "center",
+                            }}
+                            className="max-w-159 !tracking-[1px] !text-base p-5 !mb-6 lg:!text-lg lg:p-0"
+                        >
+                            Maximize liquidity & earnings lending and borrowing tokens or NFTs.
+                        </Typography>
+                        <div className="flex items-center !gap-4">
+                            <Button
+                                startIcon={<img src="/images/icons/white_paper.svg" alt="White Paper Icon" />}
+                                sx={{
+                                    backgroundColor: theme.palette.levvy.primary,
+                                    textTransform: "capitalize",
+                                    color: theme.palette.grey.A100,
+                                    fontWeight: 700,
+                                    borderRadius: "12px"
+                                }}
+                                className="w-[137px] h-[40px]"
+                            >
+                                White Paper
+                            </Button>
+                            <div 
+                                style={{
+                                    backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.levvy.main_dark}, ${theme.palette.gradient.levvy.secondary_dark})`,
+                                    borderRadius: "12px"
+                                }} 
+                                className="!p-[2px]"
+                            >
+                                <Button
+                                    startIcon={<img src="/images/icons/levvy.svg" alt="White Paper Icon" />}
+                                    sx={{
+                                        backgroundColor: theme.palette.grey.A100,
+                                        textTransform: "capitalize",
+                                        color: theme.palette.primary.main,
+                                        fontWeight: 700,
+                                        borderRadius: "12px"
+                                    }}
+                                    className="w-[137px] h-[40px]"
+                                >
+                                    Open App
+                                </Button>
+                            </div>
+                        </div>
                     </div>
-                    <div className="absolute !w-20 right-22 top-9 sm:!w-25 sm:right-20 sm:top-[26px] lg:!w-30 lg:top-[5px] lg:right-[109px]  xl:!w-40 xl:-top-[50px] xl:right-[120px] 2xl:-top-14 2xl:right-[195px] 2xl:!w-46">
-                        <img
-                            src="/images/section3/levvy_mascot.webp"
-                            alt="levvy mascot"
-                        />
-                    </div>
-                    <div className="mt-20 ml-10 lg:mt-18 lg:!ml-10 lg:w-200 xl:mt-10 xl:!ml-[85px] xl:w-250 2xl:w-320">
-                        <img
-                            src="/images/section3/levvy_showcase.webp"
-                            alt="levvy showcase"
-                        />
+                    <div className="relative z-5">
+                        <div className="mt-20 ml-10 lg:mt-18 lg:!ml-10 lg:w-200 xl:mt-10 xl:!ml-[85px] xl:w-250 2xl:w-[700px]">
+                            <img
+                                src="/images/section3/levvy_mascot.webp"
+                                alt="levvy showcase"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="w-full absolute bottom-0 left-0 !z-0">
-                <img src="/images/section3/stars_bottom_background.svg" alt="Stars Bottom Background"/>
+                <img src="/images/section3/stars_bottom_background.svg" alt="Stars Bottom Background" />
             </div>
         </section>
     );

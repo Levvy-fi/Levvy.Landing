@@ -83,7 +83,7 @@ const Section2: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative pt-[230px] pb-[259px]" style={{ backgroundImage: `url(/images/section2/background.webp)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+        <section className="relative pt-[230px] pb-[259px] [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]" style={{ backgroundImage: `url(/images/section2/background.webp)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
             <div className="container mx-auto">
                 <div>
                     <Typography

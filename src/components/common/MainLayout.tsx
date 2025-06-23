@@ -8,8 +8,10 @@ declare module "@mui/material/styles" {
       levvy: {
         main: string;
         main_light: string;
+        main_dark: string;
         secondary: string;
         secondary_light: string;
+        secondary_dark: string;
       },
       button: {
         10: string,
@@ -31,6 +33,9 @@ declare module "@mui/material/styles" {
       200: string,
       300: string,
       400: string,    
+    },
+    levvy: {
+      primary: string;
     }
       
   }
@@ -38,10 +43,12 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     gradient?: {
       levvy?: {
-        main: string;
-        main_light: string;
-        secondary: string;
-        secondary_light: string;
+        main?: string;
+        main_light?: string;
+        main_dark?: string;
+        secondary?: string;
+        secondary_light?: string;
+        secondary_dark?: string;
       },
       button?: {
         10: string,
@@ -56,6 +63,9 @@ declare module "@mui/material/styles" {
         10: string,
         20: string
       }
+    },
+    levvy?: {
+      primary: string;
     },
     chart?: {
       50: string,
@@ -89,12 +99,17 @@ const theme = createTheme({
           secondary: "#6C4900",
           disabled: "#504535"
         },
+        levvy: {
+          primary: "#FFCA60",
+        },
         gradient: {
           levvy: {
             main: "#50CEC8",
             main_light: "#F7FF19",
+            main_dark: "#CD6600",
             secondary: "#FFE77F",
-            secondary_light: "#FF700F"
+            secondary_light: "#FF700F",
+            secondary_dark: "#FFC560"
           },
           button: {
             10: "#FFE0A2",
@@ -128,7 +143,7 @@ const theme = createTheme({
           400: "#3A342B",
           500: "#251F16",
           900: "#3F382F",
-          A100: "#12100F"
+          A100: "#101921"
         }
     },
     typography: {
