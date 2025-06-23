@@ -14,11 +14,11 @@ const Section3: React.FC = () => {
             cursor: false,
             waitUntilVisible: true,
         })
-        .type("Lending,", { delay: 2000 })
-        .delete(null, { delay: 500 })
-        .type("Borrowing,", { delay: 2000 })
-        .delete(null, { delay: 500 })
-        .go();
+            .type("Lending,", { delay: 2000 })
+            .delete(null, { delay: 500 })
+            .type("Borrowing,", { delay: 2000 })
+            .delete(null, { delay: 500 })
+            .go();
 
         return () => instance.destroy();
     }, []);
@@ -111,7 +111,7 @@ const Section3: React.FC = () => {
                                 backgroundImage: `linear-gradient(to right, ${theme.palette.levvy.secondary}, ${theme.palette.levvy.secondary_dark})`
                             }}
                             className="!text-center !font-black text-transparent bg-clip-text !px-4 !pb-4 !text-[34px] !leading-[44px] min-[401px]:!leading-[62px] min-[401px]:!text-[44px] sm:!px-6 sm:!pb-6 sm:!text-[48px] md:!leading-[66px] md:!text-[64px]"
-                        > 
+                        >
                             Instant Liquidity
                         </Typography>
                         <Typography
