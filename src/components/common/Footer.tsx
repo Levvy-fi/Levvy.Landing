@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
                     <div className="!space-x-4 !mt-4 !mb-8">
                         <IconButton
                             aria-label="x"
-                            href="https://x.com/levvyfinance" 
+                            href="https://x.com/angelcoinada"
                             target="_blank" rel="noopener noreferrer"
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
@@ -126,23 +126,6 @@ const Footer: React.FC = () => {
                             className="!rounded-full !w-10 !h-10 md:!w-12 md:!h-12"
                         >
                             <DiscordIcon className="text-xl md:text-2xl text-amber-800" />
-                        </IconButton>
-                        <IconButton
-                            aria-label="levvy"
-                            href="https://levvy.fi"
-                            target="_blank" rel="noopener noreferrer"
-                            sx={{
-                                backgroundColor: theme.palette.primary.light,
-                                "&:hover": {
-                                    backgroundColor: theme.palette.primary.main
-                                },
-                                "&:active": {
-                                    backgroundColor: theme.palette.primary.contrastText
-                                }
-                            }}
-                            className="!rounded-full !w-10 !h-10 md:!w-12 md:!h-12"
-                        >
-                            <BrowserIcon className="text-xl md:text-2xl text-amber-800" />
                         </IconButton>
                     </div>
                 </div>

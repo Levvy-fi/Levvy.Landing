@@ -104,13 +104,15 @@ const Header: React.FC = () => {
             className={`fixed z-100 transition-all duration-150 ease-in-out w-full !px-4 ${scrolled ? '!py-2 backdrop-blur-md!' : '!py-4'}`}
         >
             <div className="container mx-auto flex items-center justify-between">
-                <div className={`${scrolled ? '!w-100' : '!h-16 sm:!h-20 sm:!w-144'}`}>
+                <Link 
+                    href="/"
+                    className={`${scrolled ? '!w-100' : '!h-16 sm:!h-20 sm:!w-144'}`}>
                     <img
                         src="/images/angels_logo.webp"
                         alt="angels logo"
                         className={`transition-all duration-150 ${scrolled ? 'h-16' : 'h-16 sm:h-20'}`}
                     />
-                </div>
+                </Link>
                 <div>
                     {connectedWallet ? (
                         <div className="flex items-center gap-1">
