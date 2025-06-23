@@ -58,22 +58,24 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
 
     const formattedValue = value.toString().padStart(2, '0');
     const isLargeScreen = screenWidth > 640;
+    const isMediumScreen = screenWidth > 768;
+    const isXLScreen = screenWidth > 1280;
 
     if (!isClient) {
         // Fallback for SSR
         return (
-            <div className="flex flex-col items-center gap-3 sm:gap-5">
+            <div className="flex flex-col items-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3">
                 <Card
                     sx={{
                         position: 'relative',
                         background: 'transparent',
-                        borderRadius: "12px",
+                        borderRadius: { xs: "8px", sm: "10px", md: "12px" },
                         boxShadow: "none",
                         isolation: 'isolate',
                         width: '100%',
-                        minWidth: { xs: '76px', sm: '112px' },
-                        maxWidth: { xs: '84px', sm: '112px' },
-                        height: { xs: '68px', sm: '128px' },
+                        minWidth: { xs: '50px', sm: '60px', md: '70px', lg: '80px', xl: '90px' },
+                        maxWidth: { xs: '55px', sm: '65px', md: '75px', lg: '85px', xl: '95px' },
+                        height: { xs: '50px', sm: '60px', md: '70px', lg: '80px', xl: '90px' },
                         '&::before': {
                             content: '""',
                             position: 'absolute',
@@ -81,8 +83,8 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            borderRadius: "12px",
-                            padding: "3px",
+                            borderRadius: { xs: "8px", sm: "10px", md: "12px" },
+                            padding: { xs: "2px", sm: "2.5px", md: "3px" },
                             background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
                             WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                             WebkitMaskComposite: 'xor',
@@ -102,7 +104,13 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
                                 fontFamily: "Cinzel",
                                 color: theme.palette.secondary.dark,
                                 fontWeight: 800,
-                                fontSize: { xs: '32px', sm: '72px' },
+                                fontSize: { 
+                                    xs: '20px', 
+                                    sm: '26px', 
+                                    md: '32px', 
+                                    lg: '38px',
+                                    xl: '44px'
+                                },
                                 lineHeight: 1,
                                 textAlign: 'center',
                                 fontVariantNumeric: 'tabular-nums',
@@ -116,10 +124,16 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
                 <Typography
                     sx={{
                         color: theme.palette.text.primary,
-                        fontSize: { xs: '13px', sm: '16px' },
+                        fontSize: { 
+                            xs: '8px', 
+                            sm: '9px', 
+                            md: '10px', 
+                            lg: '11px',
+                            xl: '12px'
+                        },
                         fontWeight: 700,
                         textAlign: 'center',
-                        letterSpacing: { xs: '1px', sm: '1.5px' },
+                        letterSpacing: { xs: '0.5px', sm: '0.8px', md: '1px', lg: '1.5px' },
                         textTransform: 'uppercase',
                         fontFamily: "Albert Sans"
                     }}
@@ -131,18 +145,18 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
     }
 
     return (
-        <div className="flex flex-col items-center gap-3 sm:gap-5">
+        <div className="flex flex-col items-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3">
             <Card
                 sx={{
                     position: 'relative',
                     background: 'transparent',
-                    borderRadius: "12px",
+                    borderRadius: { xs: "8px", sm: "10px", md: "12px" },
                     boxShadow: "none",
                     isolation: 'isolate',
                     width: '100%',
-                    minWidth: { xs: '76px', sm: '112px' },
-                    maxWidth: { xs: '84px', sm: '112px' },
-                    height: { xs: '68px', sm: '128px' },
+                    minWidth: { xs: '50px', sm: '60px', md: '70px', lg: '80px', xl: '90px' },
+                    maxWidth: { xs: '55px', sm: '65px', md: '75px', lg: '85px', xl: '95px' },
+                    height: { xs: '50px', sm: '60px', md: '70px', lg: '80px', xl: '90px' },
                     overflow: 'hidden',
                     '&::before': {
                         content: '""',
@@ -151,8 +165,8 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        borderRadius: "12px",
-                        padding: "3px",
+                        borderRadius: { xs: "8px", sm: "10px", md: "12px" },
+                        padding: { xs: "2px", sm: "2.5px", md: "3px" },
                         background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
                         WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                         WebkitMaskComposite: 'xor',
@@ -168,8 +182,8 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
                     }}
                 >
                     <FlipNumbers
-                        height={isLargeScreen ? 72 : 32}
-                        width={isLargeScreen ? 48 : 22}
+                        height={isXLScreen ? 45 : isMediumScreen ? 35 : isLargeScreen ? 28 : 20}
+                        width={isXLScreen ? 30 : isMediumScreen ? 24 : isLargeScreen ? 19 : 14}
                         color={theme.palette.secondary.dark}
                         background="transparent"
                         play={true}
@@ -178,16 +192,16 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
                         numberStyle={{
                             fontFamily: "Cinzel, serif",
                             fontWeight: "800",
-                            fontSize: isLargeScreen ? "52px" : "26px",
+                            fontSize: isXLScreen ? "32px" : isMediumScreen ? "26px" : isLargeScreen ? "20px" : "16px",
                             textShadow: `0 2px 8px ${theme.palette.common.black}50`,
-                            letterSpacing: "1px"
+                            letterSpacing: "0.5px"
                         }}
                         nonNumberStyle={{
                             fontFamily: "Cinzel, serif",
                             fontWeight: "800",
-                            fontSize: isLargeScreen ? "52px" : "26px",
+                            fontSize: isXLScreen ? "32px" : isMediumScreen ? "26px" : isLargeScreen ? "20px" : "16px",
                             textShadow: `0 2px 8px ${theme.palette.common.black}50`,
-                            letterSpacing: "1px"
+                            letterSpacing: "0.5px"
                         }}
                     />
                 </div>
@@ -195,10 +209,16 @@ const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({
             <Typography
                 sx={{
                     color: theme.palette.text.primary,
-                    fontSize: { xs: '13px', sm: '16px' },
+                    fontSize: { 
+                        xs: '8px', 
+                        sm: '9px', 
+                        md: '10px', 
+                        lg: '11px',
+                        xl: '12px'
+                    },
                     fontWeight: 700,
                     textAlign: 'center',
-                    letterSpacing: { xs: '1px', sm: '1.5px' },
+                    letterSpacing: { xs: '0.5px', sm: '0.8px', md: '1px', lg: '1.5px' },
                     textTransform: 'uppercase',
                     fontFamily: "Albert Sans"
                 }}
@@ -228,32 +248,52 @@ const MultiTierProgressBar: React.FC<{ currentADA: number, theme: any }> = ({ cu
     };
     
     return (
-        <Box sx={{ width: '100%', maxWidth: '600px', mx: 'auto', mb: 4 }}>
+        <Box sx={{ 
+            width: '100%', 
+            maxWidth: { xs: '100%', sm: '500px', md: '600px', lg: '700px', xl: '800px' },
+            mx: 'auto', 
+            mb: { xs: 3, sm: 3, md: 4 },
+            px: { xs: 2, sm: 3, md: 0 }
+        }}>
             <Typography
                 sx={{
                     color: theme.palette.primary.main,
                     fontWeight: 800,
                     fontFamily: "Cinzel",
-                    fontSize: { xs: '24px', sm: '30px', md: '34px' },
+                    fontSize: { 
+                        xs: '20px', 
+                        sm: '26px', 
+                        md: '30px', 
+                        lg: '34px',
+                        xl: '38px'
+                    },
                     textAlign: 'center',
-                    mb: 4,
-                    letterSpacing: '1.5px',
-                    textTransform: 'uppercase'
+                    mb: { xs: 3, sm: 3, md: 4 },
+                    letterSpacing: { xs: '0.5px', sm: '1px', md: '1.5px' },
+                    textTransform: 'uppercase',
+                    lineHeight: 1.2
                 }}
             >
 Token Sale Progress
             </Typography>
             
             {/* Current Progress Display */}
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
+            <Box sx={{ textAlign: 'center', mb: { xs: 3, sm: 4, md: 5 } }}>
                 <Typography
                     sx={{
                         color: theme.palette.primary.light,
                         fontWeight: 900,
                         fontFamily: "Cinzel",
-                        fontSize: { xs: '40px', sm: '52px', md: '60px' },
+                        fontSize: { 
+                            xs: '32px', 
+                            sm: '38px', 
+                            md: '46px', 
+                            lg: '54px',
+                            xl: '60px'
+                        },
                         lineHeight: 1,
-                        textShadow: `0 4px 12px ${theme.palette.primary.main}50`
+                        textShadow: `0 4px 12px ${theme.palette.primary.main}50`,
+                        mb: { xs: 1, sm: 1.5, md: 2 }
                     }}
                 >
                     {formatADA(currentADA)}
@@ -261,90 +301,167 @@ Token Sale Progress
                 <Typography
                     sx={{
                         color: theme.palette.text.primary,
-                        fontSize: { xs: '16px', sm: '18px' },
+                        fontSize: { 
+                            xs: '14px', 
+                            sm: '16px', 
+                            md: '18px',
+                            lg: '20px'
+                        },
                         fontWeight: 600,
-                        mt: 1.5,
+                        mt: { xs: 1, sm: 1.5 },
                         opacity: 0.9,
-                        fontFamily: "Albert Sans"
+                        fontFamily: "Albert Sans",
+                        px: { xs: 2, sm: 0 }
                     }}
                 >
                     of {formatADA(hardCap)} raised ({hardCapProgress.toFixed(1)}%)
                 </Typography>
             </Box>
             
-            {/* Clean Material-UI Progress Bar */}
-            <Box sx={{ position: 'relative', mb: 3 }}>
+            {/* Enhanced Responsive Progress Bar */}
+            <Box sx={{ 
+                position: 'relative', 
+                mb: { xs: 2.5, sm: 3, md: 4 },
+                px: { xs: 0, sm: 2, md: 3 }
+            }}>
                 <LinearProgress
                     variant="determinate"
                     value={hardCapProgress}
                     sx={{
-                        height: { xs: 20, sm: 24 },
-                        borderRadius: 2,
+                        height: { 
+                            xs: 28, 
+                            sm: 30, 
+                            md: 32,
+                            lg: 36
+                        },
+                        borderRadius: { xs: 2, sm: 2.5, md: 3 },
                         backgroundColor: theme.palette.grey[800],
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
                         '& .MuiLinearProgress-bar': {
-                            borderRadius: 2,
+                            borderRadius: { xs: 2, sm: 2.5, md: 3 },
                             background: `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                            transition: 'transform 0.5s ease-in-out'
+                            transition: 'transform 0.5s ease-in-out',
+                            boxShadow: `0 2px 8px ${theme.palette.primary.main}40`
                         }
                     }}
                 />
                 
-                {/* Clean Soft Cap Marker */}
+                {/* Enhanced Soft Cap Marker */}
                 <Box
                     sx={{
                         position: 'absolute',
                         left: `${(softCap / hardCap) * 100}%`,
                         top: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 2,
-                        height: { xs: 28, sm: 32 },
+                        width: { xs: 2, sm: 3, md: 4 },
+                        height: { 
+                            xs: 36, 
+                            sm: 40, 
+                            md: 44,
+                            lg: 48
+                        },
                         backgroundColor: theme.palette.warning.main,
                         borderRadius: 1,
-                        zIndex: 2
+                        zIndex: 2,
+                        boxShadow: `0 0 8px ${theme.palette.warning.main}60`,
+                        '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            top: '-4px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: { xs: 8, sm: 10, md: 12 },
+                            height: { xs: 8, sm: 10, md: 12 },
+                            backgroundColor: theme.palette.warning.main,
+                            borderRadius: '50%',
+                            boxShadow: `0 0 12px ${theme.palette.warning.main}80`
+                        }
                     }}
                 />
             </Box>
             
-            {/* Progress Labels */}
+            {/* Enhanced Responsive Progress Labels */}
             <Box sx={{ 
                 display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center',
-                px: 1
+                flexDirection: { xs: 'column', sm: 'row' },
+                justifyContent: { xs: 'center', sm: 'space-between' }, 
+                alignItems: { xs: 'stretch', sm: 'center' },
+                gap: { xs: 2, sm: 0 },
+                px: { xs: 2, sm: 3, md: 4 }
             }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: { xs: 1.5, sm: 2 },
+                    justifyContent: { xs: 'center', sm: 'flex-start' }
+                }}>
                     <Box
                         sx={{
-                            width: 10,
-                            height: 10,
+                            width: { xs: 12, sm: 14, md: 16 },
+                            height: { xs: 12, sm: 14, md: 16 },
                             borderRadius: '50%',
                             backgroundColor: currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main,
-                            boxShadow: `0 0 8px ${currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main}60`
+                            boxShadow: `0 0 12px ${currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main}60`,
+                            flexShrink: 0,
+                            animation: currentADA >= softCap ? 'pulse 2s ease-in-out infinite' : 'none',
+                            '@keyframes pulse': {
+                                '0%, 100%': { transform: 'scale(1)' },
+                                '50%': { transform: 'scale(1.1)' }
+                            }
                         }}
                     />
                     <Typography
                         sx={{
                             color: currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main,
-                            fontSize: { xs: '14px', sm: '16px' },
+                            fontSize: { 
+                                xs: '12px', 
+                                sm: '14px', 
+                                md: '16px',
+                                lg: '18px'
+                            },
                             fontWeight: 700,
                             fontFamily: "Albert Sans",
-                            letterSpacing: '0.8px'
+                            letterSpacing: { xs: '0.5px', sm: '0.8px', md: '1px' },
+                            whiteSpace: 'nowrap'
                         }}
                     >
                         SOFT CAP: {formatADA(softCap)} {currentADA >= softCap ? '✓' : ''}
                     </Typography>
                 </Box>
-                <Typography
-                    sx={{
-                        color: theme.palette.primary.light,
-                        fontSize: { xs: '14px', sm: '16px' },
-                        fontWeight: 700,
-                        fontFamily: "Albert Sans",
-                        letterSpacing: '0.8px'
-                    }}
-                >
-                    HARD CAP: {formatADA(hardCap)}
-                </Typography>
+                <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: { xs: 1.5, sm: 2 },
+                    justifyContent: { xs: 'center', sm: 'flex-end' }
+                }}>
+                    <Box
+                        sx={{
+                            width: { xs: 12, sm: 14, md: 16 },
+                            height: { xs: 12, sm: 14, md: 16 },
+                            borderRadius: '50%',
+                            backgroundColor: theme.palette.primary.light,
+                            boxShadow: `0 0 12px ${theme.palette.primary.light}60`,
+                            flexShrink: 0
+                        }}
+                    />
+                    <Typography
+                        sx={{
+                            color: theme.palette.primary.light,
+                            fontSize: { 
+                                xs: '12px', 
+                                sm: '14px', 
+                                md: '16px',
+                                lg: '18px'
+                            },
+                            fontWeight: 700,
+                            fontFamily: "Albert Sans",
+                            letterSpacing: { xs: '0.5px', sm: '0.8px', md: '1px' },
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        HARD CAP: {formatADA(hardCap)}
+                    </Typography>
+                </Box>
             </Box>
         </Box>
     );
@@ -867,12 +984,12 @@ const Section4: React.FC = () => {
                                 zIndex: -1
                             }
                         }}
-                        className="w-full max-w-4xl"
+                        className="w-full max-w-[95%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
                     >
-                        <div className="relative !p-8 flex flex-col items-center">
+                        <div className="relative !p-4 sm:!p-6 md:!p-6 lg:!p-8 flex flex-col items-center">
                             {/* Sale Progress Section with Multi-tier Progress Bar */}
                             {timerState.phase === 'public-mint' && (
-                                <div className="w-full flex flex-col items-center mb-6 sm:mb-8">
+                                <div className="w-full flex flex-col items-center mb-4 sm:mb-6">
                                     {balanceLoading ? (
                                         <Box sx={{ textAlign: 'center', mb: 4 }}>
                                             <Typography
@@ -889,12 +1006,13 @@ const Section4: React.FC = () => {
                                         <Box sx={{ textAlign: 'center', mb: 4 }}>
                                             <Typography
                                                 sx={{
-                                                    color: theme.palette.error.main,
+                                                    color: theme.palette.text.secondary,
                                                     fontSize: '14px',
-                                                    fontFamily: "Albert Sans"
+                                                    fontFamily: "Albert Sans",
+                                                    opacity: 0.8
                                                 }}
                                             >
-                                                Error loading balance - using cached data
+                                                Loading balance...
                                             </Typography>
                                         </Box>
                                     ) : null}
@@ -909,9 +1027,9 @@ const Section4: React.FC = () => {
                                         color: theme.palette.primary.main,
                                         fontWeight: 800,
                                         fontFamily: "Cinzel",
-                                        fontSize: { xs: '24px', sm: '28px', md: '32px', lg: '36px' },
+                                        fontSize: { xs: '24px', sm: '26px', md: '28px', lg: '32px' },
                                         textAlign: 'center',
-                                        mb: { xs: 4, sm: 5, md: 6 },
+                                        mb: { xs: 3, sm: 3, md: 4, lg: 5 },
                                         letterSpacing: { xs: '0.5px', sm: '1px' },
                                         textTransform: 'uppercase',
                                         textShadow: `0 2px 4px ${theme.palette.primary.main}20`
@@ -922,7 +1040,7 @@ const Section4: React.FC = () => {
                                     {timerState.phase === 'sale-ended' && 'Sale Has Ended'}
                                 </Typography>
                                 {timerState.phase !== 'sale-ended' && (
-                                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 md:gap-6 w-full max-w-md sm:max-w-lg md:max-w-2xl">
+                                    <div className="grid grid-cols-4 gap-[5px] w-full max-w-[200px] xs:max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[340px] xl:max-w-[380px]">
                                         <FlipClockCard value={timerState.timeRemaining.days} label="Days" theme={theme} />
                                         <FlipClockCard value={timerState.timeRemaining.hours} label="Hours" theme={theme} />
                                         <FlipClockCard value={timerState.timeRemaining.minutes} label="Minutes" theme={theme} />
