@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { SvgIcon } from "@mui/material";
 
-// Icon components
+// Icon components (copied from old implementation)
 const XIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
     <SvgIcon viewBox="0 0 15 14" className={className} sx={sx}>
         <path d="M4.81524 0.0312004L8.14701 5.03971L12.3727 0.217647L13.6995 0.033754L8.85576 5.9464L14.1031 13.8653H10.166L6.5239 8.65371C6.28637 8.59752 6.16506 8.82355 6.0182 8.94615C4.88675 9.90009 2.94694 13.0863 1.89722 13.675C1.50262 13.8972 1.21401 13.9061 0.777266 13.864L5.82664 7.7534L0.574219 0.0324767H4.81396L4.81524 0.0312004ZM12.4864 13.0607L4.31847 1.22522C3.80638 0.5816 2.91757 0.889364 2.18838 0.835729L10.5695 12.8602L12.4851 13.0607H12.4864Z" fill="currentColor"/>
@@ -31,7 +31,6 @@ const WalletIcon = ({ className = "", sx = {} }: { className?: string, sx?: any 
     </SvgIcon>
 );
 
-
 const Section4: React.FC = () => {
     const theme = useTheme()
 
@@ -41,7 +40,7 @@ const Section4: React.FC = () => {
         minutes: 0,
         seconds: 0
     });
-    const [showDisplay, setShowDisplay] = useState(false);
+    const [showDisplay, setShowDisplay] = useState(true); // Sale period has started
 
     const gradientShift = keyframes`
         0%   { background-position:   0% 50%; }
@@ -295,25 +294,30 @@ const Section4: React.FC = () => {
                     <div className="w-full flex flex-col items-center justify-center">
                         <Card
                             sx={{
-                                backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                                position: 'relative',
+                                background: 'transparent',
                                 borderRadius: "16px",
-                                padding: "4px"
+                                boxShadow: "none",
+                                isolation: 'isolate',
+                                '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    borderRadius: "16px",
+                                    padding: "4px",
+                                    background: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                                    WebkitMaskComposite: 'xor',
+                                    maskComposite: 'exclude',
+                                    zIndex: -1
+                                }
                             }}
                             className="!mt-14 !mb-8"
                         >
-                            <div style={{ backgroundColor: theme.palette.grey[900] }} className="overflow-hidden relative flex items-center rounded-2xl !p-6 !gap-6 w-full flex-col justify-center sm:justify-between sm:flex-row md:h-75 lg:w-190">
-                                <div className="absolute w-230 left-0 hidden sm:block">
-                                    <img
-                                        src="/images/section4/card_bg2.webp"
-                                        alt="card background"
-                                    />
-                                </div>
-                                <div className="absolute w-230 left-0 sm:hidden">
-                                    <img
-                                        src="/images/section4/card_bg2_mobile.webp"
-                                        alt="card background"
-                                    />
-                                </div>
+                            <div className="overflow-hidden relative flex items-center !p-6 !gap-6 w-full flex-col justify-center sm:justify-between sm:flex-row md:h-75 lg:w-190">
                                 <div className="z-10 flex flex-col gap-3 justify-between h-full md:gap-0">
                                     <div className="!text-start">
                                         <Typography
