@@ -9,6 +9,11 @@ const config: Config = {
   tagline: 'Official Angel Finance Website & Documentation',
   favicon: 'img/favicon.svg',
 
+  // Custom fields for environment variables
+  customFields: {
+    paymentWalletAddress: process.env.PAYMENT_WALLET_ADDRESS || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf',
+  },
+
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4

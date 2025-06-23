@@ -2,6 +2,9 @@ import { Button, Card, IconButton, keyframes, Typography, useTheme } from "@mui/
 import React, { useEffect, useState } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { SvgIcon } from "@mui/material";
+import { truncateAddress } from "../../utils/addressUtils";
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import QRCode from 'react-qr-code';
 
 // Icon components (copied from old implementation)
 const XIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
@@ -33,6 +36,9 @@ const WalletIcon = ({ className = "", sx = {} }: { className?: string, sx?: any 
 
 const Section4: React.FC = () => {
     const theme = useTheme()
+    const { siteConfig } = useDocusaurusContext();
+    const paymentAddress = (siteConfig.customFields?.paymentWalletAddress as string) || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf';
+
 
     const [countDownTimer, setCountDownTimer] = useState({
         days: 0,
@@ -336,7 +342,7 @@ const Section4: React.FC = () => {
                                             }}
                                             className="!text-sm !text-center sm:!text-start md:!text-lg"
                                         >
-                                            Scan the QR code, copy the policy address below, or connect your wallet to start buying
+                                            Scan the QR code, copy the wallet address below, or connect your wallet to start buying
                                         </Typography>
                                     </div>
                                     <div className="w-full items-center justify-between !p-2 relative rounded-sm hidden sm:flex" style={{ border: `1px solid ${theme.palette.text.disabled}` }}>
@@ -348,17 +354,22 @@ const Section4: React.FC = () => {
                                                 }}
                                                 className="!text-xs"
                                             >
-                                                Policy ID
+                                                Wallet Address
                                             </Typography>
                                         </div>
-                                        <Typography className="!text-sm lg:!text-base">
-                                            8fe8039d057c71fdf........d85d9c868ddf7307bc
+                                        <Typography className="!text-sm lg:!text-base font-mono flex-1 min-w-0 overflow-hidden text-left">
+                                            {truncateAddress(paymentAddress, 32, 16)}
                                         </Typography>
                                         <ContentCopyIcon
                                             sx={{
-                                                color: theme.palette.primary.main
+                                                color: theme.palette.primary.main,
+                                                cursor: 'pointer',
+                                                flexShrink: 0
                                             }}
-                                            className="!text-[20px]"
+                                            className="!text-[20px] !ml-2"
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(paymentAddress);
+                                            }}
                                         />
                                     </div>
                                     <div className="hidden sm:flex">
@@ -401,11 +412,17 @@ const Section4: React.FC = () => {
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="z-10 aspect-square flex-shrink-0 w-47 md:w-62 lg:w-64">
-                                    <img
-                                        src="/images/section4/qr_code.webp"
-                                        alt="qr code"
-                                    />
+                                <div className="z-10 flex-shrink-0 w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 bg-white rounded-lg p-3 flex items-center justify-center">
+                                    <div className="w-full h-full max-w-full max-h-full">
+                                        <QRCode
+                                            value={paymentAddress}
+                                            size={256}
+                                            style={{ 
+                                                height: "100%", 
+                                                width: "100%"
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                                 <div className="!space-y-4 sm:hidden">
                                     <div className="w-full items-center justify-between gap-4 !p-2 relative rounded-sm flex" style={{ border: `1px solid ${theme.palette.text.disabled}` }}>
@@ -417,17 +434,22 @@ const Section4: React.FC = () => {
                                                 }}
                                                 className="!text-xs"
                                             >
-                                                Policy ID
+                                                Wallet Address
                                             </Typography>
                                         </div>
-                                        <Typography className="!text-sm lg:!text-base">
-                                            8fe8039d.....d85d7307bc
+                                        <Typography className="!text-sm font-mono flex-1 min-w-0 overflow-hidden text-left">
+                                            {truncateAddress(paymentAddress, 18, 12)}
                                         </Typography>
                                         <ContentCopyIcon
                                             sx={{
-                                                color: theme.palette.primary.main
+                                                color: theme.palette.primary.main,
+                                                cursor: 'pointer',
+                                                flexShrink: 0
                                             }}
                                             className="!text-[20px]"
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(paymentAddress);
+                                            }}
                                         />
                                     </div>
                                     <div className="">
