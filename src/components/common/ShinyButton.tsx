@@ -128,7 +128,7 @@ const ShinyButton: React.FC<ShinyButtonProps> = ({
             fullWidth={fullWidth}
             disabled={disabled}
             {...props}
-            className="!px-[8px] md:!px-[22px]"
+            className="!px-[8px] sm:!px-[22px]"
         >
             <Typography
                 sx={{

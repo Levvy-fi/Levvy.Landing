@@ -109,7 +109,7 @@ const Section2: React.FC = () => {
                         and enable sustainable ecosystem growth through future drops.
                     </Typography>
                 </div>
-                <div className="flex flex-col mt-[82.38px] items-center sm:gap-[25px] lg:flex-row lg:gap-10 xl:gap-[73.5px] ">
+                <div className="flex flex-col mt-[44px] items-center sm:gap-[25px] md:mt-[82.38px] lg:flex-row lg:gap-10 xl:gap-[73.5px] ">
                     <div className="relative w-full">
                         <div>
                             <PieChart
