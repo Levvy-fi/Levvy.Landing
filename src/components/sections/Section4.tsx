@@ -1,15 +1,23 @@
-import { Card, IconButton, Typography, useTheme, LinearProgress, Box } from "@mui/material";
+import { Card, IconButton, Typography, useTheme, LinearProgress, Box, Button, Modal, Alert, CircularProgress, Link, TextField } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { SvgIcon } from "@mui/material";
 import { truncateAddress } from "../../utils/addressUtils";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import QRCode from 'react-qr-code';
-import WalletButton from '../common/WalletButton';
 import { useSaleTimer } from "../../hooks/useSaleTimer";
 import { ANGEL_SALE_CONFIG } from "../../types/saleTypes";
 import FlipNumbers from 'react-flip-numbers';
 import { useWalletBalance } from "../../hooks/useWalletBalance";
+import { useWallet } from "../../hooks/useWallet";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShinyButton from '../common/ShinyButton';
+import { WalletIcon } from '../common/WalletButton';
+import { blazeWalletService } from '../../services/BlazeWalletService';
 
 // Icon components (copied from old implementation)
 const XIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
@@ -33,11 +41,6 @@ const DiscordIcon = ({ className = "", sx = {} }: { className?: string, sx?: any
     </SvgIcon>
 );
 
-export const WalletIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
-    <SvgIcon viewBox="0 0 24 24" className={className} sx={sx}>
-        <path d="M5.07187 21.2034C4.44221 21.2034 3.92156 20.9774 3.50991 20.5253C3.09826 20.0733 2.89244 19.5137 2.89244 18.8465V5.47253C2.89244 4.80529 3.09826 4.24568 3.50991 3.79367C3.92156 3.34166 4.44221 3.11566 5.07187 3.11566H18.9281C19.5578 3.11566 20.0784 3.34166 20.4901 3.79367C20.9017 4.24568 21.1076 4.80529 21.1076 5.47253V7.82941H17.4647C16.7088 7.82941 16.0522 8.09779 15.4949 8.63454C14.9376 9.17129 14.6589 9.80283 14.6589 10.5292V13.7901C14.6589 14.5164 14.9376 15.148 15.4949 15.6847C16.0522 16.2215 16.7088 16.4898 17.4647 16.4898H21.1076V18.8465C21.1076 19.5137 20.9017 20.0733 20.4901 20.5253C20.0784 20.9774 19.5578 21.2034 18.9281 21.2034H5.07187ZM17.4647 14.8468C17.1393 14.8468 16.866 14.7421 16.6447 14.5327C16.4235 14.3232 16.3128 14.0633 16.3128 13.7529V10.5663C16.3128 10.2559 16.4235 9.99597 16.6447 9.78655C16.866 9.57714 17.1393 9.47244 17.4647 9.47244H22.2872C22.6126 9.47244 22.8859 9.57714 23.1071 9.78655C23.3284 9.99597 23.439 10.2559 23.439 10.5663V13.7529C23.439 14.0633 23.3284 14.3232 23.1071 14.5327C22.8859 14.7421 22.6126 14.8468 22.2872 14.8468H17.4647ZM18.1175 13.2039H21.6344V10.1154H18.1175V13.2039ZM19.875 12.3846C20.2004 12.3846 20.4737 12.2799 20.6949 12.0704C20.9162 11.861 21.0268 11.6011 21.0268 11.2907C21.0268 10.9803 20.9162 10.7204 20.6949 10.5109C20.4737 10.3015 20.2004 10.1968 19.875 10.1968C19.5496 10.1968 19.2763 10.3015 19.0551 10.5109C18.8338 10.7204 18.7232 10.9803 18.7232 11.2907C18.7232 11.6011 18.8338 11.861 19.0551 12.0704C19.2763 12.2799 19.5496 12.3846 19.875 12.3846Z" fill="currentColor" />
-    </SvgIcon>
-);
 
 // Flip Clock Card - Airport/Train Station Style
 const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({ value, label, theme }) => {
@@ -351,20 +354,108 @@ const Section4: React.FC = () => {
     const theme = useTheme();
     const { siteConfig } = useDocusaurusContext();
     const paymentAddress = siteConfig.customFields?.paymentWalletAddress as string;
+    const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+    const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+    const [copySuccess, setCopySuccess] = useState(false);
+    const [buyAmount, setBuyAmount] = useState('30');
+    const [isBuying, setIsBuying] = useState(false);
+    const [buyError, setBuyError] = useState<string | null>(null);
+    const [successTxHash, setSuccessTxHash] = useState<string | null>(null);
+    const [purchasedAngels, setPurchasedAngels] = useState<number>(0);
+    
+    const { connectedWallet, availableWallets, connectWallet, isConnecting, error, refreshBalance } = useWallet();
+    const projectId = siteConfig?.customFields?.blockfrostProjectId as string;
+    const network = (siteConfig?.customFields?.blockfrostNetwork as string) || 'mainnet';
     
     if (!paymentAddress) {
         console.error('PAYMENT_WALLET_ADDRESS environment variable is required');
     }
     const timerState = useSaleTimer(ANGEL_SALE_CONFIG);
     
-    // Query real ADA balance from the sale wallet using Blaze
-    const { balance: walletBalance, loading: balanceLoading, error: balanceError } = useWalletBalance(paymentAddress, 30000);
+    // Query real ADA balance from the sale wallet using Blaze (refresh every 60 seconds)
+    const { balance: walletBalance, loading: balanceLoading, error: balanceError } = useWalletBalance(paymentAddress, 60000);
     
     // Use real balance if available, fallback to 0 if loading or error
     const currentADAraised = walletBalance?.ada || 0;
+    
+    const handleCopyAddress = () => {
+        navigator.clipboard.writeText(paymentAddress);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+    };
+    
+    const handleBuyNow = () => {
+        setBuyError(null);
+        setBuyAmount('30');
+        setIsBuyModalOpen(true);
+    };
+    
+    const handleBuySubmit = async () => {
+        try {
+            setIsBuying(true);
+            setBuyError(null);
+            
+            const amount = parseFloat(buyAmount);
+            if (isNaN(amount) || amount <= 0) {
+                setBuyError('Please enter a valid amount');
+                return;
+            }
+            
+            if (amount < 30) {
+                setBuyError('Minimum purchase is 30 ADA');
+                return;
+            }
+            
+            if (amount % 30 !== 0) {
+                setBuyError('Amount must be in increments of 30 ADA');
+                return;
+            }
+            
+            if (!connectedWallet) {
+                setBuyError('Please connect your wallet first');
+                return;
+            }
+            
+            // Check wallet balance
+            if (connectedWallet.balance && amount > connectedWallet.balance.ada) {
+                setBuyError('Insufficient balance');
+                return;
+            }
+            
+            // Build and submit transaction
+            const txHash = await blazeWalletService.buildAndSubmitPaymentTransaction(
+                paymentAddress,
+                amount,
+                connectedWallet.api,
+                projectId,
+                network
+            );
+            
+            console.log('Transaction submitted:', txHash);
+            
+            // Store success info
+            setPurchasedAngels(amount / 3);
+            setSuccessTxHash(txHash);
+            
+            // Close buy modal
+            setIsBuyModalOpen(false);
+            setBuyAmount('30');
+            
+            // Refresh balances
+            if (refreshBalance) {
+                refreshBalance();
+            }
+            
+        } catch (err) {
+            console.error('Transaction error:', err);
+            setBuyError(err instanceof Error ? err.message : 'Transaction failed');
+        } finally {
+            setIsBuying(false);
+        }
+    };
 
     return (
-        <section className="flex relative bg-cover [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] px-4 !py-30 sm:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
+        <section id="token-sale" className="flex relative bg-cover [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] px-4 !py-30 sm:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
             <div className="container mx-auto text-center">
                 <div>
                     <Typography
@@ -583,7 +674,7 @@ const Section4: React.FC = () => {
                 
                 {/* BUY $ANGELS NOW Panel - Only show during active sale */}
                 {timerState.phase === 'public-mint' && (
-                    <div className="w-full flex flex-col items-center justify-center">
+                    <div id="buy-angels" className="w-full flex flex-col items-center justify-center">
                         <Card
                             sx={{
                                 position: 'relative',
@@ -648,21 +739,37 @@ const Section4: React.FC = () => {
                                         </Typography>
                                         <ContentCopyIcon
                                             sx={{
-                                                color: theme.palette.primary.main,
+                                                color: copySuccess ? theme.palette.primary.light : theme.palette.primary.main,
                                                 cursor: 'pointer',
-                                                flexShrink: 0
+                                                flexShrink: 0,
+                                                transition: 'color 0.2s'
                                             }}
                                             className="!text-[20px] !ml-2"
-                                            onClick={() => {
-                                                navigator.clipboard.writeText(paymentAddress);
-                                            }}
+                                            onClick={handleCopyAddress}
                                         />
                                     </div>
                                     <div className="hidden sm:flex">
-                                        <WalletButton 
-                                            size="large"
-                                            startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
-                                        />
+                                        {connectedWallet ? (
+                                            <ShinyButton
+                                                size="large"
+                                                onClick={handleBuyNow}
+                                                startIcon={<ShoppingCartIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
+                                                variant="secondary"
+                                                sx={{ px: 4, py: 1.5 }}
+                                            >
+                                                Buy Now
+                                            </ShinyButton>
+                                        ) : (
+                                            <ShinyButton
+                                                size="large"
+                                                onClick={() => setIsWalletModalOpen(true)}
+                                                startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
+                                                variant="primary"
+                                                sx={{ px: 4, py: 1.5 }}
+                                            >
+                                                Connect Wallet
+                                            </ShinyButton>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="z-10 flex-shrink-0 w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 bg-white rounded-lg p-3 flex items-center justify-center">
@@ -695,21 +802,37 @@ const Section4: React.FC = () => {
                                         </Typography>
                                         <ContentCopyIcon
                                             sx={{
-                                                color: theme.palette.primary.main,
+                                                color: copySuccess ? theme.palette.primary.light : theme.palette.primary.main,
                                                 cursor: 'pointer',
-                                                flexShrink: 0
+                                                flexShrink: 0,
+                                                transition: 'color 0.2s'
                                             }}
                                             className="!text-[20px]"
-                                            onClick={() => {
-                                                navigator.clipboard.writeText(paymentAddress);
-                                            }}
+                                            onClick={handleCopyAddress}
                                         />
                                     </div>
                                     <div className="">
-                                        <WalletButton 
-                                            size="large"
-                                            startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
-                                        />
+                                        {connectedWallet ? (
+                                            <ShinyButton
+                                                size="large"
+                                                onClick={handleBuyNow}
+                                                startIcon={<ShoppingCartIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
+                                                variant="secondary"
+                                                sx={{ px: 4, py: 1.5 }}
+                                            >
+                                                Buy Now
+                                            </ShinyButton>
+                                        ) : (
+                                            <ShinyButton
+                                                size="large"
+                                                onClick={() => setIsWalletModalOpen(true)}
+                                                startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
+                                                variant="primary"
+                                                sx={{ px: 4, py: 1.5 }}
+                                            >
+                                                Connect Wallet
+                                            </ShinyButton>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -844,6 +967,594 @@ const Section4: React.FC = () => {
                         </Typography>
                     </div>
                 )}
+                
+                {/* Wallet Connection Modal */}
+                <Modal
+                    open={isWalletModalOpen}
+                    onClose={() => setIsWalletModalOpen(false)}
+                    aria-labelledby="wallet-modal-title"
+                    aria-describedby="wallet-modal-description"
+                >
+                    <Box
+                        component="div"
+                        sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            backgroundColor: theme.palette.background.default,
+                            borderRadius: "20px",
+                            width: { xs: '90%', sm: '464px' },
+                            maxWidth: '464px'
+                        }}
+                        className="flex flex-col items-center !p-8"
+                    >
+                        <IconButton
+                            onClick={() => setIsWalletModalOpen(false)}
+                            className="!absolute !top-4 !right-4"
+                        >
+                            <CloseIcon
+                                sx={{
+                                    color: theme.palette.grey[50]
+                                }}
+                            />
+                        </IconButton>
+                        <div id="wallet-modal-title" className="relative">
+                            <Typography
+                                sx={{
+                                    color: theme.palette.text.primary
+                                }}
+                                className="!text-[28px] !font-semibold"
+                            >
+                                Connect a Wallet
+                            </Typography>
+                        </div>
+                        {error && (
+                            <Alert severity="error" className="!mt-4 !mb-2 w-full">
+                                {error}
+                            </Alert>
+                        )}
+                        <div className="grid grid-cols-1 w-full !gap-y-2 !mt-6">
+                            {availableWallets.length === 0 ? (
+                                <Typography sx={{ color: theme.palette.text.secondary, textAlign: 'center', py: 4 }}>
+                                    No wallets detected. Please install a Cardano wallet extension.
+                                </Typography>
+                            ) : (
+                                availableWallets.map((wallet) => {
+                                    return (
+                                        <Button
+                                            onClick={async () => {
+                                                try {
+                                                    await connectWallet(wallet.id);
+                                                    setIsWalletModalOpen(false);
+                                                } catch (err) {
+                                                    // Error handled by context
+                                                }
+                                            }}
+                                            disabled={isConnecting}
+                                            key={wallet.id}
+                                            sx={{
+                                                border: `1px solid ${theme.palette.text.disabled}`,
+                                                "&:hover": {
+                                                    backgroundColor: theme.palette.grey[300]
+                                                },
+                                                justifyContent: 'flex-start',
+                                                '& .MuiButton-startIcon': {
+                                                    marginLeft: '8px'
+                                                }
+                                            }}
+                                            className="!h-15"
+                                            startIcon={
+                                                isConnecting ? 
+                                                <CircularProgress size={35} sx={{ color: theme.palette.primary.main }} /> : 
+                                                <img src={wallet.icon} alt={wallet.id} className="!w-[35px]" />
+                                            }
+                                        >
+                                            <div>
+                                                <Typography
+                                                    sx={{
+                                                        fontWeight: 500,
+                                                        color: theme.palette.text.primary
+                                                    }}
+                                                    className="!text-[20px] capitalize"
+                                                >
+                                                    {wallet.name}
+                                                </Typography>
+                                            </div>
+                                            <div />
+                                        </Button>
+                                    );
+                                })
+                            )}
+                        </div>
+                        <div className="mt-8">
+                            <Typography
+                                sx={{
+                                    color: theme.palette.grey[100],
+                                    textAlign: "center"
+                                }}
+                                className="!text-sm"
+                            >
+                                <span>By connecting your wallet, you agree to Angel Finance&apos;s </span><br />
+                                <Link href="/docs/terms" className="cursor-pointer">Terms of Service</Link>
+                                <span> and consent to its </span>
+                                <Link href="/docs/policy" className="cursor-pointer">Privacy Policy.</Link>
+                            </Typography>
+                        </div>
+                    </Box>
+                </Modal>
+
+                {/* Buy Modal */}
+                <Modal
+                    open={isBuyModalOpen}
+                    onClose={() => setIsBuyModalOpen(false)}
+                    aria-labelledby="buy-modal-title"
+                    aria-describedby="buy-modal-description"
+                >
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: { xs: '90%', sm: '500px' },
+                            bgcolor: theme.palette.background.default,
+                            border: `1px solid ${theme.palette.divider}`,
+                            boxShadow: 24,
+                            p: 4,
+                            borderRadius: '16px',
+                            maxHeight: '90vh',
+                            overflowY: 'auto'
+                        }}
+                    >
+                        <div className="flex justify-between items-center mb-4">
+                            <Typography
+                                id="buy-modal-title"
+                                variant="h5"
+                                component="h2"
+                                sx={{
+                                    fontFamily: "Cinzel",
+                                    fontWeight: 700,
+                                    color: theme.palette.primary.main
+                                }}
+                            >
+                                Buy $ANGELS
+                            </Typography>
+                            <IconButton
+                                onClick={() => setIsBuyModalOpen(false)}
+                                sx={{ color: theme.palette.text.secondary }}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                        </div>
+
+                        <div className="space-y-4">
+                            {/* Amount input */}
+                            <div>
+                                <Typography className="mb-2" sx={{ color: theme.palette.text.primary }}>
+                                    Amount to spend (ADA)
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                    <IconButton
+                                        onClick={() => {
+                                            const current = parseFloat(buyAmount) || 0;
+                                            const newAmount = Math.max(30, current - 30);
+                                            setBuyAmount(newAmount.toString());
+                                        }}
+                                        sx={{
+                                            width: 48,
+                                            height: 48,
+                                            backgroundColor: theme.palette.gradient.button[10],
+                                            border: `2px solid ${theme.palette.gradient.button[20]}`,
+                                            '&:hover': {
+                                                backgroundColor: theme.palette.gradient.button[20],
+                                                transform: 'scale(1.05)',
+                                                '& .MuiSvgIcon-root': {
+                                                    color: theme.palette.secondary.dark
+                                                }
+                                            },
+                                            '&:active': {
+                                                transform: 'scale(0.95)'
+                                            },
+                                            '&:disabled': {
+                                                opacity: 0.3,
+                                                backgroundColor: theme.palette.grey[400],
+                                                border: `2px solid ${theme.palette.grey[300]}`,
+                                            },
+                                            transition: 'all 0.2s ease'
+                                        }}
+                                        disabled={!buyAmount || parseFloat(buyAmount) <= 30}
+                                    >
+                                        <RemoveIcon sx={{ 
+                                            color: theme.palette.secondary.dark,
+                                            fontSize: 28,
+                                            fontWeight: 'bold'
+                                        }} />
+                                    </IconButton>
+                                    
+                                    <TextField
+                                        fullWidth
+                                        type="number"
+                                        value={buyAmount}
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+                                            if (value === '') {
+                                                setBuyAmount('');
+                                            } else {
+                                                const num = parseFloat(value);
+                                                if (!isNaN(num) && num >= 0) {
+                                                    setBuyAmount(value);
+                                                }
+                                            }
+                                        }}
+                                        placeholder="30"
+                                        InputProps={{
+                                            startAdornment: <Typography sx={{ 
+                                                mr: 1,
+                                                fontSize: '28px',
+                                                fontWeight: 700,
+                                                color: theme.palette.primary.main
+                                            }}>₳</Typography>,
+                                            inputProps: {
+                                                step: 30,
+                                                min: 30
+                                            }
+                                        }}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                borderRadius: '8px',
+                                                '& fieldset': {
+                                                    borderColor: buyError ? theme.palette.warning.main : theme.palette.divider
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: buyError ? theme.palette.warning.main : theme.palette.text.secondary
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: buyError ? theme.palette.warning.main : theme.palette.primary.main
+                                                },
+                                                '& input': {
+                                                    fontSize: '28px',
+                                                    fontWeight: 600,
+                                                    fontFamily: 'Cinzel',
+                                                    textAlign: 'center',
+                                                    padding: '16px 8px'
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    
+                                    <IconButton
+                                        onClick={() => {
+                                            const current = parseFloat(buyAmount) || 0;
+                                            const newAmount = current === 0 ? 30 : current + 30;
+                                            setBuyAmount(newAmount.toString());
+                                        }}
+                                        sx={{
+                                            width: 48,
+                                            height: 48,
+                                            backgroundColor: theme.palette.gradient.button[10],
+                                            border: `2px solid ${theme.palette.gradient.button[20]}`,
+                                            '&:hover': {
+                                                backgroundColor: theme.palette.gradient.button[20],
+                                                transform: 'scale(1.05)',
+                                                '& .MuiSvgIcon-root': {
+                                                    color: theme.palette.secondary.dark
+                                                }
+                                            },
+                                            '&:active': {
+                                                transform: 'scale(0.95)'
+                                            },
+                                            transition: 'all 0.2s ease'
+                                        }}
+                                    >
+                                        <AddIcon sx={{ 
+                                            color: theme.palette.secondary.dark,
+                                            fontSize: 28,
+                                            fontWeight: 'bold'
+                                        }} />
+                                    </IconButton>
+                                </Box>
+                                <Typography 
+                                    sx={{ 
+                                        color: buyError ? theme.palette.warning.main : theme.palette.grey[100],
+                                        fontSize: '12px',
+                                        mt: 0.5,
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    {buyError || 'Minimum: 30 ADA • Increments of 30 ADA'}
+                                </Typography>
+                            </div>
+
+                            {/* Token calculation */}
+                            <div
+                                style={{ 
+                                    backgroundColor: theme.palette.grey[400],
+                                    border: `1px solid ${theme.palette.grey[300]}`
+                                }}
+                                className="flex items-center justify-between rounded-lg p-3"
+                            >
+                                <div>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.grey[100],
+                                            fontSize: '12px',
+                                            fontWeight: 500
+                                        }}
+                                    >
+                                        You will receive
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 700,
+                                            color: theme.palette.primary.main,
+                                            fontSize: '20px',
+                                            lineHeight: 1.2,
+                                            fontFamily: 'Cinzel'
+                                        }}
+                                    >
+                                        {buyAmount && parseFloat(buyAmount) > 0 ? (parseFloat(buyAmount) / 3).toFixed(0) : '0'} $ANGELS
+                                    </Typography>
+                                </div>
+                                <Typography sx={{ 
+                                    color: theme.palette.grey[100], 
+                                    fontSize: '12px',
+                                    opacity: 0.8 
+                                }}>
+                                    ₳3 per token
+                                </Typography>
+                            </div>
+
+                            {/* Wallet balance */}
+                            {connectedWallet?.balance && (
+                                <Typography sx={{ 
+                                    color: theme.palette.grey[100], 
+                                    textAlign: 'center',
+                                    fontSize: '14px'
+                                }}>
+                                    Your balance: <span style={{ 
+                                        color: theme.palette.primary.main,
+                                        fontWeight: 600
+                                    }}>{connectedWallet.balance.formatted}</span>
+                                </Typography>
+                            )}
+
+                            {/* Buy button */}
+                            <ShinyButton
+                                fullWidth
+                                size="large"
+                                variant="secondary"
+                                onClick={handleBuySubmit}
+                                disabled={isBuying || !buyAmount || parseFloat(buyAmount) < 30 || parseFloat(buyAmount) % 30 !== 0}
+                                startIcon={isBuying ? <CircularProgress size={20} /> : <ShoppingCartIcon />}
+                            >
+                                {isBuying ? 'Processing...' : 'Buy Now'}
+                            </ShinyButton>
+
+                        </div>
+                    </Box>
+                </Modal>
+
+                {/* Success Modal */}
+                <Modal
+                    open={!!successTxHash}
+                    onClose={() => setSuccessTxHash(null)}
+                    aria-labelledby="success-modal-title"
+                    sx={{
+                        '& .MuiBackdrop-root': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backdropFilter: 'blur(8px)'
+                        }
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: { xs: '90%', sm: '500px' },
+                            maxWidth: '500px',
+                            outline: 'none',
+                        }}
+                    >
+                        {/* Animated rays background */}
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                width: '150%',
+                                height: '150%',
+                                transform: 'translate(-50%, -50%)',
+                                background: `radial-gradient(circle at center, ${theme.palette.gradient.button[10]}20 0%, transparent 70%)`,
+                                animation: 'pulse 2s ease-in-out infinite',
+                                '@keyframes pulse': {
+                                    '0%': { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.8 },
+                                    '50%': { transform: 'translate(-50%, -50%) scale(1.2)', opacity: 0.4 },
+                                    '100%': { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.8 },
+                                }
+                            }}
+                        />
+                        
+                        <Box
+                            sx={{
+                                position: 'relative',
+                                bgcolor: theme.palette.background.default,
+                                border: `2px solid ${theme.palette.gradient.button[20]}`,
+                                borderRadius: '20px',
+                                p: 5,
+                                textAlign: 'center',
+                                boxShadow: `0 0 100px ${theme.palette.primary.main}40`,
+                                animation: 'slideIn 0.5s ease-out',
+                                '@keyframes slideIn': {
+                                    '0%': { transform: 'scale(0.8)', opacity: 0 },
+                                    '100%': { transform: 'scale(1)', opacity: 1 },
+                                }
+                            }}
+                        >
+                            {/* Angels Logo */}
+                            <Box
+                                sx={{
+                                    width: 120,
+                                    height: 120,
+                                    margin: '0 auto 3rem',
+                                    position: 'relative',
+                                    animation: 'logoAppear 0.8s ease-out 0.3s forwards',
+                                    opacity: 0,
+                                    '@keyframes logoAppear': {
+                                        '0%': { transform: 'scale(0) rotate(-180deg)', opacity: 0 },
+                                        '50%': { transform: 'scale(1.1) rotate(10deg)', opacity: 1 },
+                                        '100%': { transform: 'scale(1) rotate(0deg)', opacity: 1 },
+                                    }
+                                }}
+                            >
+                                {/* Glow effect behind logo */}
+                                <Box
+                                    sx={{
+                                        position: 'absolute',
+                                        inset: -20,
+                                        background: `radial-gradient(circle at center, ${theme.palette.gradient.button[10]}60 0%, transparent 70%)`,
+                                        filter: 'blur(20px)',
+                                        animation: 'glow 2s ease-in-out infinite',
+                                        '@keyframes glow': {
+                                            '0%, 100%': { opacity: 0.5 },
+                                            '50%': { opacity: 1 },
+                                        }
+                                    }}
+                                />
+                                <img 
+                                    src="/images/angels_logo.svg" 
+                                    alt="Angels Logo" 
+                                    style={{ 
+                                        width: '100%', 
+                                        height: '100%',
+                                        position: 'relative',
+                                        zIndex: 1,
+                                        filter: 'drop-shadow(0 0 20px rgba(249, 182, 62, 0.5))'
+                                    }}
+                                />
+                            </Box>
+
+                            <Typography
+                                variant="h4"
+                                sx={{
+                                    fontFamily: 'Cinzel',
+                                    fontWeight: 800,
+                                    color: theme.palette.primary.main,
+                                    mb: 2,
+                                    animation: 'fadeInUp 0.6s ease-out 0.4s forwards',
+                                    opacity: 0,
+                                    '@keyframes fadeInUp': {
+                                        '0%': { transform: 'translateY(20px)', opacity: 0 },
+                                        '100%': { transform: 'translateY(0)', opacity: 1 },
+                                    }
+                                }}
+                            >
+                                Congratulations!
+                            </Typography>
+
+                            <Typography
+                                sx={{
+                                    color: theme.palette.text.primary,
+                                    fontSize: '18px',
+                                    mb: 3,
+                                    animation: 'fadeInUp 0.6s ease-out 0.5s forwards',
+                                    opacity: 0,
+                                }}
+                            >
+                                You have successfully purchased
+                            </Typography>
+
+                            <Box
+                                sx={{
+                                    background: `linear-gradient(135deg, ${theme.palette.gradient.button[10]}20, ${theme.palette.gradient.button[20]}20)`,
+                                    border: `1px solid ${theme.palette.gradient.button[20]}40`,
+                                    borderRadius: '12px',
+                                    p: 3,
+                                    mb: 4,
+                                    animation: 'fadeInUp 0.6s ease-out 0.6s forwards',
+                                    opacity: 0,
+                                }}
+                            >
+                                <Typography
+                                    variant="h3"
+                                    sx={{
+                                        fontFamily: 'Cinzel',
+                                        fontWeight: 800,
+                                        color: theme.palette.primary.main,
+                                        textShadow: `0 0 30px ${theme.palette.primary.main}60`,
+                                    }}
+                                >
+                                    {purchasedAngels} $ANGELS
+                                </Typography>
+                            </Box>
+
+                            <Typography
+                                sx={{
+                                    color: theme.palette.grey[100],
+                                    fontSize: '14px',
+                                    mb: 1,
+                                    animation: 'fadeInUp 0.6s ease-out 0.7s forwards',
+                                    opacity: 0,
+                                }}
+                            >
+                                Transaction ID:
+                            </Typography>
+
+                            <Box
+                                onClick={() => {
+                                    window.open(`https://cardanoscan.io/transaction/${successTxHash}`, '_blank');
+                                }}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: 1,
+                                    p: 1.5,
+                                    borderRadius: '8px',
+                                    backgroundColor: theme.palette.grey[400],
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    animation: 'fadeInUp 0.6s ease-out 0.8s forwards',
+                                    opacity: 0,
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.grey[300],
+                                        transform: 'scale(1.02)',
+                                    }
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontFamily: 'monospace',
+                                        fontSize: '12px',
+                                        color: theme.palette.primary.main,
+                                    }}
+                                >
+                                    {successTxHash ? `${successTxHash.slice(0, 8)}...${successTxHash.slice(-8)}` : ''}
+                                </Typography>
+                                <OpenInNewIcon sx={{ 
+                                    fontSize: 16, 
+                                    color: theme.palette.primary.main 
+                                }} />
+                            </Box>
+
+                            <ShinyButton
+                                fullWidth
+                                size="large"
+                                variant="primary"
+                                onClick={() => setSuccessTxHash(null)}
+                                sx={{ 
+                                    mt: 4,
+                                    animation: 'fadeInUp 0.6s ease-out 0.9s forwards',
+                                    opacity: 0,
+                                }}
+                            >
+                                Awesome!
+                            </ShinyButton>
+                        </Box>
+                    </Box>
+                </Modal>
             </div>
         </section>
     );

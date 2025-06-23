@@ -86,13 +86,14 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
         reconnectWallet();
     }, [availableWallets]);
 
-    // Format ADA from lovelace
+    // Format ADA from lovelace with better precision
     const formatADA = (lovelace: number): string => {
         const ada = lovelace / 1_000_000;
         if (ada >= 1_000_000) {
             return `₳${(ada / 1_000_000).toFixed(2)}M`;
         } else if (ada >= 1_000) {
-            return `₳${(ada / 1_000).toFixed(1)}K`;
+            // Show 2 decimal places for thousands (e.g., 10.22K)
+            return `₳${(ada / 1_000).toFixed(2)}K`;
         } else {
             return `₳${ada.toFixed(2)}`;
         }

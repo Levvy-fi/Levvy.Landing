@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import WalletButton from "./WalletButton";
+import ShinyButton from "./ShinyButton";
+import { WalletIcon as WalletIconButton } from "./WalletButton";
 import { useWallet } from "../../hooks/useWallet";
 import { truncateAddress } from "../../utils/addressUtils";
 
@@ -51,6 +52,10 @@ const Header: React.FC = () => {
 
     const handleProfileMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
+        // Refresh balance when opening the menu
+        if (refreshBalance) {
+            refreshBalance();
+        }
     };
 
     const handleProfileMenuClose = () => {
@@ -114,23 +119,36 @@ const Header: React.FC = () => {
                                     backgroundColor: theme.palette.primary.main,
                                     borderRadius: "12px 4px 4px 12px"
                                 }}
-                                className="pl-4 py-[10px] pr-3 flex items-center gap-2"
+                                className="pl-4 py-[10px] pr-3 flex items-center gap-3"
                             >
-                                <ProfileIcon
-                                    sx={{
-                                        color: theme.palette.secondary.dark,
-                                        fontSize: '20px'
-                                    }}
-                                />
-                                <Typography
-                                    sx={{
-                                        color: theme.palette.secondary.dark,
-                                        fontWeight: 500
-                                    }}
-                                    className="!text-sm"
-                                >
-                                    {connectedWallet.address ? truncateAddress(connectedWallet.address, 6, 4) : 'Connected'}
-                                </Typography>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center" style={{ backgroundColor: theme.palette.primary.dark }}>
+                                        <img src={connectedWallet.icon} alt="wallet" className="w-6 h-6" />
+                                    </div>
+                                    <div className="flex flex-col items-start">
+                                        <Typography
+                                            sx={{
+                                                color: theme.palette.secondary.dark,
+                                                fontWeight: 600,
+                                                fontSize: '14px',
+                                                lineHeight: 1.2
+                                            }}
+                                        >
+                                            {connectedWallet.balance?.formatted || '₳0'}
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                color: theme.palette.secondary.dark,
+                                                fontWeight: 400,
+                                                fontSize: '12px',
+                                                opacity: 0.8,
+                                                lineHeight: 1.2
+                                            }}
+                                        >
+                                            {connectedWallet.address ? truncateAddress(connectedWallet.address, 6, 4) : 'Connected'}
+                                        </Typography>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <Button
@@ -165,44 +183,97 @@ const Header: React.FC = () => {
                                         },
                                     }}
                                 >
-                                    <div className="w-80 !rounded-2xl">
+                                    <div className="w-72 !rounded-2xl">
                                         <div
                                             style={{
                                                 borderBottom: `1px solid ${theme.palette.grey[300]}`
                                             }}
-                                            className="flex items-center justify-between !p-4"
+                                            className="!p-3"
                                         >
-                                            <div className="w-10 aspect-square">
-                                                <img
-                                                    src={connectedWallet.icon}
-                                                    alt="wallet icon"
-                                                />
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                                                    <img
+                                                        src={connectedWallet.icon}
+                                                        alt="wallet icon"
+                                                        className="w-10 h-10"
+                                                    />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <Typography
+                                                        sx={{
+                                                            fontWeight: 600,
+                                                            color: theme.palette.text.primary,
+                                                            fontSize: '15px',
+                                                            textTransform: 'capitalize'
+                                                        }}
+                                                    >
+                                                        {connectedWallet.name}
+                                                    </Typography>
+                                                    <Typography
+                                                        sx={{
+                                                            color: theme.palette.primary.light,
+                                                            fontSize: '13px'
+                                                        }}
+                                                    >
+                                                        Connected
+                                                    </Typography>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <Typography>
+                                            <div 
+                                                className="flex items-center justify-between p-2.5 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                                                style={{ backgroundColor: theme.palette.grey[400] }}
+                                                onClick={handleCopyAddress}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        fontFamily: 'monospace',
+                                                        fontSize: '13px',
+                                                        color: theme.palette.text.primary
+                                                    }}
+                                                >
                                                     {connectedWallet.address ? truncateAddress(connectedWallet.address, 10, 8) : 'Loading...'}
                                                 </Typography>
+                                                <ContentCopyIcon sx={{ color: copySuccess ? theme.palette.primary.light : theme.palette.grey[100], fontSize: '16px' }} />
                                             </div>
-                                            <div>
-                                                <IconButton onClick={handleCopyAddress}>
-                                                    <ContentCopyIcon sx={{ color: copySuccess ? theme.palette.success.main : theme.palette.grey[100] }} className="!text-[20px]" />
-                                                </IconButton>
-                                            </div>
+                                            {copySuccess && (
+                                                <Typography
+                                                    sx={{
+                                                        color: theme.palette.primary.light,
+                                                        fontSize: '11px',
+                                                        textAlign: 'center',
+                                                        mt: 0.5
+                                                    }}
+                                                >
+                                                    Copied!
+                                                </Typography>
+                                            )}
                                         </div>
-                                        <div className="my-2 p-4">
+                                        <div className="p-3">
                                             <div
-                                                style={{ backgroundColor: theme.palette.grey[400] }}
-                                                className="flex flex-col items-center justify-center rounded-xl h-24"
+                                                style={{ 
+                                                    background: `linear-gradient(135deg, ${theme.palette.gradient.button[10]}, ${theme.palette.gradient.button[20]})` 
+                                                }}
+                                                className="flex flex-col items-center justify-center rounded-lg p-4"
                                             >
-                                                <Typography>
-                                                    Wallet Balance
+                                                <Typography
+                                                    sx={{
+                                                        color: theme.palette.secondary.dark,
+                                                        fontSize: '12px',
+                                                        fontWeight: 500,
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.5px'
+                                                    }}
+                                                >
+                                                    Balance
                                                 </Typography>
                                                 <Typography
                                                     sx={{
                                                         fontWeight: 800,
-                                                        color: theme.palette.primary.light
+                                                        color: theme.palette.secondary.dark,
+                                                        fontSize: '28px',
+                                                        lineHeight: 1.1,
+                                                        fontFamily: 'Cinzel'
                                                     }}
-                                                    className="!text-[32px]"
                                                 >
                                                     {connectedWallet.balance?.formatted || '₳0'}
                                                 </Typography>
@@ -212,24 +283,25 @@ const Header: React.FC = () => {
                                             style={{
                                                 borderTop: `1px solid ${theme.palette.grey[300]}`
                                             }}
-                                            className="p-4"
+                                            className="p-3 space-y-1"
                                         >
                                             <MenuItem
                                                 sx={{
                                                     "&:hover": {
                                                         backgroundColor: theme.palette.grey[500]
-                                                    }
+                                                    },
+                                                    fontSize: '14px'
                                                 }}
-                                                className="!gap-2 !rounded-xl !py-4"
+                                                className="!gap-2 !rounded-lg !py-2.5"
                                                 onClick={switchWallet}
                                             >
                                                 <WalletIcon
                                                     sx={{
                                                         color: theme.palette.text.primary,
-                                                        fontSize: '24px'
+                                                        fontSize: '20px'
                                                     }}
                                                 />
-                                                <Typography>
+                                                <Typography sx={{ fontSize: '14px' }}>
                                                     Switch Wallet
                                                 </Typography>
                                             </MenuItem>
@@ -237,18 +309,19 @@ const Header: React.FC = () => {
                                                 sx={{
                                                     "&:hover": {
                                                         backgroundColor: theme.palette.error.main
-                                                    }
+                                                    },
+                                                    fontSize: '14px'
                                                 }}
-                                                className="!gap-2 !rounded-xl !py-4"
+                                                className="!gap-2 !rounded-lg !py-2.5"
                                                 onClick={handleDisconnectWallet}
                                             >
                                                 <DisconnectIcon
                                                     sx={{
                                                         color: theme.palette.text.primary,
-                                                        fontSize: '24px'
+                                                        fontSize: '20px'
                                                     }}
                                                 />
-                                                <Typography>
+                                                <Typography sx={{ fontSize: '14px' }}>
                                                     Disconnect Wallet
                                                 </Typography>
                                             </MenuItem>
@@ -258,11 +331,13 @@ const Header: React.FC = () => {
                             </div>
                         </div>
                     ) : (
-                        <WalletButton 
+                        <ShinyButton 
                             size="large"
                             onClick={() => setIsModalOpen(true)}
-                            startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: '20px', '@media (min-width: 640px)': { fontSize: '24px' } }} />}
-                        />
+                            startIcon={<WalletIconButton sx={{ color: theme.palette.secondary.dark, fontSize: '20px', '@media (min-width: 640px)': { fontSize: '24px' } }} />}
+                        >
+                            Connect Wallet
+                        </ShinyButton>
                     )}
                     <Modal
                         open={isModalOpen}
