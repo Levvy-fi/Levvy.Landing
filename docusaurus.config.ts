@@ -9,6 +9,13 @@ const config: Config = {
   tagline: 'Official Angel Finance Website & Documentation',
   favicon: 'img/favicon.svg',
 
+  // Custom fields for environment variables
+  customFields: {
+    paymentWalletAddress: process.env.PAYMENT_WALLET_ADDRESS || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf',
+    blockfrostProjectId: process.env.BLOCKFROST_PROJECT_ID,
+    blockfrostNetwork: process.env.BLOCKFROST_NETWORK || 'mainnet',
+  },
+
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
@@ -27,6 +34,49 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+
+  plugins: [
+    function () {
+      return {
+        name: 'custom-webpack-config',
+        configureWebpack() {
+          return {
+            experiments: {
+              asyncWebAssembly: true,
+              syncWebAssembly: true,
+            },
+            resolve: {
+              fallback: {
+                crypto: require.resolve('crypto-browserify'),
+                stream: require.resolve('stream-browserify'),
+                path: require.resolve('path-browserify'),
+                vm: require.resolve('vm-browserify'),
+                buffer: require.resolve('buffer'),
+                fs: false,
+                os: false,
+                util: false,
+                assert: false,
+              },
+            },
+            plugins: [
+              new (require('webpack')).ProvidePlugin({
+                Buffer: ['buffer', 'Buffer'],
+                process: 'process/browser',
+              }),
+            ],
+            module: {
+              rules: [
+                {
+                  test: /\.wasm$/,
+                  type: 'webassembly/async',
+                },
+              ],
+            },
+          };
+        },
+      };
+    },
+  ],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you

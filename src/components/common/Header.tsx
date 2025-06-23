@@ -5,26 +5,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import { CardanoWallet } from "../../scripts/types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import WalletButton from "./WalletButton";
 
 // Icon components
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
-const WalletIcon = (props: SvgIconProps) => {
-    const { sx = {}, ...otherProps } = props;
-
-    return (
-        <SvgIcon
-            {...otherProps}
-            sx={{
-                fontSize: "16px",
-                ...sx
-            }}
-            viewBox="0 0 24 24"
-        >
-            <path d="M5.07187 21.2034C4.44221 21.2034 3.90562 20.9816 3.46212 20.5381C3.01862 20.0946 2.79688 19.558 2.79688 18.9284V5.07188C2.79688 4.44221 3.01862 3.90562 3.46212 3.46212C3.90562 3.01862 4.44221 2.79688 5.07187 2.79688H18.9284C19.558 2.79688 20.0946 3.01862 20.5381 3.46212C20.9816 3.90562 21.2034 4.44221 21.2034 5.07188V7.50013H18.9284V5.07188H5.07187V18.9284H18.9284V16.5001H21.2034V18.9284C21.2034 19.558 20.9816 20.0946 20.5381 20.5381C20.0946 20.9816 19.558 21.2034 18.9284 21.2034H5.07187ZM13.0121 17.0001C12.4588 17.0001 11.9851 16.8053 11.5911 16.4156C11.1971 16.026 11.0001 15.5541 11.0001 15.0001V9.01212C11.0001 8.45879 11.1971 7.98513 11.5911 7.59113C11.9851 7.19713 12.4588 7.00013 13.0121 7.00013H20.1974C20.7514 7.00013 21.2242 7.19713 21.6159 7.59113C22.0075 7.98513 22.2034 8.45879 22.2034 9.01212V15.0031C22.2034 15.5523 22.0075 16.0225 21.6159 16.4136C21.2242 16.8046 20.7514 17.0001 20.1974 17.0001H13.0121ZM20.2094 15.0001V9.00013H13.0001V15.0001H20.2094ZM16.0001 13.5001C16.4168 13.5001 16.771 13.3543 17.0626 13.0626C17.3543 12.771 17.5001 12.4168 17.5001 12.0001C17.5001 11.5835 17.3543 11.2293 17.0626 10.9376C16.771 10.646 16.4168 10.5001 16.0001 10.5001C15.5835 10.5001 15.2293 10.646 14.9376 10.9376C14.646 11.2293 14.5001 11.5835 14.5001 12.0001C14.5001 12.4168 14.646 12.771 14.9376 13.0626C15.2293 13.3543 15.5835 13.5001 16.0001 13.5001Z" fill="currentColor"/>
-        </SvgIcon>
-    );
-};
+const WalletIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
+    <SvgIcon viewBox="0 0 24 24" className={className} sx={sx}>
+        <path d="M5.07187 21.2034C4.44221 21.2034 3.92156 20.9774 3.50991 20.5253C3.09826 20.0733 2.89244 19.5137 2.89244 18.8465V5.47253C2.89244 4.80529 3.09826 4.24568 3.50991 3.79367C3.92156 3.34166 4.44221 3.11566 5.07187 3.11566H18.9281C19.5578 3.11566 20.0784 3.34166 20.4901 3.79367C20.9017 4.24568 21.1076 4.80529 21.1076 5.47253V7.82941H17.4647C16.7088 7.82941 16.0522 8.09779 15.4949 8.63454C14.9376 9.17129 14.6589 9.80283 14.6589 10.5292V13.7901C14.6589 14.5164 14.9376 15.148 15.4949 15.6847C16.0522 16.2215 16.7088 16.4898 17.4647 16.4898H21.1076V18.8465C21.1076 19.5137 20.9017 20.0733 20.4901 20.5253C20.0784 20.9774 19.5578 21.2034 18.9281 21.2034H5.07187ZM17.4647 14.8468C17.1393 14.8468 16.866 14.7421 16.6447 14.5327C16.4235 14.3232 16.3128 14.0633 16.3128 13.7529V10.5663C16.3128 10.2559 16.4235 9.99597 16.6447 9.78655C16.866 9.57714 17.1393 9.47244 17.4647 9.47244H22.2872C22.6126 9.47244 22.8859 9.57714 23.1071 9.78655C23.3284 9.99597 23.439 10.2559 23.439 10.5663V13.7529C23.439 14.0633 23.3284 14.3232 23.1071 14.5327C22.8859 14.7421 22.6126 14.8468 22.2872 14.8468H17.4647ZM18.1175 13.2039H21.6344V10.1154H18.1175V13.2039ZM19.875 12.3846C20.2004 12.3846 20.4737 12.2799 20.6949 12.0704C20.9162 11.861 21.0268 11.6011 21.0268 11.2907C21.0268 10.9803 20.9162 10.7204 20.6949 10.5109C20.4737 10.3015 20.2004 10.1968 19.875 10.1968C19.5496 10.1968 19.2763 10.3015 19.0551 10.5109C18.8338 10.7204 18.7232 10.9803 18.7232 11.2907C18.7232 11.6011 18.8338 11.861 19.0551 12.0704C19.2763 12.2799 19.5496 12.3846 19.875 12.3846Z" fill="currentColor" />
+    </SvgIcon>
+);
 
 const ProfileIcon = (props: SvgIconProps) => (
     <SvgIcon {...props} viewBox="0 0 24 24">
@@ -45,25 +35,7 @@ const Header: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [selectedWallet, setSelectedWallet] = useState<CardanoWallet | null>(null);
     const [scrolled, setScrolled] = useState(false);
-    const [animation, setAnimation] = useState<string>('base');
-
     const profileMenuOpen = Boolean(anchorEl);
-
-    const gradientShift = keyframes`
-        0%   { background-position:   0% 50%; }
-        50%  { background-position: 100% 50%; }
-        100% { background-position:   0% 50%; }
-    `;
-
-    const gradientShiftHover = keyframes`
-        0% { background-position: 0% }
-        100% { background-position: 85% 0% }
-    `;
-
-    const gradientShiftUnhover = keyframes`
-        0% { background-position: 80% }
-        100% { background-position: 0% }
-    `;
 
     let WalletList = getWallets();
 
@@ -111,14 +83,6 @@ const Header: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    useEffect(() => {
-        if (animation === 'hover' || animation === 'unhover') {
-            const timeout = setTimeout(() => {
-                setAnimation('base');
-            }, 500);
-            return () => clearTimeout(timeout);
-        }
-    }, [animation]);
 
     return (
         <header
@@ -284,56 +248,11 @@ const Header: React.FC = () => {
                             </div>
                         </div>
                     ) : (
-                        <Button
-                            onMouseEnter={() => setAnimation('hover')}
-                            onMouseLeave={() => setAnimation('unhover')}
+                        <WalletButton 
+                            size="large"
                             onClick={() => setIsModalOpen(true)}
-                            disableRipple
                             startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: '20px', '@media (min-width: 640px)': { fontSize: '24px' } }} />}
-                            sx={{
-                                backgroundImage: `linear-gradient(to right, 
-                            ${theme.palette.gradient.button[30]}, 
-                            ${theme.palette.gradient.button[20]} 41%, 
-                            ${theme.palette.gradient.button[10]}, 
-                            ${theme.palette.gradient.button[30]})`,
-                                borderRadius: "12px",
-                                backgroundSize: "200% 100%",
-                                animation:
-                                    animation === 'hover'
-                                        ? `${gradientShiftHover} 0.5s forwards`
-                                        : animation === 'unhover'
-                                            ? `${gradientShiftUnhover} 0.5s forwards`
-                                            : `${gradientShift} 6s ease-in-out infinite`,
-                                transition: "all 0.3s ease-in-out",
-                                "&:hover": {
-                                    animation: `${gradientShiftHover} 0.5s forwards`,
-                                },
-                                "&:active": {
-                                    backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.button[60]})`
-                                },
-                                width: '156px',
-                                height: '48px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '6px',
-                                '@media (min-width: 640px)': {
-                                    width: '180px',
-                                    gap: '10px',
-                                }
-                            }}
-                        >
-                            <Typography
-                                sx={{
-                                    color: theme.palette.secondary.dark,
-                                    fontWeight: 500,
-                                    textTransform: 'capitalize',
-                                }}
-                                className="!text-xs sm:!text-sm"
-                            >
-                                Connect Wallet
-                            </Typography>
-                        </Button>
+                        />
                     )}
                     <Modal
                         open={isModalOpen}
