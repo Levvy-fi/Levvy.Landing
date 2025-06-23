@@ -1,11 +1,11 @@
-import { Box, Button, IconButton, keyframes, Link, Menu, MenuItem, Modal, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, keyframes, Link, Menu, MenuItem, Modal, Typography, useTheme, CircularProgress, Alert } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getWallets } from "../../scripts/bifrost";
 import CloseIcon from '@mui/icons-material/Close';
-import { CardanoWallet } from "../../scripts/types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import WalletButton from "./WalletButton";
+import { useWallet } from "../../hooks/useWallet";
+import { truncateAddress } from "../../utils/addressUtils";
 
 // Icon components
 import { SvgIcon, SvgIconProps } from "@mui/material";
@@ -33,11 +33,11 @@ const Header: React.FC = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [selectedWallet, setSelectedWallet] = useState<CardanoWallet | null>(null);
     const [scrolled, setScrolled] = useState(false);
+    const [copySuccess, setCopySuccess] = useState(false);
     const profileMenuOpen = Boolean(anchorEl);
-
-    let WalletList = getWallets();
+    
+    const { availableWallets, connectedWallet, isConnecting, error, connectWallet, disconnectWallet, refreshBalance } = useWallet();
 
     type WalletIconProps = {
         src: string;
@@ -62,16 +62,26 @@ const Header: React.FC = () => {
         handleProfileMenuClose();
     }
 
-    const disconnectWallet = () => {
-        setSelectedWallet(null);
+    const handleDisconnectWallet = () => {
+        disconnectWallet();
         handleProfileMenuClose();
     }
 
-    async function connectWallet(wallet: CardanoWallet) {
-        setSelectedWallet(wallet);
-        setIsModalOpen(false);
-        const api = await wallet.enable();
-        const changeAddress = await api.getChangeAddress();
+    const handleConnectWallet = async (walletId: string) => {
+        try {
+            await connectWallet(walletId);
+            setIsModalOpen(false);
+        } catch (err) {
+            // Error is handled by the context
+        }
+    }
+    
+    const handleCopyAddress = () => {
+        if (connectedWallet?.address) {
+            navigator.clipboard.writeText(connectedWallet.address);
+            setCopySuccess(true);
+            setTimeout(() => setCopySuccess(false), 2000);
+        }
     }
 
     useEffect(() => {
@@ -97,7 +107,7 @@ const Header: React.FC = () => {
                     />
                 </div>
                 <div>
-                    {selectedWallet ? (
+                    {connectedWallet ? (
                         <div className="flex items-center gap-1">
                             <div
                                 style={{
@@ -119,7 +129,7 @@ const Header: React.FC = () => {
                                     }}
                                     className="!text-sm"
                                 >
-                                    addr1q
+                                    {connectedWallet.address ? truncateAddress(connectedWallet.address, 6, 4) : 'Connected'}
                                 </Typography>
                             </div>
                             <div>
@@ -164,18 +174,18 @@ const Header: React.FC = () => {
                                         >
                                             <div className="w-10 aspect-square">
                                                 <img
-                                                    src={selectedWallet.icon}
+                                                    src={connectedWallet.icon}
                                                     alt="wallet icon"
                                                 />
                                             </div>
                                             <div>
                                                 <Typography>
-                                                    addr1q...nnfyr123vd13
+                                                    {connectedWallet.address ? truncateAddress(connectedWallet.address, 10, 8) : 'Loading...'}
                                                 </Typography>
                                             </div>
                                             <div>
-                                                <IconButton>
-                                                    <ContentCopyIcon sx={{ color: theme.palette.grey[100] }} className="!text-[20px]" />
+                                                <IconButton onClick={handleCopyAddress}>
+                                                    <ContentCopyIcon sx={{ color: copySuccess ? theme.palette.success.main : theme.palette.grey[100] }} className="!text-[20px]" />
                                                 </IconButton>
                                             </div>
                                         </div>
@@ -194,7 +204,7 @@ const Header: React.FC = () => {
                                                     }}
                                                     className="!text-[32px]"
                                                 >
-                                                    ₳364.44
+                                                    {connectedWallet.balance?.formatted || '₳0'}
                                                 </Typography>
                                             </div>
                                         </div>
@@ -230,7 +240,7 @@ const Header: React.FC = () => {
                                                     }
                                                 }}
                                                 className="!gap-2 !rounded-xl !py-4"
-                                                onClick={disconnectWallet}
+                                                onClick={handleDisconnectWallet}
                                             >
                                                 <DisconnectIcon
                                                     sx={{
@@ -292,11 +302,22 @@ const Header: React.FC = () => {
                                     Connect a Wallet
                                 </Typography>
                             </div>
+                            {error && (
+                                <Alert severity="error" className="!mt-4 !mb-2">
+                                    {error}
+                                </Alert>
+                            )}
                             <div className="grid grid-cols-1 w-full !gap-y-2 !mt-6">
-                                {WalletList.map((wallet) => {
-                                    return (
-                                        <Button
-                                            onClick={() => connectWallet(wallet)}
+                                {availableWallets.length === 0 ? (
+                                    <Typography sx={{ color: theme.palette.text.secondary, textAlign: 'center', py: 4 }}>
+                                        No wallets detected. Please install a Cardano wallet extension.
+                                    </Typography>
+                                ) : (
+                                    availableWallets.map((wallet) => {
+                                        return (
+                                            <Button
+                                                onClick={() => handleConnectWallet(wallet.id)}
+                                                disabled={isConnecting}
                                             key={wallet.id}
                                             sx={{
                                                 border: `1px solid ${theme.palette.text.disabled}`,
@@ -309,7 +330,11 @@ const Header: React.FC = () => {
                                                 }
                                             }}
                                             className="!h-15"
-                                            startIcon={<UserWalletIcon src={wallet.icon} alt={wallet.id} className="!w-[35px]" />}
+                                            startIcon={
+                                                isConnecting ? 
+                                                <CircularProgress size={35} sx={{ color: theme.palette.primary.main }} /> : 
+                                                <UserWalletIcon src={wallet.icon} alt={wallet.id} className="!w-[35px]" />
+                                            }
                                         >
                                             <div>
                                                 <Typography
@@ -319,13 +344,14 @@ const Header: React.FC = () => {
                                                     }}
                                                     className="!text-[20px] capitalize"
                                                 >
-                                                    {wallet.id}
+                                                    {wallet.name}
                                                 </Typography>
                                             </div>
                                             <div />
                                         </Button>
-                                    );
-                                })}
+                                        );
+                                    })
+                                )}
                             </div>
                             <div className="mt-8">
                                 <Typography

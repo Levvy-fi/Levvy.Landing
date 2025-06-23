@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { WalletProvider } from "../../contexts/WalletContext";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -138,7 +139,9 @@ const theme = createTheme({
 const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      {children}
+      <WalletProvider>
+        {children}
+      </WalletProvider>
     </ThemeProvider>
   );
 };
