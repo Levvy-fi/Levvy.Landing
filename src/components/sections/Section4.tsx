@@ -1,11 +1,14 @@
-import { Button, Card, IconButton, keyframes, Typography, useTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Card, IconButton, Typography, useTheme, LinearProgress, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { SvgIcon } from "@mui/material";
 import { truncateAddress } from "../../utils/addressUtils";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import QRCode from 'react-qr-code';
 import WalletButton from '../common/WalletButton';
+import { useSaleTimer } from "../../hooks/useSaleTimer";
+import { ANGEL_SALE_CONFIG } from "../../types/saleTypes";
+import FlipNumbers from 'react-flip-numbers';
 
 // Icon components (copied from old implementation)
 const XIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
@@ -29,56 +32,328 @@ const DiscordIcon = ({ className = "", sx = {} }: { className?: string, sx?: any
     </SvgIcon>
 );
 
-const WalletIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
+export const WalletIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
     <SvgIcon viewBox="0 0 24 24" className={className} sx={sx}>
         <path d="M5.07187 21.2034C4.44221 21.2034 3.92156 20.9774 3.50991 20.5253C3.09826 20.0733 2.89244 19.5137 2.89244 18.8465V5.47253C2.89244 4.80529 3.09826 4.24568 3.50991 3.79367C3.92156 3.34166 4.44221 3.11566 5.07187 3.11566H18.9281C19.5578 3.11566 20.0784 3.34166 20.4901 3.79367C20.9017 4.24568 21.1076 4.80529 21.1076 5.47253V7.82941H17.4647C16.7088 7.82941 16.0522 8.09779 15.4949 8.63454C14.9376 9.17129 14.6589 9.80283 14.6589 10.5292V13.7901C14.6589 14.5164 14.9376 15.148 15.4949 15.6847C16.0522 16.2215 16.7088 16.4898 17.4647 16.4898H21.1076V18.8465C21.1076 19.5137 20.9017 20.0733 20.4901 20.5253C20.0784 20.9774 19.5578 21.2034 18.9281 21.2034H5.07187ZM17.4647 14.8468C17.1393 14.8468 16.866 14.7421 16.6447 14.5327C16.4235 14.3232 16.3128 14.0633 16.3128 13.7529V10.5663C16.3128 10.2559 16.4235 9.99597 16.6447 9.78655C16.866 9.57714 17.1393 9.47244 17.4647 9.47244H22.2872C22.6126 9.47244 22.8859 9.57714 23.1071 9.78655C23.3284 9.99597 23.439 10.2559 23.439 10.5663V13.7529C23.439 14.0633 23.3284 14.3232 23.1071 14.5327C22.8859 14.7421 22.6126 14.8468 22.2872 14.8468H17.4647ZM18.1175 13.2039H21.6344V10.1154H18.1175V13.2039ZM19.875 12.3846C20.2004 12.3846 20.4737 12.2799 20.6949 12.0704C20.9162 11.861 21.0268 11.6011 21.0268 11.2907C21.0268 10.9803 20.9162 10.7204 20.6949 10.5109C20.4737 10.3015 20.2004 10.1968 19.875 10.1968C19.5496 10.1968 19.2763 10.3015 19.0551 10.5109C18.8338 10.7204 18.7232 10.9803 18.7232 11.2907C18.7232 11.6011 18.8338 11.861 19.0551 12.0704C19.2763 12.2799 19.5496 12.3846 19.875 12.3846Z" fill="currentColor" />
     </SvgIcon>
 );
 
+// Flip Clock Card - Airport/Train Station Style
+const FlipClockCard: React.FC<{ value: number, label: string, theme: any }> = ({ value, label, theme }) => {
+    const [isClient, setIsClient] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(1024);
+    
+    useEffect(() => {
+        setIsClient(true);
+        setScreenWidth(window.innerWidth);
+        
+        const handleResize = () => setScreenWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const formattedValue = value.toString().padStart(2, '0');
+    const isLargeScreen = screenWidth > 640;
+
+    if (!isClient) {
+        // Fallback for SSR
+        return (
+            <div className="flex flex-col items-center gap-3 sm:gap-5">
+                <Card
+                    sx={{
+                        position: 'relative',
+                        background: 'transparent',
+                        borderRadius: "12px",
+                        boxShadow: "none",
+                        isolation: 'isolate',
+                        width: '100%',
+                        minWidth: { xs: '76px', sm: '112px' },
+                        maxWidth: { xs: '84px', sm: '112px' },
+                        height: { xs: '68px', sm: '128px' },
+                        '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            borderRadius: "12px",
+                            padding: "3px",
+                            background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                            WebkitMaskComposite: 'xor',
+                            maskComposite: 'exclude',
+                            zIndex: -1
+                        }
+                    }}
+                >
+                    <div 
+                        className="rounded-lg w-full h-full flex items-center justify-center"
+                        style={{ 
+                            backgroundColor: theme.palette.primary.main
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontFamily: "Cinzel",
+                                color: theme.palette.secondary.dark,
+                                fontWeight: 800,
+                                fontSize: { xs: '32px', sm: '72px' },
+                                lineHeight: 1,
+                                textAlign: 'center',
+                                fontVariantNumeric: 'tabular-nums',
+                                textShadow: `0 2px 8px ${theme.palette.common.black}40`
+                            }}
+                        >
+                            {formattedValue}
+                        </Typography>
+                    </div>
+                </Card>
+                <Typography
+                    sx={{
+                        color: theme.palette.text.primary,
+                        fontSize: { xs: '13px', sm: '16px' },
+                        fontWeight: 700,
+                        textAlign: 'center',
+                        letterSpacing: { xs: '1px', sm: '1.5px' },
+                        textTransform: 'uppercase',
+                        fontFamily: "Albert Sans"
+                    }}
+                >
+                    {label}
+                </Typography>
+            </div>
+        );
+    }
+
+    return (
+        <div className="flex flex-col items-center gap-3 sm:gap-5">
+            <Card
+                sx={{
+                    position: 'relative',
+                    background: 'transparent',
+                    borderRadius: "12px",
+                    boxShadow: "none",
+                    isolation: 'isolate',
+                    width: '100%',
+                    minWidth: { xs: '76px', sm: '112px' },
+                    maxWidth: { xs: '84px', sm: '112px' },
+                    height: { xs: '68px', sm: '128px' },
+                    overflow: 'hidden',
+                    '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        borderRadius: "12px",
+                        padding: "3px",
+                        background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                        WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                        WebkitMaskComposite: 'xor',
+                        maskComposite: 'exclude',
+                        zIndex: -1
+                    }
+                }}
+            >
+                <div 
+                    className="rounded-lg w-full h-full flex items-center justify-center"
+                    style={{ 
+                        backgroundColor: theme.palette.primary.main
+                    }}
+                >
+                    <FlipNumbers
+                        height={isLargeScreen ? 72 : 32}
+                        width={isLargeScreen ? 48 : 22}
+                        color={theme.palette.secondary.dark}
+                        background="transparent"
+                        play={true}
+                        perspective={600}
+                        numbers={formattedValue}
+                        numberStyle={{
+                            fontFamily: "Cinzel, serif",
+                            fontWeight: "800",
+                            fontSize: isLargeScreen ? "52px" : "26px",
+                            textShadow: `0 2px 8px ${theme.palette.common.black}50`,
+                            letterSpacing: "1px"
+                        }}
+                        nonNumberStyle={{
+                            fontFamily: "Cinzel, serif",
+                            fontWeight: "800",
+                            fontSize: isLargeScreen ? "52px" : "26px",
+                            textShadow: `0 2px 8px ${theme.palette.common.black}50`,
+                            letterSpacing: "1px"
+                        }}
+                    />
+                </div>
+            </Card>
+            <Typography
+                sx={{
+                    color: theme.palette.text.primary,
+                    fontSize: { xs: '13px', sm: '16px' },
+                    fontWeight: 700,
+                    textAlign: 'center',
+                    letterSpacing: { xs: '1px', sm: '1.5px' },
+                    textTransform: 'uppercase',
+                    fontFamily: "Albert Sans"
+                }}
+            >
+                {label}
+            </Typography>
+        </div>
+    );
+};
+
+
+
+// Multi-tiered progress bar component
+const MultiTierProgressBar: React.FC<{ currentADA: number, theme: any }> = ({ currentADA, theme }) => {
+    const softCap = 600000; // 600K ADA
+    const hardCap = 1332000; // 1.332M ADA
+    
+    const hardCapProgress = Math.min((currentADA / hardCap) * 100, 100);
+    
+    // Format numbers with K/M suffix
+    const formatADA = (amount: number) => {
+        if (amount >= 1000000) {
+            return `₳${(amount / 1000000).toFixed(2)}M`;
+        } else {
+            return `₳${(amount / 1000).toFixed(0)}K`;
+        }
+    };
+    
+    return (
+        <Box sx={{ width: '100%', maxWidth: '600px', mx: 'auto', mb: 4 }}>
+            <Typography
+                sx={{
+                    color: theme.palette.primary.main,
+                    fontWeight: 800,
+                    fontFamily: "Cinzel",
+                    fontSize: { xs: '24px', sm: '30px', md: '34px' },
+                    textAlign: 'center',
+                    mb: 4,
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase'
+                }}
+            >
+Token Sale Progress
+            </Typography>
+            
+            {/* Current Progress Display */}
+            <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Typography
+                    sx={{
+                        color: theme.palette.primary.light,
+                        fontWeight: 900,
+                        fontFamily: "Cinzel",
+                        fontSize: { xs: '40px', sm: '52px', md: '60px' },
+                        lineHeight: 1,
+                        textShadow: `0 4px 12px ${theme.palette.primary.main}50`
+                    }}
+                >
+                    {formatADA(currentADA)}
+                </Typography>
+                <Typography
+                    sx={{
+                        color: theme.palette.text.primary,
+                        fontSize: { xs: '16px', sm: '18px' },
+                        fontWeight: 600,
+                        mt: 1.5,
+                        opacity: 0.9,
+                        fontFamily: "Albert Sans"
+                    }}
+                >
+                    of {formatADA(hardCap)} raised ({hardCapProgress.toFixed(1)}%)
+                </Typography>
+            </Box>
+            
+            {/* Clean Material-UI Progress Bar */}
+            <Box sx={{ position: 'relative', mb: 3 }}>
+                <LinearProgress
+                    variant="determinate"
+                    value={hardCapProgress}
+                    sx={{
+                        height: { xs: 20, sm: 24 },
+                        borderRadius: 2,
+                        backgroundColor: theme.palette.grey[800],
+                        '& .MuiLinearProgress-bar': {
+                            borderRadius: 2,
+                            background: `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                            transition: 'transform 0.5s ease-in-out'
+                        }
+                    }}
+                />
+                
+                {/* Clean Soft Cap Marker */}
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        left: `${(softCap / hardCap) * 100}%`,
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 2,
+                        height: { xs: 28, sm: 32 },
+                        backgroundColor: theme.palette.warning.main,
+                        borderRadius: 1,
+                        zIndex: 2
+                    }}
+                />
+            </Box>
+            
+            {/* Progress Labels */}
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                px: 1
+            }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                    <Box
+                        sx={{
+                            width: 10,
+                            height: 10,
+                            borderRadius: '50%',
+                            backgroundColor: currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main,
+                            boxShadow: `0 0 8px ${currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main}60`
+                        }}
+                    />
+                    <Typography
+                        sx={{
+                            color: currentADA >= softCap ? theme.palette.success.main : theme.palette.warning.main,
+                            fontSize: { xs: '14px', sm: '16px' },
+                            fontWeight: 700,
+                            fontFamily: "Albert Sans",
+                            letterSpacing: '0.8px'
+                        }}
+                    >
+                        SOFT CAP: {formatADA(softCap)} {currentADA >= softCap ? '✓' : ''}
+                    </Typography>
+                </Box>
+                <Typography
+                    sx={{
+                        color: theme.palette.primary.light,
+                        fontSize: { xs: '14px', sm: '16px' },
+                        fontWeight: 700,
+                        fontFamily: "Albert Sans",
+                        letterSpacing: '0.8px'
+                    }}
+                >
+                    HARD CAP: {formatADA(hardCap)}
+                </Typography>
+            </Box>
+        </Box>
+    );
+};
+
 const Section4: React.FC = () => {
-    const theme = useTheme()
+    const theme = useTheme();
     const { siteConfig } = useDocusaurusContext();
     const paymentAddress = (siteConfig.customFields?.paymentWalletAddress as string) || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf';
-
-
-    const [countDownTimer, setCountDownTimer] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    });
-    const [showDisplay, setShowDisplay] = useState(true); // Sale period has started
-
-    const gradientShift = keyframes`
-        0%   { background-position:   0% 50%; }
-        50%  { background-position: 100% 50%; }
-        100% { background-position:   0% 50%; }
-    `;
-
-    useEffect(() => {
-        const targetDate = new Date("2025-06-21T21:00:00+08:00").getTime();
-
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance <= 0) {
-                clearInterval(interval);
-                setCountDownTimer({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-                setShowDisplay(true)
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            setCountDownTimer({ days, hours, minutes, seconds });
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
+    const timerState = useSaleTimer(ANGEL_SALE_CONFIG);
+    
+    // Current ADA raised from scraped data
+    const currentADAraised = 875070;
 
     return (
         <section className="flex relative bg-cover [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] px-4 !py-30 sm:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
@@ -297,7 +572,9 @@ const Section4: React.FC = () => {
                         </Typography>
                     </Card>
                 </div>
-                {showDisplay && (
+                
+                {/* BUY $ANGELS NOW Panel - Only show during active sale */}
+                {timerState.phase === 'public-mint' && (
                     <div className="w-full flex flex-col items-center justify-center">
                         <Card
                             sx={{
@@ -429,230 +706,18 @@ const Section4: React.FC = () => {
                                 </div>
                             </div>
                         </Card>
-                        <div className="mb-0 sm:mb-16 w-full flex flex-col items-center justify-center">
-                            <Card
-                                sx={{
-                                    position: 'relative',
-                                    background: 'transparent',
-                                    borderRadius: "16px",
-                                    boxShadow: "none",
-                                    isolation: 'isolate',
-                                    '&::before': {
-                                        content: '""',
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        right: 0,
-                                        bottom: 0,
-                                        borderRadius: "16px",
-                                        padding: "4px",
-                                        background: `linear-gradient(to right, ${theme.palette.primary.dark}, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                                        WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                                        WebkitMaskComposite: 'xor',
-                                        maskComposite: 'exclude',
-                                        zIndex: -1
-                                    }
-                                }}
-                                className="!mt-8 !p-6 w-full md:h-75 lg:w-190"
-                            >
-                                <div>
-                                    <Typography
-                                        sx={{
-                                            color: theme.palette.primary.main,
-                                            fontWeight: 700,
-                                            fontFamily: "Cinzel",
-                                        }}
-                                        className="!text-[36px] text-center mb-8"
-                                    >
-                                        Sale Progress
-                                    </Typography>
-                                </div>
-                                <div className="flex items-center justify-center flex-col !gap-6 sm:!gap-18 sm:flex-row">
-                                    <div>
-                                        <Typography
-                                            sx={{
-                                                color: theme.palette.primary.light,
-                                                fontWeight: 700,
-                                                fontFamily: "Cinzel",
-                                            }}
-                                            className="!text-[56px] md:!text-[80px]"
-                                        >
-                                            520K
-                                        </Typography>
-                                        <Typography
-                                            sx={{
-                                                color: theme.palette.text.primary,
-                                                fontFamily: 500
-                                            }}
-                                            className="!text-lg sm:!text-xl"
-                                        >
-                                            Total $ANGELS <br /> bought globally
-                                        </Typography>
-                                    </div>
-                                    <div>
-                                        <Typography
-                                            sx={{
-                                                color: theme.palette.primary.light,
-                                                fontWeight: 700,
-                                                fontFamily: "Cinzel",
-                                            }}
-                                            className="!text-[56px] md:!text-[80px]"
-                                        >
-                                            324
-                                        </Typography>
-                                        <Typography
-                                            sx={{
-                                                color: theme.palette.text.primary,
-                                                fontFamily: 500
-                                            }}
-                                            className="!text-lg sm:!text-xl"
-                                        >
-                                            Total $ANGELS <br /> you bought
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Card>
-                        </div>
+
                     </div>
                 )}
-                <div className="flex flex-col items-center justify-center !mt-10 !space-y-4">
-                    <Typography
-                        sx={{
-                            color: theme.palette.text.primary
-                        }}
-                        className="!text-2xl"
-                    >
-                        Sale opens in:
-                    </Typography>
-                    <div className="grid grid-cols-4 !gap-4 sm:!gap-6">
-                        <div className="flex flex-col items-center gap-4">
-                            <Card
-                                sx={{
-                                    backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                                    borderRadius: "8px",
-                                    padding: "4px"
-                                }}
-                                className="w-full sm:!w-26"
-                            >
-                                <div className="rounded-lg !px-1 sm:!px-3" style={{ backgroundColor: theme.palette.primary.main }}>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Cinzel",
-                                            color: theme.palette.secondary.dark
-                                        }}
-                                        className="!font-bold !text-[40px] sm:!text-[64px]"
-                                    >
-                                        {countDownTimer.days}
-                                    </Typography>
-                                </div>
-                            </Card>
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.primary,
-                                }}
-                                className="!text-base sm:!text-2xl"
-                            >
-                                Days
-                            </Typography>
-                        </div>
-                        <div className="flex flex-col items-center gap-4">
-                            <Card
-                                sx={{
-                                    backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                                    borderRadius: "8px",
-                                    padding: "4px"
-                                }}
-                                className="!w-full sm:!w-26"
-                            >
-                                <div className="rounded-lg !px-1 sm:!px-3" style={{ backgroundColor: theme.palette.primary.main }}>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Cinzel",
-                                            color: theme.palette.secondary.dark
-                                        }}
-                                        className="!font-bold !text-[40px] sm:!text-[64px]"
-                                    >
-                                        {countDownTimer.hours}
-                                    </Typography>
-                                </div>
-                            </Card>
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.primary,
-                                }}
-                                className="!text-base sm:!text-2xl"
-                            >
-                                Hours
-                            </Typography>
-                        </div>
-                        <div className="flex flex-col items-center gap-4">
-                            <Card
-                                sx={{
-                                    backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                                    borderRadius: "8px",
-                                    padding: "4px"
-                                }}
-                                className="!w-full sm:!w-26"
-                            >
-                                <div className="rounded-lg !px-1 sm:!px-3" style={{ backgroundColor: theme.palette.primary.main }}>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Cinzel",
-                                            color: theme.palette.secondary.dark
-                                        }}
-                                        className="!font-bold !text-[40px] sm:!text-[64px]"
-                                    >
-                                        {countDownTimer.minutes}
-                                    </Typography>
-                                </div>
-                            </Card>
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.primary,
-                                }}
-                                className="!text-base sm:!text-2xl"
-                            >
-                                Minutes
-                            </Typography>
-                        </div>
-                        <div className="flex flex-col items-center gap-4">
-                            <Card
-                                sx={{
-                                    backgroundImage: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                                    borderRadius: "8px",
-                                    padding: "4px"
-                                }}
-                                className="!w-full sm:!w-26"
-                            >
-                                <div className="rounded-lg !px-1 sm:!px-3" style={{ backgroundColor: theme.palette.primary.main }}>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Cinzel",
-                                            color: theme.palette.secondary.dark
-                                        }}
-                                        className="!font-bold !text-[40px] sm:!text-[64px]"
-                                    >
-                                        {countDownTimer.seconds}
-                                    </Typography>
-                                </div>
-                            </Card>
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.primary,
-                                }}
-                                className="!text-base sm:!text-2xl"
-                            >
-                                Seconds
-                            </Typography>
-                        </div>
-                    </div>
-                </div>
-                <div className="w-full flex flex-col items-center justify-center !gap-10 !mt-10">
+
+
+                {/* Merged Sale Progress and Countdown Timer */}
+                <div className="w-full flex flex-col items-center justify-center !mt-14">
                     <Card
                         sx={{
                             position: 'relative',
                             background: 'transparent',
-                            borderRadius: "8px",
+                            borderRadius: "16px",
                             boxShadow: "none",
                             isolation: 'isolate',
                             '&::before': {
@@ -662,7 +727,7 @@ const Section4: React.FC = () => {
                                 left: 0,
                                 right: 0,
                                 bottom: 0,
-                                borderRadius: "8px",
+                                borderRadius: "16px",
                                 padding: "4px",
                                 background: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
                                 WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -671,55 +736,81 @@ const Section4: React.FC = () => {
                                 zIndex: -1
                             }
                         }}
-                        className="!w-full sm:!w-150"
+                        className="w-full max-w-4xl"
                     >
-                        <div
-                            style={{ borderRadius: "4px" }}
-                            className="w-full !flex !items-center !justify-center !py-6 !px-10 relative overflow-hidden !flex-col sm:!justify-between sm:!flex-row"
-                        >
-                            <div className="z-10">
+                        <div className="relative !p-8 flex flex-col items-center">
+                            {/* Sale Progress Section with Multi-tier Progress Bar */}
+                            {timerState.phase === 'public-mint' && (
+                                <div className="w-full flex flex-col items-center mb-6 sm:mb-8">
+                                    <MultiTierProgressBar currentADA={currentADAraised} theme={theme} />
+                                </div>
+                            )}
+
+                            {/* Countdown Timer Section */}
+                            <div className="w-full flex flex-col items-center">
                                 <Typography
                                     sx={{
+                                        color: theme.palette.primary.main,
+                                        fontWeight: 800,
                                         fontFamily: "Cinzel",
-                                        fontWeight: 700,
-                                        color: theme.palette.primary.main
+                                        fontSize: { xs: '24px', sm: '28px', md: '32px', lg: '36px' },
+                                        textAlign: 'center',
+                                        mb: { xs: 4, sm: 5, md: 6 },
+                                        letterSpacing: { xs: '0.5px', sm: '1px' },
+                                        textTransform: 'uppercase',
+                                        textShadow: `0 2px 4px ${theme.palette.primary.main}20`
                                     }}
-                                    className="!text-[40px]"
                                 >
-                                    PUBLIC MINT
+                                    {timerState.phase === 'pre-sale' && 'Sale Opens In'}
+                                    {timerState.phase === 'public-mint' && 'Sale Closes In'}
+                                    {timerState.phase === 'sale-ended' && 'Sale Has Ended'}
                                 </Typography>
-                            </div>
-                            <div className="z-10">
-                                <Typography
-                                    sx={{
-                                        color: theme.palette.text.primary,
-                                        fontWeight: 700
-                                    }}
-                                    className="!text-2xl"
-                                >
-                                    6/21/2025
-                                </Typography>
-                                <Typography
-                                    sx={{
-                                        color: theme.palette.text.primary,
-                                    }}
-                                    className="!text-2xl"
-                                >
-                                    9:00:00 PM
-                                </Typography>
+                                {timerState.phase !== 'sale-ended' && (
+                                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 md:gap-6 w-full max-w-md sm:max-w-lg md:max-w-2xl">
+                                        <FlipClockCard value={timerState.timeRemaining.days} label="Days" theme={theme} />
+                                        <FlipClockCard value={timerState.timeRemaining.hours} label="Hours" theme={theme} />
+                                        <FlipClockCard value={timerState.timeRemaining.minutes} label="Minutes" theme={theme} />
+                                        <FlipClockCard value={timerState.timeRemaining.seconds} label="Seconds" theme={theme} />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </Card>
-                    <Typography
-                        sx={{
-                            fontWeight: 600,
-                            color: theme.palette.text.primary
-                        }}
-                        className="!text-[30px] sm:!text-[36px]"
-                    >
-                        The sale has not started yet
-                    </Typography>
                 </div>
+
+                {/* Sale Ended Message - Only show after sale ends */}
+                {timerState.phase === 'sale-ended' && (
+                    <div className="flex flex-col items-center justify-center !mt-10 !space-y-4">
+                        <Typography
+                            sx={{
+                                fontFamily: "Cinzel",
+                                color: theme.palette.grey[300],
+                                fontWeight: 700
+                            }}
+                            className="!text-[32px] md:!text-[36px] lg:!text-[40px]"
+                        >
+                            SALE ENDED
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: theme.palette.text.primary,
+                                textAlign: 'center'
+                            }}
+                            className="!text-lg md:!text-xl"
+                        >
+                            The $ANGELS token sale has concluded. Thank you for your participation!
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: theme.palette.text.secondary,
+                                textAlign: 'center'
+                            }}
+                            className="!text-base"
+                        >
+                            Follow our social channels for updates on token distribution and future announcements.
+                        </Typography>
+                    </div>
+                )}
             </div>
         </section>
     );
