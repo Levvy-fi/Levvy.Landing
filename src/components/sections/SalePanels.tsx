@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Typography, useTheme } from '@mui/material';
 import { SalePanelProps } from '../../types/saleTypes';
-import WalletButton from '../common/WalletButton';
-import { WalletIcon } from './Section4';
+import ShinyButton from '../common/ShinyButton';
+import { WalletIcon } from '../common/WalletButton';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import QRCode from 'react-qr-code';
 import { truncateAddress } from '../../utils/addressUtils';
@@ -90,10 +90,12 @@ export const PreSalePanel: React.FC<SalePanelProps> = ({ timerState }) => {
                 >
                     Get ready for the $ANGELS token sale! Connect your wallet to be prepared.
                 </Typography>
-                <WalletButton 
+                <ShinyButton 
                     size="large"
                     startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
-                />
+                >
+                    Connect Wallet
+                </ShinyButton>
             </div>
         </Card>
     );
@@ -203,10 +205,12 @@ export const ActiveSalePanel: React.FC<SalePanelProps> = ({ timerState }) => {
                         />
                     </div>
                     <div className="hidden sm:flex">
-                        <WalletButton 
+                        <ShinyButton 
                             size="large"
                             startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
-                        />
+                        >
+                            Connect Wallet
+                        </ShinyButton>
                     </div>
                 </div>
                 <div className="z-10 flex-shrink-0 w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 bg-white rounded-lg p-3 flex items-center justify-center">
@@ -250,10 +254,12 @@ export const ActiveSalePanel: React.FC<SalePanelProps> = ({ timerState }) => {
                         />
                     </div>
                     <div className="">
-                        <WalletButton 
+                        <ShinyButton 
                             size="large"
                             startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
-                        />
+                        >
+                            Connect Wallet
+                        </ShinyButton>
                     </div>
                 </div>
             </div>

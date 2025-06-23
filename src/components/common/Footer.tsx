@@ -72,8 +72,14 @@ const Footer: React.FC = () => {
                             </Typography>
                         </Link>
                         <Link 
-                            href="https://mints.yepple.io/angelfinance"
-                            target="_blank" rel="noopener noreferrer"
+                            href="#buy-angels"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const element = document.getElementById('buy-angels');
+                                if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
