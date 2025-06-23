@@ -7,7 +7,7 @@ const Section5: React.FC = () => {
     return (
         <section className="flex items-center justify--center relative px-4">
             <div className="relative w-full mt-[120px] sm:mt-[210px] lg:mt-[300px]">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -z-10 w-full -top-34 sm:-top-56 lg:-top-54 xl:-top-75 2xl:w-400">
+                <div className="absolute left-1/2 transform -translate-x-1/2 -z-10 w-full -top-34 sm:-top-56 lg:-top-54 xl:-top-75 2xl:w-[1536px]">
                     <img
                         src="/images/section6/section6_bg.webp"
                         alt="section 6 bg"
