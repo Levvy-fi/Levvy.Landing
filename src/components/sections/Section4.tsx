@@ -455,7 +455,7 @@ const Section4: React.FC = () => {
     };
 
     return (
-        <section id="token-sale" className="flex relative bg-cover [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] px-4 !py-30 sm:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
+        <section id="token-sale" className="flex relative bg-cover px-4 !py-[70px] [mask-image:_linear-gradient(to_bottom,transparent_0,_black_80px,_black_calc(100%-200px),transparent_100%)] sm:[mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] md:!py-30 lg:!py-50" style={{ backgroundImage: `url(/images/section4/section_bg.webp)` }}>
             <div className="container mx-auto text-center">
                 <div>
                     <Typography
@@ -781,7 +781,7 @@ const Section4: React.FC = () => {
                                                 height: "100%", 
                                                 width: "100%"
                                             }}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                                 <div className="!space-y-4 sm:hidden">

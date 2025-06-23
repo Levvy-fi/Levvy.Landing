@@ -83,7 +83,7 @@ const Section2: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative pt-[230px] pb-[259px]" style={{ backgroundImage: `url(/images/section2/background.webp)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+        <section className="relative pt-[106px] pb-[60px] [mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-80px),transparent_100%)] sm:[mask-image:_linear-gradient(to_bottom,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] sm:pb-[90px] md:py-[120px] lg:py-[200px]" style={{ backgroundImage: `url(/images/section2/background.webp)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
             <div className="container mx-auto">
                 <div>
                     <Typography
@@ -420,8 +420,6 @@ const Section2: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="absolute -bottom-1 z-[-1] !w-full !h-[1153px] bg-gradient-to-t from-[#171614] to-[#171614]/0"></div>
         </section>
     );
 }
