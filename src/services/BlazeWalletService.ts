@@ -13,8 +13,12 @@ export class BlazeWalletService {
         if (this.provider) return this.provider;
         
         // Get environment variables from Docusaurus context (browser-safe)
-        const projectId = (globalThis as any)?.docusaurus?.siteConfig?.customFields?.blockfrostProjectId || 'mainnetSqCKIyLfSnKrPQEj9hjebU6rJlXNazI0';
+        const projectId = (globalThis as any)?.docusaurus?.siteConfig?.customFields?.blockfrostProjectId;
         const network = (globalThis as any)?.docusaurus?.siteConfig?.customFields?.blockfrostNetwork || 'mainnet';
+        
+        if (!projectId) {
+            throw new Error('BLOCKFROST_PROJECT_ID environment variable is required');
+        }
         
         this.provider = new Blockfrost({
             network: network as any,

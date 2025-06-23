@@ -1,6 +1,10 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import { config as loadEnv } from 'dotenv';
+
+// Load environment variables from .env file
+loadEnv();
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -11,7 +15,7 @@ const config: Config = {
 
   // Custom fields for environment variables
   customFields: {
-    paymentWalletAddress: process.env.PAYMENT_WALLET_ADDRESS || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf',
+    paymentWalletAddress: process.env.PAYMENT_WALLET_ADDRESS,
     blockfrostProjectId: process.env.BLOCKFROST_PROJECT_ID,
     blockfrostNetwork: process.env.BLOCKFROST_NETWORK || 'mainnet',
   },
