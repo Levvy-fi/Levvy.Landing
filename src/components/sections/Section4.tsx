@@ -350,7 +350,11 @@ Token Sale Progress
 const Section4: React.FC = () => {
     const theme = useTheme();
     const { siteConfig } = useDocusaurusContext();
-    const paymentAddress = (siteConfig.customFields?.paymentWalletAddress as string) || 'addr1qynurh5a8ee068aswr0pnq2ce4uzvzqdfnmtzapc68zraavj5dysang6xcyp62r6dwdm7pnv3nsdwwn7jzzhr03ur6tq78xelf';
+    const paymentAddress = siteConfig.customFields?.paymentWalletAddress as string;
+    
+    if (!paymentAddress) {
+        console.error('PAYMENT_WALLET_ADDRESS environment variable is required');
+    }
     const timerState = useSaleTimer(ANGEL_SALE_CONFIG);
     
     // Query real ADA balance from the sale wallet using Blaze
