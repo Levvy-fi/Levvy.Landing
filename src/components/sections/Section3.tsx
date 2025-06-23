@@ -9,10 +9,10 @@ const Section3: React.FC = () => {
 
     useEffect(() => {
         const instance = new TypeIt(el.current!, {
-        loop: true,
-        speed: 70,
-        cursor: false,
-        waitUntilVisible: true,
+            loop: true,
+            speed: 70,
+            cursor: false,
+            waitUntilVisible: true,
         })
         .type("Lending,", { delay: 2000 })
         .delete(null, { delay: 500 })
