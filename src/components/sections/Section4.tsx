@@ -5,6 +5,7 @@ import { SvgIcon } from "@mui/material";
 import { truncateAddress } from "../../utils/addressUtils";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import QRCode from 'react-qr-code';
+import WalletButton from '../common/WalletButton';
 
 // Icon components (copied from old implementation)
 const XIcon = ({ className = "", sx = {} }: { className?: string, sx?: any }) => (
@@ -373,43 +374,10 @@ const Section4: React.FC = () => {
                                         />
                                     </div>
                                     <div className="hidden sm:flex">
-                                        <Button
-                                            disableRipple
-                                            sx={{
-                                                backgroundImage: `linear-gradient(to right, 
-                                                            ${theme.palette.gradient.button[30]}, 
-                                                            ${theme.palette.gradient.button[20]} 41%, 
-                                                            ${theme.palette.gradient.button[10]}, 
-                                                            ${theme.palette.gradient.button[30]})`,
-                                                borderRadius: "12px",
-                                                gap: "10px",
-                                                backgroundSize: "200% 100%",
-                                                animation: `${gradientShift} 6s ease-in-out infinite`,
-                                                transition: "all 0.3s ease-in-out",
-                                                "&:hover": {
-                                                    backgroundImage: `linear-gradient(to right, 
-                                                            ${theme.palette.gradient.button[30]}, 
-                                                            ${theme.palette.primary.main} 100%, 
-                                                            ${theme.palette.gradient.button[40]}, 
-                                                            ${theme.palette.gradient.button[50]})`,
-                                                },
-                                                "&:active": {
-                                                    backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.button[60]})`
-                                                }
-                                            }}
-                                            className="!content-start md:!w-39 md:!h-12"
-                                        >
-                                            <WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />
-                                            <Typography
-                                                sx={{
-                                                    color: theme.palette.secondary.dark,
-                                                    fontWeight: 500
-                                                }}
-                                                className="!text-sm capitalize"
-                                            >
-                                                Connect Wallet
-                                            </Typography>
-                                        </Button>
+                                        <WalletButton 
+                                            size="large"
+                                            startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
+                                        />
                                     </div>
                                 </div>
                                 <div className="z-10 flex-shrink-0 w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 bg-white rounded-lg p-3 flex items-center justify-center">
@@ -453,43 +421,10 @@ const Section4: React.FC = () => {
                                         />
                                     </div>
                                     <div className="">
-                                        <Button
-                                            disableRipple
-                                            sx={{
-                                                backgroundImage: `linear-gradient(to right, 
-                                                                ${theme.palette.gradient.button[30]}, 
-                                                                ${theme.palette.gradient.button[20]} 41%, 
-                                                                ${theme.palette.gradient.button[10]}, 
-                                                                ${theme.palette.gradient.button[30]})`,
-                                                borderRadius: "12px",
-                                                gap: "10px",
-                                                backgroundSize: "200% 100%",
-                                                animation: `${gradientShift} 6s ease-in-out infinite`,
-                                                transition: "all 0.3s ease-in-out",
-                                                "&:hover": {
-                                                    backgroundImage: `linear-gradient(to right, 
-                                                                ${theme.palette.gradient.button[30]}, 
-                                                                ${theme.palette.primary.main} 100%, 
-                                                                ${theme.palette.gradient.button[40]}, 
-                                                                ${theme.palette.gradient.button[50]})`,
-                                                },
-                                                "&:active": {
-                                                    backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.button[60]})`
-                                                }
-                                            }}
-                                            className="!content-start md:!w-39 md:!h-12"
-                                        >
-                                            <WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />
-                                            <Typography
-                                                sx={{
-                                                    color: theme.palette.secondary.dark,
-                                                    fontWeight: 500
-                                                }}
-                                                className="!text-sm capitalize"
-                                            >
-                                                Connect Wallet
-                                            </Typography>
-                                        </Button>
+                                        <WalletButton 
+                                            size="large"
+                                            startIcon={<WalletIcon sx={{ color: theme.palette.secondary.dark, fontSize: "24px" }} />}
+                                        />
                                     </div>
                                 </div>
                             </div>
