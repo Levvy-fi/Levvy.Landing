@@ -8,7 +8,7 @@ const Section3: React.FC = () => {
         <section 
             id="section3"
             style={{backgroundColor: theme.palette.grey.A100}}
-            className="h-267 flex items-center relative overflow-hidden"
+            className="flex items-center relative overflow-hidden h-[700px] pt-[60px] pb-[40px] [mask-image:_linear-gradient(to_bottom,transparent_0,_black_80px,_black_calc(100%-90px),transparent_100%)] sm:h-[832px] lg:h-267 sm:[mask-image:_linear-gradient(to_bottom,transparent_0,_black_80px,_black_calc(100%-200px),transparent_100%)]"
         >
             <div className="w-full absolute top-0 left-0">
                 <img src="/images/section3/stars_top_background.svg" alt="Stars Top Background"/>

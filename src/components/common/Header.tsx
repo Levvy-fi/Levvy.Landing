@@ -103,12 +103,12 @@ const Header: React.FC = () => {
         <header
             className={`fixed z-100 transition-all duration-150 ease-in-out w-full !px-4 ${scrolled ? '!py-2 backdrop-blur-md!' : '!py-4'}`}
         >
-            <div className="container mx-auto flex items-center justify-between">
-                <div className={`${scrolled ? '!w-100' : '!h-16 sm:!h-20 sm:!w-144'}`}>
+            <div className="container mx-auto flex items-center justify-between max-sm:!px-0">
+                <div className={`${scrolled ? '!w-[146px] sm:!w-100' : '!h-16 sm:!h-20 lg:!w-100'}`}>
                     <img
                         src="/images/angels_logo.webp"
                         alt="angels logo"
-                        className={`transition-all duration-150 ${scrolled ? 'h-16' : 'h-16 sm:h-20'}`}
+                        className={`transition-all duration-150 ${scrolled ? 'h-14 sm:h-16' : 'h-16 sm:h-20'}`}
                     />
                 </div>
                 <div>
@@ -334,6 +334,7 @@ const Header: React.FC = () => {
                         <ShinyButton 
                             size="large"
                             onClick={() => setIsModalOpen(true)}
+                            className="!px-[8px] sm:!px-[22px]"
                             startIcon={<WalletIconButton sx={{ color: theme.palette.secondary.dark, fontSize: '20px', '@media (min-width: 640px)': { fontSize: '24px' } }} />}
                         >
                             Connect Wallet
