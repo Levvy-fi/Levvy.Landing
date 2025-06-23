@@ -1,5 +1,4 @@
 import { Blockfrost, Core } from '@blaze-cardano/sdk';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 /**
  * BlazeWalletService - Service for querying Cardano blockchain data using Blaze SDK
@@ -7,35 +6,38 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
  * for querying balances and other blockchain data.
  */
 export class BlazeWalletService {
-    private provider: Blockfrost | null = null;
+    private providers: Map<string, Blockfrost> = new Map();
     
-    private initProvider() {
-        if (this.provider) return this.provider;
+    private initProvider(projectId: string, network: string = 'mainnet') {
+        const cacheKey = `${projectId}-${network}`;
         
-        // Get environment variables from Docusaurus context (browser-safe)
-        const projectId = (globalThis as any)?.docusaurus?.siteConfig?.customFields?.blockfrostProjectId;
-        const network = (globalThis as any)?.docusaurus?.siteConfig?.customFields?.blockfrostNetwork || 'mainnet';
-        
-        if (!projectId) {
-            throw new Error('BLOCKFROST_PROJECT_ID environment variable is required');
+        if (this.providers.has(cacheKey)) {
+            return this.providers.get(cacheKey)!;
         }
         
-        this.provider = new Blockfrost({
+        if (!projectId) {
+            throw new Error('BLOCKFROST_PROJECT_ID is required');
+        }
+        
+        const provider = new Blockfrost({
             network: network as any,
             projectId: projectId
         });
         
-        return this.provider;
+        this.providers.set(cacheKey, provider);
+        return provider;
     }
 
     /**
      * Query the ADA balance of a wallet address
      * @param address - Cardano wallet address (bech32 format)
+     * @param projectId - Blockfrost project ID
+     * @param network - Network to query (default: 'mainnet')
      * @returns Promise<number> - ADA balance in lovelace (1 ADA = 1,000,000 lovelace)
      */
-    async getAddressBalance(address: string): Promise<number> {
+    async getAddressBalance(address: string, projectId: string, network: string = 'mainnet'): Promise<number> {
         try {
-            const provider = this.initProvider();
+            const provider = this.initProvider(projectId, network);
             
             // Convert address string to Blaze Address object
             const cardanoAddress = Core.Address.fromBech32(address);
@@ -89,14 +91,16 @@ export class BlazeWalletService {
     /**
      * Get formatted ADA balance for display
      * @param address - Cardano wallet address
+     * @param projectId - Blockfrost project ID
+     * @param network - Network to query (default: 'mainnet')
      * @returns Promise<{ ada: number, formatted: string, lovelace: number }>
      */
-    async getFormattedBalance(address: string): Promise<{
+    async getFormattedBalance(address: string, projectId: string, network: string = 'mainnet'): Promise<{
         ada: number;
         formatted: string;
         lovelace: number;
     }> {
-        const lovelace = await this.getAddressBalance(address);
+        const lovelace = await this.getAddressBalance(address, projectId, network);
         const ada = this.lovelaceToAda(lovelace);
         const formatted = this.formatADA(ada);
         

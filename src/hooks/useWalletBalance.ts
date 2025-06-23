@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { blazeWalletService } from '../services/BlazeWalletService';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 /**
  * React hook for querying wallet balance using Blaze SDK
  * Provides real-time balance updates with error handling and loading states
  */
 export function useWalletBalance(address: string, refreshInterval: number = 30000) {
+    const { siteConfig } = useDocusaurusContext();
+    const projectId = siteConfig.customFields?.blockfrostProjectId as string;
+    const network = (siteConfig.customFields?.blockfrostNetwork as string) || 'mainnet';
     const [balance, setBalance] = useState<{
         ada: number;
         formatted: string;
@@ -15,8 +19,11 @@ export function useWalletBalance(address: string, refreshInterval: number = 3000
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!address) {
+        if (!address || !projectId) {
             setLoading(false);
+            if (!projectId) {
+                setError('BLOCKFROST_PROJECT_ID environment variable is required');
+            }
             return;
         }
 
@@ -25,7 +32,7 @@ export function useWalletBalance(address: string, refreshInterval: number = 3000
         const fetchBalance = async () => {
             try {
                 setError(null);
-                const balanceData = await blazeWalletService.getFormattedBalance(address);
+                const balanceData = await blazeWalletService.getFormattedBalance(address, projectId, network);
                 setBalance(balanceData);
             } catch (err) {
                 console.error('Error fetching wallet balance:', err);
@@ -49,16 +56,16 @@ export function useWalletBalance(address: string, refreshInterval: number = 3000
                 clearInterval(intervalId);
             }
         };
-    }, [address, refreshInterval]);
+    }, [address, refreshInterval, projectId, network]);
 
     return {
         balance,
         loading,
         error,
         refetch: () => {
-            if (address) {
+            if (address && projectId) {
                 setLoading(true);
-                blazeWalletService.getFormattedBalance(address)
+                blazeWalletService.getFormattedBalance(address, projectId, network)
                     .then(setBalance)
                     .catch(err => setError(err.message))
                     .finally(() => setLoading(false));
