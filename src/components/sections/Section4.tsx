@@ -12,7 +12,6 @@ import QRCode from 'react-qr-code';
 import { useSaleTimer } from "../../hooks/useSaleTimer";
 import { ANGEL_SALE_CONFIG } from "../../types/saleTypes";
 import FlipNumbers from 'react-flip-numbers';
-import { useWalletBalance } from "../../hooks/useWalletBalance";
 import { useWallet } from "../../hooks/useWallet";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShinyButton from '../common/ShinyButton';
@@ -489,11 +488,10 @@ const Section4: React.FC = () => {
     }
     const timerState = useSaleTimer(ANGEL_SALE_CONFIG);
     
-    // Query real ADA balance from the sale wallet using Blaze (refresh every 60 seconds)
-    const { balance: walletBalance, loading: balanceLoading, error: balanceError } = useWalletBalance(paymentAddress, 60000);
-    
-    // Use real balance if available, fallback to 0 if loading or error
-    const currentADAraised = walletBalance?.ada || 0;
+    // Hardcoded sale amount - sale completed successfully
+    const currentADAraised = 1332000; // 1.332M ADA (hard cap reached)
+    const balanceLoading = false;
+    const balanceError = null;
     
     const handleCopyAddress = () => {
         navigator.clipboard.writeText(paymentAddress);
@@ -959,34 +957,35 @@ const Section4: React.FC = () => {
                 )}
 
 
-                {/* Merged Sale Progress and Countdown Timer */}
-                <div className="w-full flex flex-col items-center justify-center !mt-[24px] sm:!mt-14">
-                    <Card
-                        sx={{
-                            position: 'relative',
-                            background: 'transparent',
-                            borderRadius: "16px",
-                            boxShadow: "none",
-                            isolation: 'isolate',
-                            '&::before': {
-                                content: '""',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
+                {/* Merged Sale Progress and Countdown Timer - Hide when sale ended */}
+                {timerState.phase !== 'sale-ended' && (
+                    <div className="w-full flex flex-col items-center justify-center !mt-[24px] sm:!mt-14">
+                        <Card
+                            sx={{
+                                position: 'relative',
+                                background: 'transparent',
                                 borderRadius: "16px",
-                                padding: "4px",
-                                background: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
-                                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                                WebkitMaskComposite: 'xor',
-                                maskComposite: 'exclude',
-                                zIndex: -1
-                            }
-                        }}
-                        className="w-full max-w-[95%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
-                    >
-                        <div className="relative !p-4 sm:!p-6 md:!p-6 lg:!p-8 flex flex-col items-center">
+                                boxShadow: "none",
+                                isolation: 'isolate',
+                                '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    borderRadius: "16px",
+                                    padding: "4px",
+                                    background: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                                    WebkitMaskComposite: 'xor',
+                                    maskComposite: 'exclude',
+                                    zIndex: -1
+                                }
+                            }}
+                            className="w-full max-w-[95%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
+                        >
+                            <div className="relative !p-4 sm:!p-6 md:!p-6 lg:!p-8 flex flex-col items-center">
                             {/* Sale Progress Section with Multi-tier Progress Bar */}
                             {timerState.phase === 'public-mint' && (
                                 <div className="w-full flex flex-col items-center mb-4 sm:mb-6">
@@ -1020,69 +1019,223 @@ const Section4: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Countdown Timer Section */}
-                            <div className="w-full flex flex-col items-center">
-                                <Typography
-                                    sx={{
-                                        color: theme.palette.primary.main,
-                                        fontWeight: 800,
-                                        fontFamily: "Cinzel",
-                                        fontSize: { xs: '24px', sm: '26px', md: '28px', lg: '32px' },
-                                        textAlign: 'center',
-                                        mb: { xs: 3, sm: 3, md: 4, lg: 5 },
-                                        letterSpacing: { xs: '0.5px', sm: '1px' },
-                                        textTransform: 'uppercase',
-                                        textShadow: `0 2px 4px ${theme.palette.primary.main}20`
-                                    }}
-                                >
-                                    {timerState.phase === 'pre-sale' && 'Sale Opens In'}
-                                    {timerState.phase === 'public-mint' && 'Sale Closes In'}
-                                    {timerState.phase === 'sale-ended' && 'Sale Has Ended'}
-                                </Typography>
-                                {timerState.phase !== 'sale-ended' && (
+                            {/* Countdown Timer Section - Hide completely when sale ended */}
+                            {timerState.phase !== 'sale-ended' && (
+                                <div className="w-full flex flex-col items-center">
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 800,
+                                            fontFamily: "Cinzel",
+                                            fontSize: { xs: '24px', sm: '26px', md: '28px', lg: '32px' },
+                                            textAlign: 'center',
+                                            mb: { xs: 3, sm: 3, md: 4, lg: 5 },
+                                            letterSpacing: { xs: '0.5px', sm: '1px' },
+                                            textTransform: 'uppercase',
+                                            textShadow: `0 2px 4px ${theme.palette.primary.main}20`
+                                        }}
+                                    >
+                                        {timerState.phase === 'pre-sale' && 'Sale Opens In'}
+                                        {timerState.phase === 'public-mint' && 'Sale Closes In'}
+                                    </Typography>
                                     <div className="grid grid-cols-4 gap-[5px] w-full max-w-[200px] xs:max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[340px] xl:max-w-[380px]">
                                         <FlipClockCard value={timerState.timeRemaining.days} label="Days" theme={theme} />
                                         <FlipClockCard value={timerState.timeRemaining.hours} label="Hours" theme={theme} />
                                         <FlipClockCard value={timerState.timeRemaining.minutes} label="Minutes" theme={theme} />
                                         <FlipClockCard value={timerState.timeRemaining.seconds} label="Seconds" theme={theme} />
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )}
                         </div>
                     </Card>
                 </div>
+                )}
 
-                {/* Sale Ended Message - Only show after sale ends */}
+                {/* Sale Ended - Beautiful summary display */}
                 {timerState.phase === 'sale-ended' && (
-                    <div className="flex flex-col items-center justify-center !mt-10 !space-y-4">
-                        <Typography
+                    <div className="w-full flex flex-col items-center justify-center !mt-8 sm:!mt-12">
+                        <Card
                             sx={{
-                                fontFamily: "Cinzel",
-                                color: theme.palette.grey[300],
-                                fontWeight: 700
+                                position: 'relative',
+                                background: 'transparent',
+                                borderRadius: "16px",
+                                boxShadow: "none",
+                                isolation: 'isolate',
+                                '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    borderRadius: "16px",
+                                    padding: "4px",
+                                    background: `linear-gradient(to bottom right, ${theme.palette.primary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                                    WebkitMaskComposite: 'xor',
+                                    maskComposite: 'exclude',
+                                    zIndex: -1
+                                }
                             }}
-                            className="!text-[32px] md:!text-[36px] lg:!text-[40px]"
+                            className="w-full max-w-[95%] sm:max-w-xl md:max-w-2xl lg:max-w-3xl"
                         >
-                            SALE ENDED
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: theme.palette.text.primary,
-                                textAlign: 'center'
-                            }}
-                            className="!text-lg md:!text-xl"
-                        >
-                            The $ANGELS token sale has concluded. Thank you for your participation!
-                        </Typography>
-                        <Typography
-                            sx={{
-                                color: theme.palette.text.secondary,
-                                textAlign: 'center'
-                            }}
-                            className="!text-base"
-                        >
-                            Follow our social channels for updates on token distribution and future announcements.
-                        </Typography>
+                            <div className="relative !p-6 sm:!p-8 md:!p-10 lg:!p-12 flex flex-col items-center">
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Cinzel",
+                                        color: theme.palette.primary.main,
+                                        fontWeight: 800,
+                                        fontSize: { xs: '20px', sm: '24px', md: '28px', lg: '32px' },
+                                        textAlign: 'center',
+                                        mb: 3,
+                                        letterSpacing: '1px',
+                                        textTransform: 'uppercase'
+                                    }}
+                                >
+                                    Sale Successfully Completed
+                                </Typography>
+                                
+                                {/* Total Raised Display - Enhanced */}
+                                <Box sx={{ 
+                                    textAlign: 'center', 
+                                    mb: 6,
+                                    position: 'relative'
+                                }}>
+                                    {/* Decorative elements */}
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            width: { xs: '200px', sm: '300px', md: '400px' },
+                                            height: { xs: '200px', sm: '300px', md: '400px' },
+                                            background: `radial-gradient(circle, ${theme.palette.primary.main}20 0%, transparent 70%)`,
+                                            filter: 'blur(40px)',
+                                            zIndex: 0
+                                        }}
+                                    />
+                                    
+                                    <Box sx={{ position: 'relative', zIndex: 1 }}>
+                                        <Typography
+                                            sx={{
+                                                color: theme.palette.primary.main,
+                                                fontSize: { xs: '16px', sm: '18px', md: '20px' },
+                                                fontWeight: 700,
+                                                mb: 3,
+                                                fontFamily: "Albert Sans",
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '3px',
+                                                textShadow: `0 2px 8px ${theme.palette.primary.main}30`
+                                            }}
+                                        >
+                                            Total Raised
+                                        </Typography>
+                                        
+                                        {/* Main amount with shine effect */}
+                                        <Box sx={{ position: 'relative', display: 'inline-block' }}>
+                                            <Typography
+                                                sx={{
+                                                    color: theme.palette.primary.light,
+                                                    fontWeight: 900,
+                                                    fontFamily: "Cinzel",
+                                                    fontSize: { 
+                                                        xs: '56px', 
+                                                        sm: '72px', 
+                                                        md: '96px', 
+                                                        lg: '120px'
+                                                    },
+                                                    lineHeight: 0.9,
+                                                    textShadow: `
+                                                        0 4px 16px ${theme.palette.primary.main}50,
+                                                        0 8px 32px ${theme.palette.primary.main}30
+                                                    `,
+                                                    mb: 3,
+                                                    background: `linear-gradient(135deg, ${theme.palette.primary.light}, ${theme.palette.secondary.main}, ${theme.palette.primary.light})`,
+                                                    WebkitBackgroundClip: 'text',
+                                                    WebkitTextFillColor: 'transparent',
+                                                    backgroundClip: 'text',
+                                                    animation: 'shimmer 3s ease-in-out infinite',
+                                                    '@keyframes shimmer': {
+                                                        '0%, 100%': { backgroundPosition: '0% 50%' },
+                                                        '50%': { backgroundPosition: '100% 50%' }
+                                                    },
+                                                    backgroundSize: '200% 200%'
+                                                }}
+                                            >
+                                                ₳{(currentADAraised / 1000000).toFixed(2)}M
+                                            </Typography>
+                                        </Box>
+                                        
+                                        {/* Success badge */}
+                                        <Box
+                                            sx={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: 1.5,
+                                                backgroundColor: `${theme.palette.success.main}15`,
+                                                border: `2px solid ${theme.palette.success.main}`,
+                                                borderRadius: '50px',
+                                                px: 3,
+                                                py: 1.5,
+                                                mt: 2
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    width: 24,
+                                                    height: 24,
+                                                    borderRadius: '50%',
+                                                    backgroundColor: theme.palette.success.main,
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    color: theme.palette.secondary.dark,
+                                                    animation: 'pulse 2s ease-in-out infinite',
+                                                    '@keyframes pulse': {
+                                                        '0%, 100%': { transform: 'scale(1)' },
+                                                        '50%': { transform: 'scale(1.1)' }
+                                                    }
+                                                }}
+                                            >
+                                                ✓
+                                            </Box>
+                                            <Typography
+                                                sx={{
+                                                    color: theme.palette.success.main,
+                                                    fontSize: { xs: '16px', sm: '18px', md: '20px' },
+                                                    fontWeight: 700,
+                                                    fontFamily: "Albert Sans",
+                                                    letterSpacing: '1px'
+                                                }}
+                                            >
+                                                HARD CAP REACHED
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                
+                                {/* Thank You Message */}
+                                <Box sx={{ textAlign: 'center' }}>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.text.primary,
+                                            fontSize: { xs: '18px', sm: '20px', md: '24px' },
+                                            fontWeight: 600,
+                                            fontFamily: "Albert Sans",
+                                            lineHeight: 1.6,
+                                            maxWidth: '600px',
+                                            mx: 'auto',
+                                            opacity: 0.9
+                                        }}
+                                    >
+                                        Thank you to all participants for making this sale a tremendous success!
+                                    </Typography>
+                                </Box>
+                            </div>
+                        </Card>
                     </div>
                 )}
                 
