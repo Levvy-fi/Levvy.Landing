@@ -1019,9 +1019,8 @@ const Section4: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Countdown Timer Section - Hide completely when sale ended */}
-                            {timerState.phase !== 'sale-ended' && (
-                                <div className="w-full flex flex-col items-center">
+                            {/* Countdown Timer Section */}
+                            <div className="w-full flex flex-col items-center">
                                     <Typography
                                         sx={{
                                             color: theme.palette.primary.main,
@@ -1044,8 +1043,7 @@ const Section4: React.FC = () => {
                                         <FlipClockCard value={timerState.timeRemaining.minutes} label="Minutes" theme={theme} />
                                         <FlipClockCard value={timerState.timeRemaining.seconds} label="Seconds" theme={theme} />
                                     </div>
-                                </div>
-                            )}
+                            </div>
                         </div>
                     </Card>
                 </div>
