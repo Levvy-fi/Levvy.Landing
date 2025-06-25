@@ -126,8 +126,7 @@ const Section3: React.FC = () => {
                         </Typography>
                         <div className="flex items-center !gap-4">
                             <Button
-                                href="https://ccardano.gitbook.io/angel-paper/levvy-finance"
-                                target="_blank"
+                                href="/docs/angel-paper/levvy/what-is-levvy"
                                 startIcon={<img src="/images/icons/white_paper.svg" alt="White Paper Icon" />}
                                 sx={{
                                     backgroundColor: theme.palette.levvy.primary,
