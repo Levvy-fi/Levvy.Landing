@@ -1,0 +1,11 @@
+{
+  "label": "Angel Paper",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "Angel Finance Documentation",
+    "description": "Complete documentation for Angel Finance and Levvy platform",
+    "keywords": ["angel finance", "documentation", "cardano", "defi"]
+  },
+  "className": "angel-paper-sidebar"
+}

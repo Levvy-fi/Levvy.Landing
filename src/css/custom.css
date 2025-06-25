@@ -12,9 +12,14 @@
   initial-value: 0deg;
 }
 
-/* Test to verify CSS is loading */
+/* Ensure dark background for body */
 body {
-  background-color: #12100F !important;
+  background-color: #151412 !important;
+}
+
+/* Force dark mode styles */
+[data-theme='light'] body {
+  background-color: #151412 !important;
 }
 
 /**
@@ -25,36 +30,107 @@ body {
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #F9B63E;
-  --ifm-color-primary-dark: #f7a919;
-  --ifm-color-primary-darker: #f5a20a;
-  --ifm-color-primary-darkest: #cc8608;
-  --ifm-color-primary-light: #fbc363;
-  --ifm-color-primary-lighter: #fcca72;
-  --ifm-color-primary-lightest: #fedc95;
+  /* Primary Colors */
+  --angel-lemon: #FFFF7F;
+  --angel-ochre: #E1B33A;
+  --angel-walnut: #B77828;
+  --angel-bronze: #9E611E;
+  --angel-charcoal: #151412;
+  
+  /* Secondary Colors */
+  --angel-sky-blue: #1D9BF0;
+  --angel-ash: #707070;
+  --angel-khaki: #EDDCBD;
+  --angel-marble: #F8F8F8;
+  --angel-white: #FFFFFF;
+  
+  /* Logo Colors */
+  --angel-logo-primary: #FCB040;
+  --angel-logo-secondary: #B77828;
+  
+  /* Docusaurus overrides - Dark theme only */
+  --ifm-color-primary: #FCB040;
+  --ifm-color-primary-dark: #fba41a;
+  --ifm-color-primary-darker: #fb9d0a;
+  --ifm-color-primary-darkest: #d07d08;
+  --ifm-color-primary-light: #fdc266;
+  --ifm-color-primary-lighter: #fdcb76;
+  --ifm-color-primary-lightest: #fee5ac;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --ifm-background-color: #12100F;
-  --ifm-background-surface-color: #201B13;
-}
-
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #F9B63E;
-  --ifm-color-primary-dark: #f7a919;
-  --ifm-color-primary-darker: #f5a20a;
-  --ifm-color-primary-darkest: #cc8608;
-  --ifm-color-primary-light: #fbc363;
-  --ifm-color-primary-lighter: #fcca72;
-  --ifm-color-primary-lightest: #fedc95;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-background-color: #12100F;
-  --ifm-background-surface-color: #201B13;
+  --ifm-background-color: #151412;
+  --ifm-background-surface-color: #232121;
+  --ifm-navbar-background-color: #232121;
+  --ifm-footer-background-color: #151412;
+  --ifm-color-content: #FFFFFF;
+  --ifm-heading-color: #FCB040;
+  --ifm-link-color: #FCB040;
+  --ifm-link-hover-color: #FFFF7F;
+  --ifm-menu-color-active: #FCB040;
+  --ifm-toc-link-color: #E1B33A;
+  --ifm-table-stripe-background: rgba(252, 176, 64, 0.05);
+  --ifm-code-background: #232121;
+  --ifm-pre-background: #232121;
+  --ifm-blockquote-color: #E1B33A;
+  --ifm-blockquote-border-color: #FCB040;
+  --ifm-hr-border-color: #707070;
 }
 
-/* Set dark theme by default */
-html[data-theme='dark'] {
-  --ifm-color-content: #EDE1D3;
+/* Force dark theme colors for both light and dark modes */
+:root,
+[data-theme='light'] {
+  /* Same dark theme colors for light mode */
+  --ifm-background-color: #151412;
+  --ifm-background-surface-color: #232121;
+  --ifm-navbar-background-color: #232121;
+  --ifm-footer-background-color: #151412;
+  --ifm-color-content: #FFFFFF;
+  --ifm-heading-color: #FCB040;
+  --ifm-link-color: #FCB040;
+  --ifm-link-hover-color: #FFFF7F;
+  --ifm-menu-color-active: #FCB040;
+  --ifm-toc-link-color: #E1B33A;
+  --ifm-table-stripe-background: rgba(252, 176, 64, 0.05);
+  --ifm-code-background: #232121;
+  --ifm-pre-background: #232121;
+  --ifm-blockquote-color: #E1B33A;
+  --ifm-blockquote-border-color: #FCB040;
+  --ifm-hr-border-color: #707070;
+  --ifm-color-emphasis-300: #707070;
+  --ifm-color-emphasis-600: #EDDCBD;
+  --ifm-color-emphasis-700: #FFFFFF;
+  --ifm-breadcrumb-color-active: #FCB040;
+  --ifm-breadcrumb-item-background-active: transparent;
+  --ifm-breadcrumb-separator-filter: invert(64%) sepia(43%) saturate(1352%) hue-rotate(349deg) brightness(100%) contrast(96%);
+  --ifm-menu-color: #FFFFFF;
+  --ifm-menu-color-background-active: rgba(252, 176, 64, 0.1);
+  --ifm-menu-color-background-hover: rgba(252, 176, 64, 0.05);
+  
+  /* Force admonition dark mode colors */
+  --ifm-color-info-dark: #1D9BF0;
+  --ifm-color-info-contrast-background: rgba(29, 155, 240, 0.1);
+  --ifm-color-info-contrast-foreground: #FFFFFF;
+  
+  --ifm-color-success-dark: #50CEC8;
+  --ifm-color-success-contrast-background: rgba(80, 206, 200, 0.1);
+  --ifm-color-success-contrast-foreground: #FFFFFF;
+  
+  --ifm-color-warning-dark: #E1B33A;
+  --ifm-color-warning-contrast-background: rgba(225, 179, 58, 0.1);
+  --ifm-color-warning-contrast-foreground: #FFFFFF;
+  
+  --ifm-color-danger-dark: #9E611E;
+  --ifm-color-danger-contrast-background: rgba(158, 97, 30, 0.1);
+  --ifm-color-danger-contrast-foreground: #FFFFFF;
+  
+  --ifm-alert-background-color: rgba(35, 33, 33, 0.8);
+  --ifm-alert-border-color: rgba(252, 176, 64, 0.3);
+  --ifm-alert-color: #FFFFFF;
+}
+
+/* Ensure consistent dark theme styling */
+html {
+  --ifm-color-content: #FFFFFF;
 }
 
 /* Global font family override */
@@ -121,4 +197,1070 @@ body:has(.homepage) .main-wrapper {
 .backdrop-blur-md\! {
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* Documentation-specific styling */
+.navbar {
+  background: linear-gradient(to right, #232121, #151412);
+  border-bottom: 1px solid rgba(252, 176, 64, 0.2);
+}
+
+.navbar__title {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  color: #FCB040;
+}
+
+.navbar__logo {
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(252, 176, 64, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.navbar__logo:hover {
+  transform: scale(1.1);
+}
+
+.navbar__link {
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.navbar__link:hover {
+  color: #FCB040;
+  transform: translateY(-1px);
+}
+
+.navbar__link--active {
+  color: #FCB040 !important;
+  font-weight: 600;
+  position: relative;
+}
+
+/* Add underline effect for active navbar link */
+.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #FCB040;
+}
+
+/* Also apply to dropdown items */
+.dropdown__link--active {
+  color: #FCB040 !important;
+  background: rgba(252, 176, 64, 0.1) !important;
+}
+
+/* Mobile navbar menu active state */
+.navbar-sidebar .menu__link--active {
+  color: #FCB040 !important;
+  background: rgba(252, 176, 64, 0.1) !important;
+  border-left: 3px solid #FCB040;
+}
+
+/* Ensure Documentation link in navbar has proper active state */
+.navbar__item.navbar__link--active {
+  color: #FCB040 !important;
+}
+
+/* Sidebar styling */
+.theme-doc-sidebar-container {
+  background: #232121;
+  border-right: 1px solid rgba(252, 176, 64, 0.1);
+}
+
+.menu__link {
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+}
+
+.menu__link:hover {
+  background: rgba(252, 176, 64, 0.1);
+  color: #FCB040 !important;
+}
+
+.menu__link--active {
+  background: linear-gradient(90deg, rgba(252, 176, 64, 0.2) 0%, transparent 100%);
+  border-left: 3px solid #FCB040;
+  color: #FCB040 !important;
+  font-weight: 600;
+}
+
+/* Fix sidebar expansion arrows color */
+.menu__link--sublist-caret:after {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.menu__caret {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+/* Ensure menu items have proper color */
+.menu__link--sublist {
+  color: #FFFFFF;
+}
+
+.menu__link--sublist:hover {
+  color: #FCB040 !important;
+}
+
+.menu__list-item-collapsible {
+  color: #FFFFFF;
+}
+
+.menu__list-item-collapsible:hover {
+  background: rgba(252, 176, 64, 0.1);
+}
+
+.menu__list-item-collapsible:hover .menu__link {
+  color: #FCB040 !important;
+}
+
+/* Target the SVG arrows directly */
+.menu__link--sublist-caret svg,
+.menu__caret svg {
+  fill: #FFFFFF;
+}
+
+/* When parent is hovered or active, change arrow color */
+.menu__link--active svg,
+.menu__link:hover svg,
+.menu__link--active .menu__link--sublist-caret:after,
+.menu__link:hover .menu__link--sublist-caret:after {
+  fill: #FCB040;
+  filter: none;
+  opacity: 1;
+}
+
+/* Docusaurus v2/v3 arrow fix */
+.menu__link .menu__link--sublist-caret:after,
+.menu__list-item-collapsible .menu__link:after {
+  background: var(--ifm-menu-link-sublist-icon) center / 1.25rem 1.25rem;
+  filter: brightness(0) invert(1);
+}
+
+/* Documentation content styling */
+.markdown > h1 {
+  font-family: 'Cinzel', serif;
+  color: #FCB040;
+}
+
+.markdown > h2 {
+  color: #FCB040;
+  font-family: 'Cinzel', serif;
+  border-bottom: 1px solid rgba(252, 176, 64, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.markdown > h3,
+.markdown > h4,
+.markdown > h5,
+.markdown > h6 {
+  color: #FCB040;
+  font-family: 'Cinzel', serif;
+}
+
+/* Ensure all headings use our styling, even outside markdown containers */
+h1, h2, h3, h4, h5, h6 {
+  color: #FCB040;
+  font-family: 'Cinzel', serif;
+}
+
+/* Specific styling for article headers */
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  color: #FCB040;
+  font-family: 'Cinzel', serif;
+}
+
+/* Custom admonitions */
+.admonition {
+  background: rgba(35, 33, 33, 0.8) !important;
+  border: 1px solid rgba(252, 176, 64, 0.3) !important;
+  border-left-width: 4px !important;
+  color: #FFFFFF !important;
+}
+
+.admonition-heading {
+  color: #FFFFFF !important;
+}
+
+.admonition-icon svg {
+  fill: currentColor !important;
+}
+
+.admonition p,
+.admonition ul,
+.admonition ol,
+.admonition a {
+  color: #FFFFFF !important;
+}
+
+.admonition a:hover {
+  color: #FCB040 !important;
+}
+
+/* Docusaurus v3 alert/admonition overrides */
+.alert {
+  background-color: rgba(35, 33, 33, 0.8) !important;
+  border-color: rgba(252, 176, 64, 0.3) !important;
+  color: #FFFFFF !important;
+}
+
+.alert--info {
+  --ifm-alert-background-color: rgba(29, 155, 240, 0.1) !important;
+  --ifm-alert-border-color: #1D9BF0 !important;
+  border-left: 4px solid #1D9BF0 !important;
+}
+
+.alert--info .admonition-heading,
+.alert--info .alert__heading {
+  color: #1D9BF0 !important;
+}
+
+.alert--success {
+  --ifm-alert-background-color: rgba(80, 206, 200, 0.1) !important;
+  --ifm-alert-border-color: #50CEC8 !important;
+  border-left: 4px solid #50CEC8 !important;
+}
+
+.alert--success .admonition-heading,
+.alert--success .alert__heading {
+  color: #50CEC8 !important;
+}
+
+.alert--warning,
+.alert--caution {
+  --ifm-alert-background-color: rgba(225, 179, 58, 0.1) !important;
+  --ifm-alert-border-color: #E1B33A !important;
+  border-left: 4px solid #E1B33A !important;
+}
+
+.alert--warning .admonition-heading,
+.alert--warning .alert__heading,
+.alert--caution .admonition-heading,
+.alert--caution .alert__heading {
+  color: #E1B33A !important;
+}
+
+.alert--danger {
+  --ifm-alert-background-color: rgba(158, 97, 30, 0.1) !important;
+  --ifm-alert-border-color: #9E611E !important;
+  border-left: 4px solid #9E611E !important;
+}
+
+.alert--danger .admonition-heading,
+.alert--danger .alert__heading {
+  color: #9E611E !important;
+}
+
+/* Ensure all alert content is white */
+.alert p,
+.alert ul,
+.alert ol,
+.alert a {
+  color: #FFFFFF !important;
+}
+
+.alert a:hover {
+  color: #FCB040 !important;
+}
+
+.admonition-note {
+  border-left-color: #1D9BF0 !important;
+  background: rgba(29, 155, 240, 0.1) !important;
+}
+
+.admonition-note .admonition-heading {
+  color: #1D9BF0 !important;
+}
+
+.admonition-tip {
+  border-left-color: #FFFF7F !important;
+  background: rgba(255, 255, 127, 0.1) !important;
+}
+
+.admonition-tip .admonition-heading {
+  color: #FFFF7F !important;
+}
+
+.admonition-warning,
+.admonition-caution {
+  border-left-color: #E1B33A !important;
+  background: rgba(225, 179, 58, 0.1) !important;
+}
+
+.admonition-warning .admonition-heading,
+.admonition-caution .admonition-heading {
+  color: #E1B33A !important;
+}
+
+.admonition-danger {
+  border-left-color: #9E611E !important;
+  background: rgba(158, 97, 30, 0.1) !important;
+}
+
+.admonition-danger .admonition-heading {
+  color: #9E611E !important;
+}
+
+.admonition-info {
+  border-left-color: #FCB040 !important;
+  background: rgba(252, 176, 64, 0.1) !important;
+}
+
+.admonition-info .admonition-heading {
+  color: #FCB040 !important;
+}
+
+.admonition-success {
+  border-left-color: #50CEC8 !important;
+  background: rgba(80, 206, 200, 0.1) !important;
+}
+
+.admonition-success .admonition-heading {
+  color: #50CEC8 !important;
+}
+
+/* Code blocks with Angel Finance styling */
+.prism-code {
+  background: #232121 !important;
+  border: 1px solid rgba(252, 176, 64, 0.2);
+}
+
+/* Footer styling */
+.footer {
+  background: linear-gradient(to bottom, #232121, #151412);
+  border-top: 1px solid rgba(252, 176, 64, 0.2);
+}
+
+.footer__title {
+  color: #FCB040;
+  font-weight: 600;
+}
+
+/* Table of contents styling */
+.table-of-contents__link {
+  transition: all 0.2s ease;
+}
+
+.table-of-contents__link:hover {
+  color: #FFFF7F;
+  text-decoration: none;
+}
+
+.table-of-contents__link--active {
+  color: #FCB040;
+  font-weight: 600;
+}
+
+/* Pagination buttons */
+.pagination-nav__link {
+  background: rgba(35, 33, 33, 0.8) !important;
+  border: 1px solid rgba(252, 176, 64, 0.3) !important;
+  transition: all 0.3s ease;
+  color: #FFFFFF !important;
+}
+
+.pagination-nav__link:hover {
+  background: rgba(252, 176, 64, 0.1) !important;
+  border-color: #FCB040 !important;
+  transform: translateY(-2px);
+  color: #FCB040 !important;
+}
+
+/* Pagination labels (Previous/Next) */
+.pagination-nav__label {
+  color: #FFFFFF !important;
+}
+
+.pagination-nav__link:hover .pagination-nav__label {
+  color: #FCB040 !important;
+}
+
+/* Pagination sublabels (page titles) */
+.pagination-nav__sublabel {
+  color: #FFFFFF !important;
+  opacity: 0.7;
+}
+
+.pagination-nav__link:hover .pagination-nav__sublabel {
+  color: #FFFF7F !important;
+  opacity: 1;
+}
+
+/* Search styling */
+.navbar__search-input {
+  background: rgba(35, 33, 33, 0.8);
+  border: 1px solid rgba(252, 176, 64, 0.3);
+  color: #EDDCBD;
+}
+
+.navbar__search-input:focus {
+  border-color: #FCB040;
+  outline: none;
+}
+
+/* Breadcrumb styling */
+.breadcrumbs {
+  background: transparent;
+}
+
+.breadcrumbs__link {
+  color: #E1B33A;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs__link:hover {
+  color: #FCB040;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: #FCB040;
+  background: transparent;
+}
+
+/* Breadcrumb separator */
+.breadcrumbs__item:not(:last-child):after {
+  color: #707070;
+}
+
+/* Angel Finance Custom Styles */
+
+/* Glassmorphism cards */
+.card {
+  background: rgba(35, 33, 33, 0.6) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2) !important;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(252, 176, 64, 0.2);
+  border-color: rgba(252, 176, 64, 0.4);
+}
+
+/* Category cards in docs */
+.cardContainer_node_modules-\@docusaurus-theme-classic-lib-theme-DocCard-styles-module {
+  background: rgba(35, 33, 33, 0.6) !important;
+  border: 1px solid rgba(252, 176, 64, 0.2) !important;
+}
+
+.cardContainer_node_modules-\@docusaurus-theme-classic-lib-theme-DocCard-styles-module:hover {
+  border-color: rgba(252, 176, 64, 0.4) !important;
+  box-shadow: 0 8px 20px rgba(252, 176, 64, 0.2) !important;
+}
+
+/* Doc card titles and descriptions */
+.card__header h2,
+.card .text--truncate {
+  color: #FCB040 !important;
+}
+
+.card__body,
+.card__body p,
+.cardDescription_node_modules-\@docusaurus-theme-classic-lib-theme-DocCard-styles-module {
+  color: #FFFFFF !important;
+}
+
+/* Alternative selectors for category cards */
+article.card {
+  background: rgba(35, 33, 33, 0.8) !important;
+}
+
+article.card h2 {
+  color: #FCB040 !important;
+}
+
+article.card p {
+  color: #FFFFFF !important;
+}
+
+/* Fix for generated category pages */
+.theme-doc-version-badge,
+.theme-doc-version-banner {
+  background: rgba(252, 176, 64, 0.1) !important;
+  color: #FCB040 !important;
+}
+
+/* More specific selectors for Docusaurus generated category cards */
+.theme-doc-card,
+.theme-doc-card-container article {
+  background: rgba(35, 33, 33, 0.8) !important;
+  border: 1px solid rgba(252, 176, 64, 0.2) !important;
+}
+
+.theme-doc-card:hover,
+.theme-doc-card-container article:hover {
+  border-color: rgba(252, 176, 64, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+/* Category page specific styles */
+[class*="docCardContainer"] {
+  --ifm-card-background-color: rgba(35, 33, 33, 0.8) !important;
+  --ifm-card-color: #FFFFFF !important;
+}
+
+[class*="docCardContainer"] [class*="cardDescription"] {
+  color: #FFFFFF !important;
+}
+
+/* Override Infima card text colors */
+:root,
+[data-theme='light'] {
+  --ifm-card-color: #FFFFFF !important;
+  --ifm-card-background-color: rgba(35, 33, 33, 0.8) !important;
+}
+
+[class*="docCardContainer"] [class*="cardTitle"] {
+  color: #FCB040 !important;
+}
+
+/* Force white text on all paragraph elements in cards */
+.card p,
+[class*="card"] p {
+  color: #FFFFFF !important;
+}
+
+/* Specific overrides for docusaurus category cards */
+main[class*="docMainContainer"] .card p,
+main[class*="docMainContainer"] [class*="card"] p,
+.container .card p,
+.container [class*="card"] p {
+  color: #FFFFFF !important;
+}
+
+/* Target generated category list items */
+article[class*="card"] > div > p,
+article.card > div > p,
+.theme-doc-card p {
+  color: #FFFFFF !important;
+}
+
+/* Force all text elements in cards to be white */
+.card *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+[class*="card"] *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  color: #FFFFFF !important;
+}
+
+/* Keep headings orange */
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
+[class*="card"] h1, [class*="card"] h2, [class*="card"] h3, 
+[class*="card"] h4, [class*="card"] h5, [class*="card"] h6 {
+  color: #FCB040 !important;
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #FFFF7F 0%, #B77828 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero section styles */
+.hero-section {
+  padding: 3rem 0;
+  background: radial-gradient(ellipse at center, rgba(252, 176, 64, 0.1) 0%, transparent 70%);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-text {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #FFFFFF;
+}
+
+/* Feature grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  background: rgba(35, 33, 33, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: #FCB040;
+  box-shadow: 0 8px 20px rgba(252, 176, 64, 0.2);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Timeline styles */
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #FFFF7F, #B77828);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-marker {
+  width: 16px;
+  height: 16px;
+  background: #FCB040;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 4px rgba(252, 176, 64, 0.2);
+}
+
+.timeline-content {
+  background: rgba(35, 33, 33, 0.8);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  width: 45%;
+  margin: 0 2.5%;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-left: auto;
+  margin-right: 52.5%;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: 52.5%;
+  margin-right: auto;
+}
+
+/* Revenue model cards */
+.revenue-model {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.revenue-card {
+  background: linear-gradient(135deg, rgba(252, 176, 64, 0.1) 0%, rgba(255, 255, 127, 0.05) 100%);
+  border: 1px solid rgba(252, 176, 64, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* Distribution chart */
+.distribution-chart {
+  display: flex;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chart-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #151412;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: rgba(35, 33, 33, 0.8);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FCB040;
+}
+
+/* Tokenomics stats */
+.tokenomics-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.tokenomics-stats .stat-card {
+  background: linear-gradient(135deg, rgba(252, 176, 64, 0.1) 0%, transparent 100%);
+  border: 2px solid #FCB040;
+  padding: 2rem 1rem;
+}
+
+.tokenomics-stats h2 {
+  color: #FCB040;
+  margin: 0;
+  font-family: 'Cinzel', serif;
+}
+
+.tokenomics-stats p {
+  margin: 0.5rem 0 0 0;
+  color: #FFFFFF;
+}
+
+/* Mobile responsive timeline */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 30px;
+  }
+  
+  .timeline-marker {
+    left: 30px;
+  }
+  
+  .timeline-content {
+    width: calc(100% - 60px);
+    margin-left: 60px !important;
+    margin-right: 0 !important;
+  }
+  
+  .timeline-item:nth-child(odd) .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content {
+    margin-left: 60px !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Goals grid */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.goal-card {
+  background: rgba(35, 33, 33, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(252, 176, 64, 0.1) 0%, transparent 70%);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.goal-card:hover::before {
+  opacity: 1;
+}
+
+.goal-card:hover {
+  transform: translateY(-8px);
+  border-color: #FCB040;
+  box-shadow: 0 12px 24px rgba(252, 176, 64, 0.3);
+}
+
+.goal-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Announcement bar override */
+.announcementBar_mb4j {
+  background: linear-gradient(90deg, #FFFF7F 0%, #B77828 100%) !important;
+  color: #151412 !important;
+  font-weight: 500;
+}
+
+.announcementBar_mb4j a {
+  color: #151412 !important;
+  text-decoration: underline;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #232121;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FCB040;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FFFF7F;
+}
+
+/* Process flow */
+.process-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.process-step {
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(35, 33, 33, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 12px;
+  position: relative;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #FFFF7F 0%, #B77828 100%);
+  color: #151412;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.process-arrow {
+  color: #FCB040;
+  font-size: 2rem;
+  flex: 0 0 auto;
+}
+
+/* Rate factors grid */
+.rate-factors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.factor-card {
+  background: rgba(35, 33, 33, 0.4);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.factor-card h4 {
+  color: #FCB040;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.factor-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+}
+
+/* Mobile responsive process flow */
+@media (max-width: 768px) {
+  .process-flow {
+    flex-direction: column;
+  }
+  
+  .process-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* Additional documentation styles */
+.borrowing-steps,
+.lending-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.step-card {
+  background: rgba(35, 33, 33, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+  border-color: #FCB040;
+}
+
+.best-practices,
+.ltv-guidelines {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.practice-card,
+.ltv-card {
+  background: rgba(35, 33, 33, 0.5);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.ltv-card.safe {
+  border-color: rgba(29, 155, 240, 0.5);
+}
+
+.ltv-card.moderate {
+  border-color: rgba(252, 176, 64, 0.5);
+}
+
+.ltv-card.aggressive {
+  border-color: rgba(158, 97, 30, 0.5);
+}
+
+/* Team member cards */
+.team-member {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: rgba(35, 33, 33, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 12px;
+}
+
+.member-story {
+  margin-top: 1rem;
+  line-height: 1.8;
+}
+
+.team-quote {
+  font-style: italic;
+  color: #FCB040;
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid #FCB040;
+}
+
+/* Links page styles */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.link-card {
+  background: rgba(35, 33, 33, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(252, 176, 64, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.link-card:hover {
+  transform: translateY(-4px);
+  border-color: #FCB040;
+  box-shadow: 0 8px 20px rgba(252, 176, 64, 0.2);
+  text-decoration: none;
+}
+
+.link-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.link-url {
+  color: #E1B33A;
+  font-size: 0.9rem;
+}
+
+/* Token info styling */
+.token-info {
+  background: rgba(35, 33, 33, 0.8);
+  border: 2px solid #FCB040;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.policy-id {
+  word-break: break-all;
+  background: rgba(252, 176, 64, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
 }

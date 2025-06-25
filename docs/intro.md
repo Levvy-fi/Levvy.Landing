@@ -1,47 +1,79 @@
 ---
 sidebar_position: 1
+title: Welcome to Angel Finance
+description: Official documentation for Angel Finance and Levvy platform on Cardano
+keywords: [angel finance, levvy, cardano, defi, lending, borrowing]
 ---
 
-# Tutorial Intro
+# 👼 Welcome to Angel Finance
 
-Let's discover **Docusaurus in less than 5 minutes**.
+<div style={{marginBottom: '2rem'}}>
+  <img src="/images/banners/angel-twitter-banner.webp" alt="Angel Finance Banner" style={{width: '100%', height: 'auto', borderRadius: '12px'}} />
+</div>
 
-## Getting Started
+The **$Angels** have come to Cardano, delivering tidings of great joy and bestowing their Blessings upon the faithful. Follow along in this documentation to learn how you may be Blessed as well.
 
-Get started by **creating a new site**.
+## 🌟 What You'll Find Here
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+This documentation provides comprehensive information about:
 
-### What you'll need
+- **Angel Finance** - Our DeFi investment platform and ecosystem
+- **Levvy Finance** - The premier peer-to-peer lending protocol on Cardano
+- **$ANGELS Token** - Tokenomics, distribution, and holder benefits
+- **Monthly Distributions** - How profits are shared with the community
+- **Future Development** - Our roadmap and upcoming features
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+## 🚀 Quick Start
 
-## Generate a new site
+<div className="row">
+  <div className="col col--6">
+    <div className="card">
+      <div className="card__header">
+        <h3>💰 For Investors</h3>
+      </div>
+      <div className="card__body">
+        <p>Learn about $ANGELS tokenomics and monthly ADA distributions</p>
+      </div>
+      <div className="card__footer">
+        <a className="button button--primary button--block" href="/docs/angel-paper/tokenomics">View Tokenomics</a>
+      </div>
+    </div>
+  </div>
+  <div className="col col--6">
+    <div className="card">
+      <div className="card__header">
+        <h3>🏦 For Lenders & Borrowers</h3>
+      </div>
+      <div className="card__body">
+        <p>Discover how Levvy revolutionizes lending on Cardano</p>
+      </div>
+      <div className="card__footer">
+        <a className="button button--primary button--block" href="/docs/angel-paper/levvy/what-is-levvy">Explore Levvy</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-Generate a new Docusaurus site using the **classic template**.
+## 📊 Key Highlights
 
-The classic template will automatically be added to your project after you run the command:
+:::info Monthly Distributions
+**80%** of all DeFi profits and **75%** of Levvy revenue are distributed to $ANGELS holders on the 15th of every month
+:::
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+:::tip Zero Team Allocation
+The team purchases their own tokens just like everyone else - no free allocations, no vesting schedules
+:::
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+:::caution Important
+Nothing in this documentation should be misconstrued as financial advice. Please read our [disclaimer](/docs/angel-paper/disclaimer) before proceeding.
+:::
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+## 🔗 Stay Connected
 
-## Start your site
+- **Website**: [https://levvy.fi](https://levvy.fi)
+- **Discord**: [Join our community](https://discord.gg/angelfinance)
+- **Twitter/X**: [@angelcoinada](https://twitter.com/angelcoinada)
 
-Run the development server:
+---
 
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+Ready to dive deeper? Start with our [Introduction](/docs/angel-paper/introduction) or jump straight to learning about [Levvy Finance](/docs/angel-paper/levvy/what-is-levvy).
