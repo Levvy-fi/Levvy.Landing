@@ -209,7 +209,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Angel Finance. All rights reserved. | $ANGELS Policy ID: 8fe8039...7307bc`,
+      copyright: `Copyright © ${new Date().getFullYear()} Angel Finance. All rights reserved.`,
     },
     prism: {
       theme: prismThemes.github,

@@ -227,13 +227,43 @@ body:has(.homepage) .main-wrapper {
 }
 
 .navbar__link:hover {
-  color: #FFFF7F;
+  color: #FCB040;
   transform: translateY(-1px);
 }
 
 .navbar__link--active {
   color: #FCB040 !important;
   font-weight: 600;
+  position: relative;
+}
+
+/* Add underline effect for active navbar link */
+.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #FCB040;
+}
+
+/* Also apply to dropdown items */
+.dropdown__link--active {
+  color: #FCB040 !important;
+  background: rgba(252, 176, 64, 0.1) !important;
+}
+
+/* Mobile navbar menu active state */
+.navbar-sidebar .menu__link--active {
+  color: #FCB040 !important;
+  background: rgba(252, 176, 64, 0.1) !important;
+  border-left: 3px solid #FCB040;
+}
+
+/* Ensure Documentation link in navbar has proper active state */
+.navbar__item.navbar__link--active {
+  color: #FCB040 !important;
 }
 
 /* Sidebar styling */
