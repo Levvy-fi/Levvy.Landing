@@ -88,7 +88,7 @@ const theme = createTheme({
           paper: "#232121"
         },
         primary: {
-          light: "#FFFF7F",
+          light: "#FFD89F",
           main: "#FCB040",
           dark: "#B77828",
           contrastText: "#151412"
@@ -96,7 +96,7 @@ const theme = createTheme({
         secondary: {
           light: "#F8F8F8",
           main: "#E1B33A",
-          dark: "#9E611E"
+          dark: "#432C00"
         },
         text: {
           primary: "#FFFFFF",
@@ -106,7 +106,7 @@ const theme = createTheme({
         levvy: {
           primary: "#FCB040",
           secondary: "#B77828",
-          secondary_dark: "#9E611E"
+          secondary_dark: "#432C00"
         },
         gradient: {
           levvy: {
@@ -115,7 +115,7 @@ const theme = createTheme({
             main_dark: "#E1B33A",
             secondary: "#B77828",
             secondary_light: "#232121",
-            secondary_dark: "#9E611E"
+            secondary_dark: "#432C00"
           },
           button: {
             10: "#EDDCBD",
@@ -123,7 +123,7 @@ const theme = createTheme({
             30: "#B77828",
             40: "#E1B33A",
             50: "#232121",
-            60: "#9E611E",
+            60: "#432C00",
             70: "#F8F8F8",
           },
           background: {
