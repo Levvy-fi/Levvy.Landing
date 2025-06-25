@@ -120,7 +120,7 @@ This project provides no guarantees regarding:
 
 For legal inquiries or concerns:
 - **Email**: angelfinanceada@protonmail.com
-- **Twitter**: @angelcoinada
+- **Discord**: Official moderators only
 - **Response Time**: 48-72 business hours
 
 ## Acceptance of Terms

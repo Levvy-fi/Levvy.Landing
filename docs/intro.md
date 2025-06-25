@@ -71,8 +71,8 @@ Nothing in this documentation should be misconstrued as financial advice. Please
 ## 🔗 Stay Connected
 
 - **Website**: [https://levvy.fi](https://levvy.fi)
+- **Discord**: [Join our community](https://discord.gg/angelfinance)
 - **Twitter/X**: [@angelcoinada](https://twitter.com/angelcoinada)
-- **Email**: [angelfinanceada@protonmail.com](mailto:angelfinanceada@protonmail.com)
 
 ---
 

@@ -18,6 +18,13 @@ All official Angel Finance links and resources in one place.
     <span className="link-url">levvy.fi</span>
   </a>
   
+  <a href="https://discord.gg/angelfinance" className="link-card">
+    <div className="link-icon">💬</div>
+    <h3>Discord Community</h3>
+    <p>Join our vibrant community</p>
+    <span className="link-url">discord.gg/angelfinance</span>
+  </a>
+  
   <a href="https://twitter.com/angelcoinada" className="link-card">
     <div className="link-icon">𝕏</div>
     <h3>Twitter/X</h3>
@@ -71,6 +78,11 @@ All official Angel Finance links and resources in one place.
     <!-- QR code would go here -->
   </div>
   
+  <div className="qr-card">
+    <h4>Discord Invite</h4>
+    <p>Scan to join Discord</p>
+    <!-- QR code would go here -->
+  </div>
 </div>
 
 ## 🛡️ Security Tips
@@ -83,7 +95,7 @@ All official Angel Finance links and resources in one place.
   
   <div className="tip">
     <h4>👤 Verify Team Members</h4>
-    <p>Official team members can be contacted via email</p>
+    <p>Official team will have roles in Discord</p>
   </div>
   
   <div className="tip">
@@ -114,7 +126,6 @@ All official Angel Finance links and resources in one place.
 ## 📚 Additional Resources
 
 - **Documentation**: You're already here! 📍
-- **GitHub**: [Levvy-fi Organization](https://github.com/Levvy-fi)
 - **Original Angel Paper**: [GitBook](https://ccardano.gitbook.io/angel-paper)
 
 ---
@@ -124,5 +135,5 @@ Follow us on all platforms to stay updated with the latest developments, announc
 :::
 
 :::info Questions?
-If you have any questions or need support, please reach out via email at angelfinanceada@protonmail.com or connect with us on Twitter.
+If you have any questions or need support, our Discord community is the best place to get help from both team members and fellow Angels.
 :::

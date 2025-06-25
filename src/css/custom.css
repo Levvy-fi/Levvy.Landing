@@ -12,9 +12,14 @@
   initial-value: 0deg;
 }
 
-/* Test to verify CSS is loading */
+/* Ensure dark background for body */
 body {
-  background-color: #12100F !important;
+  background-color: #151412 !important;
+}
+
+/* Force dark mode styles */
+[data-theme='light'] body {
+  background-color: #151412 !important;
 }
 
 /**
@@ -69,6 +74,58 @@ body {
   --ifm-blockquote-color: #E1B33A;
   --ifm-blockquote-border-color: #FCB040;
   --ifm-hr-border-color: #707070;
+}
+
+/* Force dark theme colors for both light and dark modes */
+:root,
+[data-theme='light'] {
+  /* Same dark theme colors for light mode */
+  --ifm-background-color: #151412;
+  --ifm-background-surface-color: #232121;
+  --ifm-navbar-background-color: #232121;
+  --ifm-footer-background-color: #151412;
+  --ifm-color-content: #FFFFFF;
+  --ifm-heading-color: #FCB040;
+  --ifm-link-color: #FCB040;
+  --ifm-link-hover-color: #FFFF7F;
+  --ifm-menu-color-active: #FCB040;
+  --ifm-toc-link-color: #E1B33A;
+  --ifm-table-stripe-background: rgba(252, 176, 64, 0.05);
+  --ifm-code-background: #232121;
+  --ifm-pre-background: #232121;
+  --ifm-blockquote-color: #E1B33A;
+  --ifm-blockquote-border-color: #FCB040;
+  --ifm-hr-border-color: #707070;
+  --ifm-color-emphasis-300: #707070;
+  --ifm-color-emphasis-600: #EDDCBD;
+  --ifm-color-emphasis-700: #FFFFFF;
+  --ifm-breadcrumb-color-active: #FCB040;
+  --ifm-breadcrumb-item-background-active: transparent;
+  --ifm-breadcrumb-separator-filter: invert(64%) sepia(43%) saturate(1352%) hue-rotate(349deg) brightness(100%) contrast(96%);
+  --ifm-menu-color: #FFFFFF;
+  --ifm-menu-color-background-active: rgba(252, 176, 64, 0.1);
+  --ifm-menu-color-background-hover: rgba(252, 176, 64, 0.05);
+  
+  /* Force admonition dark mode colors */
+  --ifm-color-info-dark: #1D9BF0;
+  --ifm-color-info-contrast-background: rgba(29, 155, 240, 0.1);
+  --ifm-color-info-contrast-foreground: #FFFFFF;
+  
+  --ifm-color-success-dark: #50CEC8;
+  --ifm-color-success-contrast-background: rgba(80, 206, 200, 0.1);
+  --ifm-color-success-contrast-foreground: #FFFFFF;
+  
+  --ifm-color-warning-dark: #E1B33A;
+  --ifm-color-warning-contrast-background: rgba(225, 179, 58, 0.1);
+  --ifm-color-warning-contrast-foreground: #FFFFFF;
+  
+  --ifm-color-danger-dark: #9E611E;
+  --ifm-color-danger-contrast-background: rgba(158, 97, 30, 0.1);
+  --ifm-color-danger-contrast-foreground: #FFFFFF;
+  
+  --ifm-alert-background-color: rgba(35, 33, 33, 0.8);
+  --ifm-alert-border-color: rgba(252, 176, 64, 0.3);
+  --ifm-alert-color: #FFFFFF;
 }
 
 /* Ensure consistent dark theme styling */
@@ -186,12 +243,13 @@ body:has(.homepage) .main-wrapper {
 }
 
 .menu__link {
+  color: #FFFFFF;
   transition: all 0.2s ease;
 }
 
 .menu__link:hover {
   background: rgba(252, 176, 64, 0.1);
-  color: #FFFF7F;
+  color: #FCB040 !important;
 }
 
 .menu__link--active {
@@ -199,6 +257,61 @@ body:has(.homepage) .main-wrapper {
   border-left: 3px solid #FCB040;
   color: #FCB040 !important;
   font-weight: 600;
+}
+
+/* Fix sidebar expansion arrows color */
+.menu__link--sublist-caret:after {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.menu__caret {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+/* Ensure menu items have proper color */
+.menu__link--sublist {
+  color: #FFFFFF;
+}
+
+.menu__link--sublist:hover {
+  color: #FCB040 !important;
+}
+
+.menu__list-item-collapsible {
+  color: #FFFFFF;
+}
+
+.menu__list-item-collapsible:hover {
+  background: rgba(252, 176, 64, 0.1);
+}
+
+.menu__list-item-collapsible:hover .menu__link {
+  color: #FCB040 !important;
+}
+
+/* Target the SVG arrows directly */
+.menu__link--sublist-caret svg,
+.menu__caret svg {
+  fill: #FFFFFF;
+}
+
+/* When parent is hovered or active, change arrow color */
+.menu__link--active svg,
+.menu__link:hover svg,
+.menu__link--active .menu__link--sublist-caret:after,
+.menu__link:hover .menu__link--sublist-caret:after {
+  fill: #FCB040;
+  filter: none;
+  opacity: 1;
+}
+
+/* Docusaurus v2/v3 arrow fix */
+.menu__link .menu__link--sublist-caret:after,
+.menu__list-item-collapsible .menu__link:after {
+  background: var(--ifm-menu-link-sublist-icon) center / 1.25rem 1.25rem;
+  filter: brightness(0) invert(1);
 }
 
 /* Documentation content styling */
@@ -241,25 +354,151 @@ article h6 {
 
 /* Custom admonitions */
 .admonition {
-  background: rgba(35, 33, 33, 0.5);
-  border: 1px solid rgba(252, 176, 64, 0.3);
-  border-left-width: 4px;
+  background: rgba(35, 33, 33, 0.8) !important;
+  border: 1px solid rgba(252, 176, 64, 0.3) !important;
+  border-left-width: 4px !important;
+  color: #FFFFFF !important;
+}
+
+.admonition-heading {
+  color: #FFFFFF !important;
+}
+
+.admonition-icon svg {
+  fill: currentColor !important;
+}
+
+.admonition p,
+.admonition ul,
+.admonition ol,
+.admonition a {
+  color: #FFFFFF !important;
+}
+
+.admonition a:hover {
+  color: #FCB040 !important;
+}
+
+/* Docusaurus v3 alert/admonition overrides */
+.alert {
+  background-color: rgba(35, 33, 33, 0.8) !important;
+  border-color: rgba(252, 176, 64, 0.3) !important;
+  color: #FFFFFF !important;
+}
+
+.alert--info {
+  --ifm-alert-background-color: rgba(29, 155, 240, 0.1) !important;
+  --ifm-alert-border-color: #1D9BF0 !important;
+  border-left: 4px solid #1D9BF0 !important;
+}
+
+.alert--info .admonition-heading,
+.alert--info .alert__heading {
+  color: #1D9BF0 !important;
+}
+
+.alert--success {
+  --ifm-alert-background-color: rgba(80, 206, 200, 0.1) !important;
+  --ifm-alert-border-color: #50CEC8 !important;
+  border-left: 4px solid #50CEC8 !important;
+}
+
+.alert--success .admonition-heading,
+.alert--success .alert__heading {
+  color: #50CEC8 !important;
+}
+
+.alert--warning,
+.alert--caution {
+  --ifm-alert-background-color: rgba(225, 179, 58, 0.1) !important;
+  --ifm-alert-border-color: #E1B33A !important;
+  border-left: 4px solid #E1B33A !important;
+}
+
+.alert--warning .admonition-heading,
+.alert--warning .alert__heading,
+.alert--caution .admonition-heading,
+.alert--caution .alert__heading {
+  color: #E1B33A !important;
+}
+
+.alert--danger {
+  --ifm-alert-background-color: rgba(158, 97, 30, 0.1) !important;
+  --ifm-alert-border-color: #9E611E !important;
+  border-left: 4px solid #9E611E !important;
+}
+
+.alert--danger .admonition-heading,
+.alert--danger .alert__heading {
+  color: #9E611E !important;
+}
+
+/* Ensure all alert content is white */
+.alert p,
+.alert ul,
+.alert ol,
+.alert a {
+  color: #FFFFFF !important;
+}
+
+.alert a:hover {
+  color: #FCB040 !important;
 }
 
 .admonition-note {
-  border-left-color: #1D9BF0;
+  border-left-color: #1D9BF0 !important;
+  background: rgba(29, 155, 240, 0.1) !important;
+}
+
+.admonition-note .admonition-heading {
+  color: #1D9BF0 !important;
 }
 
 .admonition-tip {
-  border-left-color: #FFFF7F;
+  border-left-color: #FFFF7F !important;
+  background: rgba(255, 255, 127, 0.1) !important;
 }
 
-.admonition-warning {
-  border-left-color: #E1B33A;
+.admonition-tip .admonition-heading {
+  color: #FFFF7F !important;
+}
+
+.admonition-warning,
+.admonition-caution {
+  border-left-color: #E1B33A !important;
+  background: rgba(225, 179, 58, 0.1) !important;
+}
+
+.admonition-warning .admonition-heading,
+.admonition-caution .admonition-heading {
+  color: #E1B33A !important;
 }
 
 .admonition-danger {
-  border-left-color: #9E611E;
+  border-left-color: #9E611E !important;
+  background: rgba(158, 97, 30, 0.1) !important;
+}
+
+.admonition-danger .admonition-heading {
+  color: #9E611E !important;
+}
+
+.admonition-info {
+  border-left-color: #FCB040 !important;
+  background: rgba(252, 176, 64, 0.1) !important;
+}
+
+.admonition-info .admonition-heading {
+  color: #FCB040 !important;
+}
+
+.admonition-success {
+  border-left-color: #50CEC8 !important;
+  background: rgba(80, 206, 200, 0.1) !important;
+}
+
+.admonition-success .admonition-heading {
+  color: #50CEC8 !important;
 }
 
 /* Code blocks with Angel Finance styling */
@@ -296,15 +535,37 @@ article h6 {
 
 /* Pagination buttons */
 .pagination-nav__link {
-  background: rgba(35, 33, 33, 0.8);
-  border: 1px solid rgba(252, 176, 64, 0.3);
+  background: rgba(35, 33, 33, 0.8) !important;
+  border: 1px solid rgba(252, 176, 64, 0.3) !important;
   transition: all 0.3s ease;
+  color: #FFFFFF !important;
 }
 
 .pagination-nav__link:hover {
-  background: rgba(252, 176, 64, 0.1);
-  border-color: #FCB040;
+  background: rgba(252, 176, 64, 0.1) !important;
+  border-color: #FCB040 !important;
   transform: translateY(-2px);
+  color: #FCB040 !important;
+}
+
+/* Pagination labels (Previous/Next) */
+.pagination-nav__label {
+  color: #FFFFFF !important;
+}
+
+.pagination-nav__link:hover .pagination-nav__label {
+  color: #FCB040 !important;
+}
+
+/* Pagination sublabels (page titles) */
+.pagination-nav__sublabel {
+  color: #FFFFFF !important;
+  opacity: 0.7;
+}
+
+.pagination-nav__link:hover .pagination-nav__sublabel {
+  color: #FFFF7F !important;
+  opacity: 1;
 }
 
 /* Search styling */
@@ -320,6 +581,10 @@ article h6 {
 }
 
 /* Breadcrumb styling */
+.breadcrumbs {
+  background: transparent;
+}
+
 .breadcrumbs__link {
   color: #E1B33A;
   transition: color 0.2s ease;
@@ -329,14 +594,24 @@ article h6 {
   color: #FCB040;
 }
 
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: #FCB040;
+  background: transparent;
+}
+
+/* Breadcrumb separator */
+.breadcrumbs__item:not(:last-child):after {
+  color: #707070;
+}
+
 /* Angel Finance Custom Styles */
 
 /* Glassmorphism cards */
 .card {
-  background: rgba(35, 33, 33, 0.6);
+  background: rgba(35, 33, 33, 0.6) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(252, 176, 64, 0.2);
+  border: 1px solid rgba(252, 176, 64, 0.2) !important;
   border-radius: 12px;
   transition: all 0.3s ease;
 }
@@ -345,6 +620,117 @@ article h6 {
   transform: translateY(-4px);
   box-shadow: 0 10px 30px rgba(252, 176, 64, 0.2);
   border-color: rgba(252, 176, 64, 0.4);
+}
+
+/* Category cards in docs */
+.cardContainer_node_modules-\@docusaurus-theme-classic-lib-theme-DocCard-styles-module {
+  background: rgba(35, 33, 33, 0.6) !important;
+  border: 1px solid rgba(252, 176, 64, 0.2) !important;
+}
+
+.cardContainer_node_modules-\@docusaurus-theme-classic-lib-theme-DocCard-styles-module:hover {
+  border-color: rgba(252, 176, 64, 0.4) !important;
+  box-shadow: 0 8px 20px rgba(252, 176, 64, 0.2) !important;
+}
+
+/* Doc card titles and descriptions */
+.card__header h2,
+.card .text--truncate {
+  color: #FCB040 !important;
+}
+
+.card__body,
+.card__body p,
+.cardDescription_node_modules-\@docusaurus-theme-classic-lib-theme-DocCard-styles-module {
+  color: #FFFFFF !important;
+}
+
+/* Alternative selectors for category cards */
+article.card {
+  background: rgba(35, 33, 33, 0.8) !important;
+}
+
+article.card h2 {
+  color: #FCB040 !important;
+}
+
+article.card p {
+  color: #FFFFFF !important;
+}
+
+/* Fix for generated category pages */
+.theme-doc-version-badge,
+.theme-doc-version-banner {
+  background: rgba(252, 176, 64, 0.1) !important;
+  color: #FCB040 !important;
+}
+
+/* More specific selectors for Docusaurus generated category cards */
+.theme-doc-card,
+.theme-doc-card-container article {
+  background: rgba(35, 33, 33, 0.8) !important;
+  border: 1px solid rgba(252, 176, 64, 0.2) !important;
+}
+
+.theme-doc-card:hover,
+.theme-doc-card-container article:hover {
+  border-color: rgba(252, 176, 64, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+/* Category page specific styles */
+[class*="docCardContainer"] {
+  --ifm-card-background-color: rgba(35, 33, 33, 0.8) !important;
+  --ifm-card-color: #FFFFFF !important;
+}
+
+[class*="docCardContainer"] [class*="cardDescription"] {
+  color: #FFFFFF !important;
+}
+
+/* Override Infima card text colors */
+:root,
+[data-theme='light'] {
+  --ifm-card-color: #FFFFFF !important;
+  --ifm-card-background-color: rgba(35, 33, 33, 0.8) !important;
+}
+
+[class*="docCardContainer"] [class*="cardTitle"] {
+  color: #FCB040 !important;
+}
+
+/* Force white text on all paragraph elements in cards */
+.card p,
+[class*="card"] p {
+  color: #FFFFFF !important;
+}
+
+/* Specific overrides for docusaurus category cards */
+main[class*="docMainContainer"] .card p,
+main[class*="docMainContainer"] [class*="card"] p,
+.container .card p,
+.container [class*="card"] p {
+  color: #FFFFFF !important;
+}
+
+/* Target generated category list items */
+article[class*="card"] > div > p,
+article.card > div > p,
+.theme-doc-card p {
+  color: #FFFFFF !important;
+}
+
+/* Force all text elements in cards to be white */
+.card *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+[class*="card"] *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  color: #FFFFFF !important;
+}
+
+/* Keep headings orange */
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
+[class*="card"] h1, [class*="card"] h2, [class*="card"] h3, 
+[class*="card"] h4, [class*="card"] h5, [class*="card"] h6 {
+  color: #FCB040 !important;
 }
 
 /* Gradient text effect */

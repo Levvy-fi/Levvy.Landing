@@ -96,7 +96,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/Levvy-fi/Levvy.Landing/tree/main/',
+          // editUrl removed - no edit links
         },
         blog: false, // Disable blog for now
         theme: {
@@ -140,16 +140,16 @@ const config: Config = {
         {
           href: 'https://levvy.fi',
           label: 'Levvy App',
-          position: 'left',
+          position: 'right',
+        },
+        {
+          href: 'https://discord.gg/angelfinance',
+          label: 'Discord',
+          position: 'right',
         },
         {
           href: 'https://twitter.com/angelcoinada',
           label: 'Twitter',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/Levvy-fi/Levvy.Landing',
-          label: 'GitHub',
           position: 'right',
         },
       ],
@@ -182,6 +182,10 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Discord',
+              href: 'https://discord.gg/angelfinance',
+            },
+            {
               label: 'X (Twitter)',
               href: 'https://twitter.com/angelcoinada',
             },
@@ -197,10 +201,6 @@ const config: Config = {
             {
               label: 'Levvy App',
               href: 'https://levvy.fi',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/Levvy-fi/Levvy.Landing',
             },
             {
               label: 'Original Angel Paper',

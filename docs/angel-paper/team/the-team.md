@@ -109,11 +109,11 @@ This demonstrates our:
   <p>We're more than a team - we're a community united by shared values and vision. Every holder is part of the Angel Finance family, contributing to our collective success.</p>
   
   <div className="cta-buttons">
+    <a href="https://discord.gg/angelfinance" className="cta-button discord">
+      Join Our Discord
+    </a>
     <a href="https://twitter.com/angelcoinada" className="cta-button twitter">
       Follow on Twitter
-    </a>
-    <a href="mailto:angelfinanceada@protonmail.com" className="cta-button email">
-      Contact via Email
     </a>
   </div>
 </div>
