@@ -194,16 +194,14 @@ const Header: React.FC = () => {
                                         list: {
                                             'aria-labelledby': 'basic-button',
                                         },
-                                    }}
-                                    sx={{
-                                        borderRadius: "16px"
-                                    }}
-                                    slotProps={{
                                         paper: {
                                             sx: {
                                                 borderRadius: '16px',
                                             },
                                         },
+                                    }}
+                                    sx={{
+                                        borderRadius: "16px"
                                     }}
                                 >
                                     <div className="w-72 !rounded-2xl">
