@@ -51,12 +51,13 @@ export default function Section1() {
                             variant="contained" startIcon={<img src="/images/icons/token_sale.svg" alt="Token Sale Icon" />}
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
-                                color: theme.palette.text.disabled,
+                                color: theme.palette.background.default,
                                 borderRadius: '12px',
                                 textTransform: 'Capitalize',
                                 zIndex: 1,
                                 '&:hover':{
-                                    backgroundColor: theme.palette.primary.main
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.background.default
                                 },
                                 '&:active':{
                                     backgroundColor: theme.palette.primary.contrastText,
@@ -67,17 +68,17 @@ export default function Section1() {
                             <Typography className="!text-sm !leading-5 sm:!text-base sm:!leading-6">Token Sale</Typography>
                         </Button>
                         <Button
-                            href="https://ccardano.gitbook.io/angel-paper"
-                            target="_blank" rel="noopener norefferer"
+                            href="/docs/angel-paper/introduction"
                             variant="contained" startIcon={<img src="/images/icons/white_paper.svg" alt="White Paper Icon" />}
                             sx={{
                                 backgroundColor: theme.palette.primary.light,
-                                color: theme.palette.text.secondary,
+                                color: theme.palette.background.default,
                                 borderRadius: '12px',
                                 textTransform: 'Capitalize',
                                 zIndex: 1,
                                 '&:hover':{
-                                    backgroundColor: theme.palette.primary.main
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.background.default
                                 },
                                 '&:active':{
                                     backgroundColor: theme.palette.primary.contrastText,
