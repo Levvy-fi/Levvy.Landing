@@ -47,7 +47,7 @@ const Section5: React.FC = () => {
                             <Typography
                                 sx={{
                                     fontFamily: "Cinzel",
-                                    color: theme.palette.secondary.dark,
+                                    color: theme.palette.background.default,
                                     fontWeight: 900
                                 }}
                                 className="!text-center !text-[32px] sm:!text-[40px] lg:!text-[52px] xl:!text-[64px]"
@@ -56,7 +56,7 @@ const Section5: React.FC = () => {
                             </Typography>   
                             <Typography
                                 sx={{
-                                    color: theme.palette.text.secondary,
+                                    color: theme.palette.background.default,
                                     textAlign: "center",
                                     fontWeight: 500
                                 }}
