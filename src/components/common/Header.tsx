@@ -113,7 +113,26 @@ const Header: React.FC = () => {
                         className={`transition-all duration-150 ${scrolled ? 'h-14 sm:h-16' : 'h-16 sm:h-20'}`}
                     />
                 </Link>
-                <div>
+                <div className="flex items-center gap-4">
+                    <Link 
+                        href="/docs/intro"
+                        className="text-white hover:text-[#FCB040] transition-all duration-200 font-medium hover:transform hover:-translate-y-[1px]"
+                        style={{
+                            textDecoration: 'none',
+                            fontSize: '16px',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            display: 'inline-block'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(252, 176, 64, 0.1)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                        }}
+                    >
+                        Docs
+                    </Link>
                     {connectedWallet ? (
                         <div className="flex items-center gap-1">
                             <div
@@ -179,9 +198,11 @@ const Header: React.FC = () => {
                                     sx={{
                                         borderRadius: "16px"
                                     }}
-                                    PaperProps={{
-                                        sx: {
-                                            borderRadius: '16px',
+                                    slotProps={{
+                                        paper: {
+                                            sx: {
+                                                borderRadius: '16px',
+                                            },
                                         },
                                     }}
                                 >
