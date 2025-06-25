@@ -131,7 +131,7 @@ const ShinyButton: React.FC<ShinyButtonProps> = ({
         >
             <Typography
                 sx={{
-                    color: theme.palette.secondary.dark,
+                    color: theme.palette.background.default,
                     fontWeight: 500
                 }}
                 className="!text-sm sm:!text-base"
