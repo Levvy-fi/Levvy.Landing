@@ -1,0 +1,10 @@
+{
+  "label": "Team & Partners",
+  "position": 9,
+  "link": {
+    "type": "generated-index",
+    "title": "Meet the Team",
+    "description": "Learn about the people and partners behind Angel Finance",
+    "keywords": ["team", "partners", "SAIB", "developers"]
+  }
+}

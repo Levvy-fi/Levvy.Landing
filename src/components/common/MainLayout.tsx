@@ -84,73 +84,73 @@ declare module "@mui/material/styles" {
 const theme = createTheme({
     palette: {
         background: {
-          default: "#12100F",
-          paper: "#201B13"
+          default: "#151412",
+          paper: "#232121"
         },
         primary: {
-          light: "#FFD89F",
-          main: "#F9B63E",
-          dark: "#844C1F",
-          contrastText: "#7F5700"
+          light: "#FFFF7F",
+          main: "#FCB040",
+          dark: "#B77828",
+          contrastText: "#151412"
         },
         secondary: {
-          light: "#FFEFD2",
-          main: "#FFD78E",
-          dark: "#432C00"
+          light: "#F8F8F8",
+          main: "#E1B33A",
+          dark: "#9E611E"
         },
         text: {
-          primary: "#EDE1D3",
-          secondary: "#6C4900",
-          disabled: "#504535"
+          primary: "#FFFFFF",
+          secondary: "#EDDCBD",
+          disabled: "#707070"
         },
         levvy: {
-          primary: "#FFCA60",
-          secondary: "#FF9934",
-          secondary_dark: "#FFCC66"
+          primary: "#FCB040",
+          secondary: "#B77828",
+          secondary_dark: "#9E611E"
         },
         gradient: {
           levvy: {
-            main: "#50CEC8",
-            main_light: "#F7FF19",
-            main_dark: "#CD6600",
-            secondary: "#FFE77F",
-            secondary_light: "#FF700F",
-            secondary_dark: "#FFC560"
+            main: "#FFFF7F",
+            main_light: "#B77828",
+            main_dark: "#E1B33A",
+            secondary: "#B77828",
+            secondary_light: "#232121",
+            secondary_dark: "#9E611E"
           },
           button: {
-            10: "#FFE0A2",
-            20: "#F9B63E",
-            30: "#B7792A",
-            40: "#FFB119",
-            50: "#4C2B0F",
-            60: "#B77828",
-            70: "#F2E0CA",
+            10: "#EDDCBD",
+            20: "#FCB040",
+            30: "#B77828",
+            40: "#E1B33A",
+            50: "#232121",
+            60: "#9E611E",
+            70: "#F8F8F8",
           },
           background: {
-            10: "#2A2112",
-            20: "#12100F"
+            10: "#232121",
+            20: "#151412"
           }
         },
         chart: {
-          50: "#2F2920",
-          100: "#FEBA42",
-          200: "#C08501",
-          300: "#7F5700",
-          400: "#1A0F00"
+          50: "#232121",
+          100: "#FCB040",
+          200: "#E1B33A",
+          300: "#B77828",
+          400: "#151412"
         },
         error: {
           main: "#C34642"
         },
         grey: {
           50: "#FFFFFF",
-          100: "#D5C4AF",
-          200: "#7B7B7B",
-          300: "#2F2920",
-          400: "#3A342B",
-          500: "#251F16",
-          600: "#2E2E2E",
-          900: "#3F382F",
-          A100: "#101921"
+          100: "#F8F8F8",
+          200: "#EDDCBD",
+          300: "#707070",
+          400: "#232121",
+          500: "#151412",
+          600: "#151412",
+          900: "#232121",
+          A100: "#151412"
         }
     },
     typography: {

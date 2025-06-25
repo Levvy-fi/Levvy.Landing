@@ -109,11 +109,26 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'images/angelfinance_preview.png',
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
+    },
+    announcementBar: {
+      id: 'levvy_v3_coming',
+      content:
+        '🚀 <strong>Levvy V3 is coming!</strong> Experience the next generation of lending on Cardano. <a href="/docs/angel-paper/levvy/what-is-levvy">Learn more</a>',
+      backgroundColor: '#FFFF7F',
+      textColor: '#151412',
+      isCloseable: true,
+    },
     navbar: {
-      title: '',
+      title: 'Angel Finance',
       logo: {
         alt: 'Angel Finance Logo',
-        src: 'img/logo.svg',
+        src: 'img/angel_token.webp',
+        width: 32,
+        height: 32,
       },
       items: [
         {
@@ -121,6 +136,16 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Documentation',
+        },
+        {
+          href: 'https://levvy.fi',
+          label: 'Levvy App',
+          position: 'left',
+        },
+        {
+          href: 'https://twitter.com/angelcoinada',
+          label: 'Twitter',
+          position: 'right',
         },
         {
           href: 'https://github.com/Levvy-fi/Levvy.Landing',
@@ -136,8 +161,20 @@ const config: Config = {
           title: 'Documentation',
           items: [
             {
-              label: 'Introduction',
+              label: 'Welcome',
               to: '/docs/intro',
+            },
+            {
+              label: 'Angel Paper',
+              to: '/docs/angel-paper/introduction',
+            },
+            {
+              label: 'Levvy Finance',
+              to: '/docs/angel-paper/levvy/what-is-levvy',
+            },
+            {
+              label: 'Tokenomics',
+              to: '/docs/angel-paper/tokenomics',
             },
           ],
         },
@@ -145,30 +182,34 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Discord',
-              href: 'https://discord.gg/your-discord',
+              label: 'X (Twitter)',
+              href: 'https://twitter.com/angelcoinada',
             },
             {
-              label: 'X (Twitter)',
-              href: 'https://x.com/your-twitter',
+              label: 'Email',
+              href: 'mailto:angelfinanceada@protonmail.com',
             },
           ],
         },
         {
-          title: 'More',
+          title: 'Resources',
           items: [
+            {
+              label: 'Levvy App',
+              href: 'https://levvy.fi',
+            },
             {
               label: 'GitHub',
               href: 'https://github.com/Levvy-fi/Levvy.Landing',
             },
             {
-              label: 'Angel Paper',
+              label: 'Original Angel Paper',
               href: 'https://ccardano.gitbook.io/angel-paper',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Angel Finance. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Angel Finance. All rights reserved. | $ANGELS Policy ID: 8fe8039...7307bc`,
     },
     prism: {
       theme: prismThemes.github,
