@@ -12,7 +12,7 @@ import Section5 from '../components/sections/Section5';
 export default function Home(): React.ReactNode {
   return (
     <Layout
-      title=""
+      title="Official Website"
       description="Join Angel Finance on Cardano—bringing DeFi to new heights with lending, borrowing, and yield farming powered by $ANGELS and the Levvy protocol."
       wrapperClassName="homepage"
     >

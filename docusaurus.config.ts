@@ -166,10 +166,23 @@ const config: Config = {
       style: 'dark',
       links: [
         {
+          title: 'Products',
+          items: [
+            {
+              label: 'Levvy App',
+              href: 'https://levvy.fi',
+            },
+            {
+              label: 'Angel Finance',
+              to: '/',
+            },
+          ],
+        },
+        {
           title: 'Documentation',
           items: [
             {
-              label: 'Welcome',
+              label: 'Getting Started',
               to: '/docs/intro',
             },
             {
@@ -204,15 +217,15 @@ const config: Config = {
           ],
         },
         {
-          title: 'Resources',
+          title: 'Legal',
           items: [
             {
-              label: 'Levvy App',
-              href: 'https://levvy.fi',
+              label: 'Terms of Service',
+              to: '/docs/terms-of-service',
             },
             {
-              label: 'Original Angel Paper',
-              href: 'https://ccardano.gitbook.io/angel-paper',
+              label: 'Privacy Policy',
+              to: '/docs/privacy-policy',
             },
           ],
         },

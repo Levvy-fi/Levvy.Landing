@@ -44,20 +44,7 @@ const Footer: React.FC = () => {
                 <div className="w-full flex items-center justify-between py-6 flex-col-reverse sm:flex-row">
                     <div className="flex items-ceter gap-4 md:gap-10 flex-col sm:flex-row">
                         <Link 
-                            href="/docs/whitepaper"
-                            underline="hover"
-                            sx={{
-                                color: theme.palette.text.primary,
-                            }}
-                            className="!flex items-center cursor-pointer !gap-1 justify-center sm:justify-start md:!gap-2"
-                        >
-                            <LinkIcon className="text-xl md:text-2xl" />
-                            <Typography>
-                                Whitepaper
-                            </Typography>
-                        </Link>
-                        <Link 
-                            href="/docs/documentation"
+                            href="/docs/intro"
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
@@ -141,7 +128,7 @@ const Footer: React.FC = () => {
                     </div>
                     <div className="flex items-center flex-col !gap-4 sm:!gap-6 sm:flex-row">
                         <Link
-                            href="/docs/terms"
+                            href="/docs/terms-of-service"
                             underline="hover"
                             sx={{
                                 color: alpha(theme.palette.text.primary, 0.4),
@@ -152,7 +139,7 @@ const Footer: React.FC = () => {
                             Terms of Service
                         </Link>
                         <Link
-                        href="/docs/policy"
+                            href="/docs/privacy-policy"
                             underline="hover"
                             sx={{
                                 color: alpha(theme.palette.text.primary, 0.4),
