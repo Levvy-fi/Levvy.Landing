@@ -1264,3 +1264,83 @@ article.card > div > p,
   border-radius: 4px;
   font-size: 0.85rem;
 }
+
+/* Responsive background images for landing page sections */
+/* These use optimized images that load at HTML render time */
+
+/* Section 4 - Token Sale background */
+.section4-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mobile: 640px and below */
+@media (max-width: 640px) {
+  .section4-bg {
+    background-image: url('/images/optimized/section4_bg-mobile.webp');
+  }
+}
+
+/* Tablet: 641px to 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section4-bg {
+    background-image: url('/images/optimized/section4_bg-tablet.webp');
+  }
+}
+
+/* Desktop: 1025px and above */
+@media (min-width: 1025px) {
+  .section4-bg {
+    background-image: url('/images/optimized/section4_bg-desktop.webp');
+  }
+}
+
+/* Section 2 - Tokenomics background */
+.section2-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mobile: 640px and below */
+@media (max-width: 640px) {
+  .section2-bg {
+    background-image: url('/images/optimized/section2_bg-mobile.webp');
+  }
+}
+
+/* Tablet: 641px to 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section2-bg {
+    background-image: url('/images/optimized/section2_bg-tablet.webp');
+  }
+}
+
+/* Desktop: 1025px and above */
+@media (min-width: 1025px) {
+  .section2-bg {
+    background-image: url('/images/optimized/section2_bg-desktop.webp');
+  }
+}
+
+/* Section 3 - Levvy showcase background image */
+.section3-levvy-showcase {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mobile: Use smaller image */
+@media (max-width: 1024px) {
+  .section3-levvy-showcase {
+    background-image: url('/images/optimized/section3_levvy_showcase-desktop.webp');
+  }
+}
+
+/* Desktop: Full resolution */
+@media (min-width: 1025px) {
+  .section3-levvy-showcase {
+    background-image: url('/images/optimized/section3_levvy_showcase-desktop.webp');
+  }
+}

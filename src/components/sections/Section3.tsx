@@ -180,7 +180,7 @@ const Section3: React.FC = () => {
                     <div className="relative z-5">
                         <div className="w-full max-w-[400px] mt-[40px] sm:max-w-full sm:w-[430px] lg:mt-18 lg:w-[576px] xl:mt-[24px] xl:w-[700px]">
                             <img
-                                src="/images/section3/levvy_mascot.webp"
+                                src="/images/optimized/section3_levvy_mascot-optimized.webp"
                                 alt="levvy showcase"
                             />
                         </div>
