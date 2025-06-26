@@ -1,6 +1,4 @@
-import type { Plugin } from '@docusaurus/types';
-
-export default function seoPlugin(): Plugin {
+module.exports = function seoPlugin() {
   return {
     name: 'custom-seo-plugin',
     
@@ -32,4 +30,4 @@ export default function seoPlugin(): Plugin {
       };
     },
   };
-}
+};
