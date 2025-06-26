@@ -9,7 +9,8 @@ loadEnv();
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Angel Finance • Official Website',
+  title: 'Angel Finance',
+  titleDelimiter: ' • ',
   tagline: 'Official Angel Finance Website & Documentation',
   favicon: 'img/favicon.svg',
 
@@ -40,6 +41,7 @@ const config: Config = {
   onBrokenMarkdownLinks: 'warn',
 
   plugins: [
+    './src/plugins/seo-plugin',
     function () {
       return {
         name: 'custom-webpack-config',
@@ -109,6 +111,12 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'images/angelfinance_preview.png',
+    metadata: [
+      {name: 'description', content: 'Angel Finance brings advanced DeFi to Cardano with lending, borrowing, and yield farming powered by $ANGELS and the Levvy protocol.'},
+      {property: 'og:description', content: 'Angel Finance brings advanced DeFi to Cardano with lending, borrowing, and yield farming powered by $ANGELS and the Levvy protocol.'},
+      {property: 'og:type', content: 'website'},
+      {name: 'twitter:description', content: 'Angel Finance brings advanced DeFi to Cardano with lending, borrowing, and yield farming powered by $ANGELS and the Levvy protocol.'},
+    ],
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
