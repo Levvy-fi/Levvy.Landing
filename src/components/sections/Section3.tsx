@@ -67,7 +67,7 @@ const Section3: React.FC = () => {
                         </div>
                         <Typography
                             style={{
-                                backgroundImage: `linear-gradient(to right, ${theme.palette.levvy.secondary}, ${theme.palette.levvy.secondary_dark})`
+                                backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.levvy.secondary_light}, ${theme.palette.gradient.levvy.secondary})`
                             }}
                             className="!text-center !font-black text-transparent bg-clip-text flex items-center !px-4 !pt-4 flex-col !text-[34px] !leading-[44px] min-[401px]:!leading-[62px] min-[401px]:!text-[44px] sm:flex-row sm:!text-[48px] sm:gap-4 sm:!px-6 sm:!pt-6 md:!leading-[66px] md:!text-[64px]"
                         >
@@ -75,7 +75,7 @@ const Section3: React.FC = () => {
                             <div
                                 style={{
                                     color: theme.palette.grey[50],
-                                    backgroundColor: alpha(theme.palette.levvy.secondary, 0.25)
+                                    backgroundColor: alpha(theme.palette.gradient.levvy.secondary, 0.25)
                                 }}
                                 className="rounded-l-[10px] !pl-2 inline-flex"
                             >
@@ -108,7 +108,7 @@ const Section3: React.FC = () => {
                         </Typography>
                         <Typography
                             style={{
-                                backgroundImage: `linear-gradient(to right, ${theme.palette.levvy.secondary}, ${theme.palette.levvy.secondary_dark})`
+                                backgroundImage: `linear-gradient(to right, ${theme.palette.gradient.levvy.secondary_light}, ${theme.palette.gradient.levvy.secondary})`
                             }}
                             className="!text-center !font-black text-transparent bg-clip-text !px-4 !pb-4 !text-[34px] !leading-[44px] min-[401px]:!leading-[62px] min-[401px]:!text-[44px] sm:!px-6 sm:!pb-6 sm:!text-[48px] md:!leading-[66px] md:!text-[64px]"
                         >

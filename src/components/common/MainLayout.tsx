@@ -110,11 +110,11 @@ const theme = createTheme({
         },
         gradient: {
           levvy: {
-            main: "#FFFF7F",
-            main_light: "#B77828",
+            main: "#50CEC8",
+            main_light: "#F7FF19",
             main_dark: "#E1B33A",
-            secondary: "#B77828",
-            secondary_light: "#232121",
+            secondary: "#FFE77F",
+            secondary_light: "#FF700F",
             secondary_dark: "#432C00"
           },
           button: {
