@@ -6,10 +6,6 @@ description: Learn about Angel Finance's journey and mission on Cardano
 
 # 👋 Introduction
 
-<div style={{marginBottom: '2rem'}}>
-  <img src="/images/section1/angel.svg" alt="Angel Finance" style={{width: '100%', height: 'auto', maxHeight: '300px', objectFit: 'contain', padding: '2rem', borderRadius: '12px'}} />
-</div>
-
 ## Our Story
 
 Angel Finance is an Angel-themed DeFi project on Cardano. What started as a small DeFi investment club in January 2024 has evolved into something much greater.

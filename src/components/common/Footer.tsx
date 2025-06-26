@@ -44,8 +44,7 @@ const Footer: React.FC = () => {
                 <div className="w-full flex items-center justify-between py-6 flex-col-reverse sm:flex-row">
                     <div className="flex items-ceter gap-4 md:gap-10 flex-col sm:flex-row">
                         <Link 
-                            href="https://ccardano.gitbook.io/angel-paper"
-                            target="_blank" rel="noopener noreferrer"
+                            href="/docs/whitepaper"
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
@@ -58,8 +57,7 @@ const Footer: React.FC = () => {
                             </Typography>
                         </Link>
                         <Link 
-                            href="https://ccardano.gitbook.io/angel-paper/levvy-finance"
-                            target="_blank" rel="noopener noreferrer"
+                            href="/docs/documentation"
                             underline="hover"
                             sx={{
                                 color: theme.palette.text.primary,
