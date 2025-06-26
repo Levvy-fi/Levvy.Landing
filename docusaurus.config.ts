@@ -110,7 +110,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'images/angelfinance_preview.png',
+    image: 'images/optimized/angelfinance_preview.webp',
     metadata: [
       {name: 'description', content: 'Angel Finance brings advanced DeFi to Cardano with lending, borrowing, and yield farming powered by $ANGELS and the Levvy protocol.'},
       {property: 'og:description', content: 'Angel Finance brings advanced DeFi to Cardano with lending, borrowing, and yield farming powered by $ANGELS and the Levvy protocol.'},
